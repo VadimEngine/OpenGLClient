@@ -67,6 +67,7 @@ void SandboxWindow::update() {
 	//Save these upper variables ^
 
 	/* disable for now to avoid doing when connected to server
+	// re add once proper checks are added
 	if (leftClick) {
 		addServerlessP(mouseX, mouseY);
 		leftClick = false;

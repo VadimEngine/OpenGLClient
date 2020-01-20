@@ -5,6 +5,9 @@ ConnectionUDP::ConnectionUDP(Handler* handler) {
 	this->handler = handler;
 }
 
+
+//seperate this method amoung listen/send methods
+//break apart to help with mutli-client-threads
 void ConnectionUDP::init() {
 	WSADATA data;
 	WORD version = MAKEWORD(2, 2);
@@ -69,6 +72,7 @@ bool ConnectionUDP::listenForClient() {
 	return false;
 }
 
+//proper close method
 void ConnectionUDP::close() {
 
 }

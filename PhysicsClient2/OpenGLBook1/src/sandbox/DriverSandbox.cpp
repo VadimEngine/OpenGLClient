@@ -17,15 +17,14 @@ int main() {
 
 	//TCP
 	Connection con;
-	//bool serverless = !con.connectionProtocol();
+	bool serverless = !con.connectionProtocol();//make method in window/handler
 
 
 
 	//UDP
-	bool serverless = true;
-	con.UDP();
-	con.UDPInit();
-	//con.UDPSend();
+	//bool serverless = true;
+	//con.UDP();
+	//con.UDPInit();
 
 
 	//end of connection
@@ -101,19 +100,22 @@ int main() {
 			while (unprocessedSeconds > secondsPerTick) {
 				myWindow->update();
 
-				//client-Server tick TCP
-				//float temp[3] = { 1, myWindow->handler->player->position.x, myWindow->handler->player->position.y };
-				//con.sendData(temp, 3 * 4);
-				//tcp
-				//con.listen();
 				//UDP
-				con.UDPSend();
-				con.UDPListen();
-				//if (myWindow->leftClick) {
-					//float toSend[3] = { -1, myWindow->mouseX, myWindow->mouseY };
-					//con.sendData(toSend, 3 * 4);
-					//myWindow->leftClick = false;
-				//}
+				//con.UDPSend();
+				//con.UDPListen();
+
+
+				//client-Server tick TCP
+				float temp[3] = { 1, myWindow->handler->player->position.x, myWindow->handler->player->position.y };
+				con.sendData(temp, 3 * 4);
+				//tcp
+				con.listen();
+	
+				if (myWindow->leftClick) {
+					float toSend[3] = { -1, myWindow->mouseX, myWindow->mouseY };
+					con.sendData(toSend, 3 * 4);
+					myWindow->leftClick = false;
+				}
 				//end of client-Server tick
 
 				unprocessedSeconds -= secondsPerTick;
