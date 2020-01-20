@@ -21,7 +21,7 @@ int main() {
 	std::string input;
 	std::cin >> input;
 
-	while (input != "1" || input != "2") {
+	while (input != "1" && input != "2") {
 		std::cout << "Invalid input. Run Server as TCP(1) or UDP(2)" << std::endl;
 		std::cin >> input;
 	} 
