@@ -153,13 +153,13 @@ void Connection::UDPListen() {
 	int serverLength = sizeof(UDPserver);
 	int bytesIn = recvfrom(UDPout, buf, 1024, 0, (sockaddr*)&UDPserver, &serverLength);//recvfrom= UDP?
 	
-	std::cout << "Received: " << bytesIn << std::endl;
+	//std::cout << "Received: " << bytesIn << std::endl;
 
 	//Draw coordinates
 	for (int i = 0; i < bytesIn / sizeof(float); i += 2) {
 		float x1 = ((float*)buf)[i];
 		float y1 = ((float*)buf)[i + 1];
-		std::cout << i << "Draw at" << x1 << ", " << y1 << std::endl;
+		//std::cout << i << "Draw at" << x1 << ", " << y1 << std::endl;
 		window->drawCoords(x1, y1);//change to be same as in renderer
 	}
 	
@@ -169,9 +169,9 @@ void Connection::UDPListen() {
 void Connection::UDPSend() {
 	//std::string s("Testing123");
 	//send player position
-	float toSend[] = {-1, window->handler->player->x, window->handler->player->y};
-	int sendok = sendto(UDPout, (char*)toSend, 3*4, 0, (sockaddr*)&UDPserver, sizeof(UDPserver));
-	std::cout << "Arg: " << toSend[0] << ", " << toSend[1] << toSend[2] << ": " << sendok << ": " << WSAGetLastError() << std::endl;
+	float toSend[] = {-1, window->handler->player->position.x, window->handler->player->position.y};
+	int sendok = sendto(UDPout, (char*)toSend, 3*sizeof(float), 0, (sockaddr*)&UDPserver, sizeof(UDPserver));
+	//std::cout << "Send Arg: " << toSend[0] << ", " << toSend[1] << toSend[2] << ": " << sendok << ": " << WSAGetLastError() << std::endl;
 	if (sendok == SOCKET_ERROR) {
 		std::cout << "Sendto error: " << WSAGetLastError() << std::endl;
 	}
