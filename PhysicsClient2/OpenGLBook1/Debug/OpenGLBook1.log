@@ -1,11 +1,4 @@
-﻿  DriverSandbox.cpp
-  SandboxWindow.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(78,22): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(99,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(100,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(102,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(103,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(141,88): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(142,68): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-  Generating Code...
+﻿  Connection.cpp
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\Connection.cpp(16,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\Connection.cpp(207,20): warning C4018: '<': signed/unsigned mismatch
   OpenGLBook1.vcxproj -> C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\Debug\OpenGLBook1.exe

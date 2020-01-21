@@ -1,23 +1,9 @@
 #pragma once
-#define windowMode 1 // 0 = immediate, 1 = retained
-
-#ifndef windowMode
-#define THEHANDLER ImmediateHandler
-#elif windowMode==0
-#define THEHANDLER ImmediateHandler
-#elif windowMode==1
-#define THEHANDLER RetainedHandler
-#endif
 
 #include <iostream>
 
-#ifndef windowMode
-#include "ImmediateHandler.h"
-#elif windowMode==0
-#include "Immediate/ImmediateHandler.h"
-#elif windowMode==1
 #include "RetainedHandler.h"
-#endif
+//#include "Connection.h"
 
 
 class SandboxWindow {
@@ -35,7 +21,10 @@ public:
 	GLfloat mouseY;//Vector?
 
 	GLFWwindow* window;
-	THEHANDLER* handler;
+	RetainedHandler* handler;
+	//Connection connection;
+	bool serverMode;
+	bool TCP;
 
 	SandboxWindow(GLuint width, GLuint height, GLuint count);
 	~SandboxWindow();
@@ -53,6 +42,8 @@ public:
 	void drawCoords(float x, float y);
 
 	void addServerlessP(float x, float y);
+
+	void connectionProtocol();
 
 	//set callback, to point to this object
 };

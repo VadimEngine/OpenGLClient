@@ -20,6 +20,10 @@ public:
 
 	bool connectionProtocol();
 
+	bool tcpConnect();
+
+	bool udpConnect();
+
 	void listen();
 
 	void sendData(void* data, int size);//might need size
