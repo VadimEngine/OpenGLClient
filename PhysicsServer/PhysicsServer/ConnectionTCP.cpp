@@ -1,14 +1,14 @@
-#include "Connection.h"
+#include "ConnectionTCP.h"
 
 
 void listenClient(void* data, Handler* handler);
 
-Connection::Connection(Handler* handler, bool TCP) {
+ConnectionTCP::ConnectionTCP(Handler* handler, bool TCP) {
 	this->handler = handler;
 	this->TCP = TCP;
 }
 
-void Connection::init() {
+void ConnectionTCP::init() {
 	WSADATA wsaData;
 	int iResult;
 	sockaddr_in addr;
@@ -46,9 +46,6 @@ void Connection::init() {
 	}
 
 #ifdef false
-
-
-
 	while (client = accept(sock, 0, 0)) {
 		if (client == INVALID_SOCKET) {
 			std::cout << "Invalid client socket " << GetLastError() << std::endl;
@@ -60,7 +57,7 @@ void Connection::init() {
 
 }
 
-bool Connection::listenForClient() {
+bool ConnectionTCP::listenForClient() {
 	bool x = (client = accept(sock, 0, 0));
 	if (client == INVALID_SOCKET) {
 		std::cout << "Invalid client socket " << GetLastError() << std::endl;
@@ -70,7 +67,7 @@ bool Connection::listenForClient() {
 	return x;
 }
 
-void Connection::close() {
+void ConnectionTCP::close() {
 	closesocket(client);
 	closesocket(sock);
 	WSACleanup();

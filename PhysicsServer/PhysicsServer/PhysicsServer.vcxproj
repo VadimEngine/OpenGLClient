@@ -123,7 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Connection.cpp" />
+    <ClCompile Include="ConnectionTCP.cpp" />
     <ClCompile Include="ConnectionUDP.cpp" />
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="Handler.cpp" />
@@ -131,7 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
-    <ClInclude Include="Connection.h" />
+    <ClInclude Include="ConnectionTCP.h" />
     <ClInclude Include="ConnectionUDP.h" />
     <ClInclude Include="Handler.h" />
     <ClInclude Include="Particle.h" />

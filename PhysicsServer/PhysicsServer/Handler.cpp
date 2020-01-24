@@ -23,9 +23,7 @@ Handler::~Handler() {
 	clientObjs.clear();
 
 }
-/* Iterates all particles in objs and call their upate method. Then performs objs-to-obj collision and client-to-objs collisions
-	Removes client paritcles if they have isDelete = true
-*/
+
 void Handler::update(double dt) {//update properly, float dt?
 	//Move and collide particles
 	for (int i = objs.size() - 1; i >= 0; i--) {
