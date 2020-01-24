@@ -3,41 +3,48 @@
 #include <WS2tcpip.h>
 #include "SandboxWindow.h"
 
+//REMOVE ALL REDUNDANT UNECESSARY METHODS
 class Connection {
 public:
-
-	SOCKET sock;
+	
 	SandboxWindow* window;
-
+	//TCP
+	SOCKET sock;
+	//UDP
 	sockaddr_in UDPserver;
 	SOCKET UDPout;
 
-
+	int userId;
 
 	Connection();
 
 	void setWindow(SandboxWindow* myWindow);
 
-	bool connectionProtocol();
 
-	bool tcpConnect();
+	//TCP
+	bool TCPConnect();
 
-	bool udpConnect();
+	void TCPlisten();
 
-	void listen();
+	void TCPsendData(void* data, int size);//might need size. TCP?
 
-	void sendData(void* data, int size);//might need size
+	void TCPclose();
 
-	void close();
+	//UDP
 
 	void UDPInit();
+
+	bool UDPConnect();
 
 	void UDPListen();
 
 	void UDPSend();
 
+	void UDPSend(char* data, int size);
+
 	void UDPClose();
 
-	void UDP();
+
+	//UDP
 
 };

@@ -37,13 +37,11 @@ public:
 
 	void render();
 
-	void drawCoords(float arr[20]);
 
 	void drawCoords(float x, float y);
 
 	void addServerlessP(float x, float y);
 
-	void connectionProtocol();
 
 	//set callback, to point to this object
 };

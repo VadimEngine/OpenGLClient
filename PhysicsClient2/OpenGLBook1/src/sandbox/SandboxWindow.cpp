@@ -65,16 +65,14 @@ void SandboxWindow::getWidthandHeight(GLuint& width, GLuint height) {}
 
 void SandboxWindow::update() {
 	//Save these upper variables ^
-
-	/* disable for now to avoid doing when connected to server
-	// re add once proper checks are added
-	if (leftClick) {
-		addServerlessP(mouseX, mouseY);
-		leftClick = false;
+	if (!serverMode) {
+		if (leftClick) {
+			addServerlessP(mouseX, mouseY);
+			leftClick = false;
+		}
 	}
-	*/
 
-	//need to pass in a delta time?
+	//need to pass in an accurate delta time?
 	handler->tick(1/60.0);
 }
 
@@ -112,186 +110,6 @@ void SandboxWindow::drawCoords(float x, float y) {
 void  SandboxWindow::addServerlessP(float x, float y) {
 	handler->addObj(new RetainedObj(x, y, glm::vec3(0,0,0), NULL, false));//GLfloat x, GLfloat y, glm::vec3 color,
 	//SandboxShader* myShader, GLboolean isPlayer
-}
-
-void SandboxWindow::connectionProtocol() {
-
-	bool finished = false;
-	std::string input;
-	//use stage to do a switch
-	int stage = 0;
-
-	while (!finished) {
-		switch (stage) {
-		case 0://Decide if serverless or servermode
-			std::cout << "Would you like to connect to server? y/n" << std::endl;
-			std::cout << "> ";
-			std::cin >> input;
-			while (input != "y" && input != "n") {
-				std::cout << "Invalid input. Would you like to connect to server? y/n" << std::endl;
-				std::cout << "> ";
-				std::cin >> input;
-			}
-
-			if (input == "y") {//serverless mode chosen
-				stage = 2;
-			}
-
-			if (input == "n") {//server mode chosen
-				stage = 1;
-			}
-
-			break;
-
-		case 1://serverless chosen
-			std::cout << "Running program serverless." << std::endl;
-			finished = true;
-			break;
-
-
-		case 2:
-			std::cout << "Connect to server using TCP(1) or UDP(2)?" << std::endl;
-			std::cout << "> ";
-			std::cin >> input;
-			while (input != "1" && input != "2") {
-				std::cout << "Invalid input. Connect to server using TCP(1) or UDP(2)?" << std::endl;
-				std::cout << "> ";
-				std::cin >> input;
-			}
-
-			if (input == "1") {//TCP mode chosen
-				stage = 3;
-			}
-
-			if (input == "2") {//UDP mode chosen
-				stage = 4;
-			}
-			break;
-
-		case 3:
-			std::cout << "Attempting to connect to a TCP server..." << std::endl;
-			
-			//do connection
-
-			//failed to connect
-			std::cout << "Failed to connect to a TCP server. Would you like to try again? y/n" << std::endl;
-			std::cout << "> ";
-			std::cin >> input;
-			while (input != "y" && input != "n") {
-				std::cout << "Invalid input. Failed to connect to a TCP server. Would you like to try again? y/n" << std::endl;
-				std::cout << "> ";
-				std::cin >> input;
-			}
-
-			if (input == "y") {
-				stage = 3;
-			}
-
-			if (input == "n") {
-				stage = 0;
-			}
-
-			break;
-
-		case 4:
-			std::cout << "Attempting to connect to a UDP server..." << std::endl;
-
-			//do connection
-
-			//failed to connect
-			std::cout << "Failed to connect to a UDP server. Would you like to try again? y/n" << std::endl;
-			std::cout << "> ";
-			std::cin >> input;
-			while (input != "y" && input != "n") {
-				std::cout << "Invalid input. Failed to connect to a UDP server. Would you like to try again? y/n" << std::endl;
-				std::cout << "> ";
-				std::cin >> input;
-			}
-
-			if (input == "y") {
-				stage = 4;
-			}
-			if (input == "n") {
-				stage = 0;
-			}
-			break;
-
-		default:
-			break;
-		}
-	}
-
-	/*
-	std::cout << "Would you like to connect to server? y/n" << std::endl;
-
-	std::cin >> input;
-
-	while (input != "y" && input != "n") {
-		std::cout << "Invalid input. Would you like to connect to server? y/n" << std::endl;
-		std::cin >> input;
-	}
-
-	if (input == "y") {
-		//ask if udp or tcp
-		serverMode = true;
-		std::cout << "Connect to server using TCP(1) or UDP(2)?" << std::endl;
-		std::cin >> input;
-		while (input != "1" && input != "2") {
-			std::cout << "Invalid input. Connect to server using TCP(1) or UDP(2)?" << std::endl;
-			std::cin >> input;
-		}
-
-		if (input == "1") {
-			TCP = true;
-			//Connection con.tcpstuff
-
-			//if fail connection
-			std::cout << "Failed to connect to a TCP server. Would you like to try again? y/n";
-			std::cin >> input;
-
-			while (input != "y" && input != "n") {
-				std::cout << "Invalid input. Failed to connect to a TCP server. Would you like to try connecting again? y/n" << std::endl;
-				std::cin >> input;
-			}
-
-			if (input == "y") {
-				//try again
-				//connectionProtocol(); //cons of calling this method and have retrun in next line? 
-			}
-
-			if (input == "n") {
-				//start process again
-			}
-		}
-
-		if (input == "2") {
-			TCP = false;
-			//Connection con...UPD stuff
-
-			//if fail connection
-			std::cout << "Failed to connect to a UDP server. Would you like to try again? y/n";
-			std::cin >> input;
-
-			while (input != "y" && input != "n") {
-				std::cout << "Invalid input. Failed to connect to a UDP server. Would you like to try connecting again? y/n" << std::endl;
-				std::cin >> input;
-			}
-
-			if (input == "y") {
-				//try again
-			}
-
-			if (input == "n") {
-				//start this process over
-			}
-		}
-		//set connection
-	}
-
-	if (input == "n") {
-		serverMode = false;
-	}
-	*/
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
