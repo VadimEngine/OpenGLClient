@@ -80,20 +80,12 @@ void ConnectionUDP::listen() {
 			//check if id is taken
 		} else {
 			int temp = ((float*)buf)[3];
-			std::cout << "id received: " << ((float*)buf)[3] << std::endl;
-			std::cout << "id received: " << ((float*)buf)[2] << std::endl;
-			std::cout << "id received: " << ((float*)buf)[1] << std::endl;
-			std::cout << "id received: " << ((float*)buf)[0] << std::endl;
 			clientId = clientIp + temp;
-		}
-
-		std::cout << "clientId" << std::endl;
+		};
 
 		Particle* temp = clientMap[clientId];
 
-		std::cout << "is null?: " << (temp == nullptr) << std::endl;
-
-		if (((float*)buf)[0] == -1) {
+		if (temp != nullptr && ((float*)buf)[0] == -1) {
 			temp->x = ((float*)buf)[1];//exception thrown here? access violation
 			temp->y = ((float*)buf)[2];
 			//std::cout << "P:" << p->x << ", " << p->y << std::endl;
