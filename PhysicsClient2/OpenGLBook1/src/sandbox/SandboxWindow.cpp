@@ -47,6 +47,7 @@ SandboxWindow::SandboxWindow(GLuint width, GLuint height, GLuint count) {
 	glViewport(0, 0, tempWidth, tempHeight);//specify lower left corner
 
 	handler = new RetainedHandler(count);
+	handler->isServer = serverMode;
 }
 
 
@@ -110,6 +111,10 @@ void SandboxWindow::drawCoords(float x, float y) {
 void  SandboxWindow::addServerlessP(float x, float y) {
 	handler->addObj(new RetainedObj(x, y, glm::vec3(0,0,0), NULL, false));//GLfloat x, GLfloat y, glm::vec3 color,
 	//SandboxShader* myShader, GLboolean isPlayer
+}
+
+void SandboxWindow::setServer(bool isServer) {
+	handler->isServer = isServer;
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {

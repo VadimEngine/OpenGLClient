@@ -42,6 +42,8 @@ public:
 
 	void addServerlessP(float x, float y);
 
+	void setServer(bool isServer);
+
 
 	//set callback, to point to this object
 };

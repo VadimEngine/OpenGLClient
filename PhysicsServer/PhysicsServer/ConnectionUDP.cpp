@@ -29,15 +29,14 @@ void ConnectionUDP::init() {
 	}
 }
 
+//disconnect user if no update for too long
 void ConnectionUDP::listen() {
 	sockaddr_in client;
 	int clientLength = sizeof(client);
 	ZeroMemory(&client, clientLength);//zero memory fills block with 0s (doesnt c++ already do that?)
-
 	char buf[1024];
 
 	while (true) {
-
 		ZeroMemory(buf, 1024);
 		//Wait for message
 		int bytesIn = recvfrom(in, buf, 1024, 0, (sockaddr*)&client, &clientLength);//recvfrom= UDP?
@@ -52,19 +51,9 @@ void ConnectionUDP::listen() {
 
 		inet_ntop(AF_INET, &client.sin_addr, clientIp, 256);
 
-		//std::cout << "Message recv from " << clientIp << " : " << (float*)buf[0] << ", " << (float*)buf[1] << (float*)buf[2] << std::endl;
-		//if (clientMap.find(clientIp) == clientMap.end()) {
-			//clientMap[clientIp] = new Particle(0, 0, true);
-			//handler->addClient(clientMap[clientIp]);
-			//std::cout << "Added client: " << clientIp << std::endl;
-			//if clients are from same ip then there is unexpected behavior
-			//such as when using local host as ip, may need to differentiate
-			//between the multiple clients from the same ip by using different ports
-			//Good enough for now but needs to be addressed in future updates
-		//}
-
 		std::string clientId;
 
+		//Inital connection
 		if (((float*)buf)[0] == -9) {
 			int temp = ((float*)buf)[1];
 			std::cout << "User connect with id:" << temp << std::endl;
@@ -75,8 +64,15 @@ void ConnectionUDP::listen() {
 				//add client
 				clientMap[clientId] = new Particle(0, 0, true);
 				handler->addClient(clientMap[clientId]);
-			}// else client already exists
+				float success[1] = {1};
+				sendto(in, (char*)success, (1) * sizeof(float), 0, (sockaddr*)&client, sizeof(client));
 
+			} else {
+				// else client already exists
+				float errorMessage[1] = { -1.0f };
+				sendto(in, (char*)errorMessage, (1) * sizeof(float), 0, (sockaddr*)&client, sizeof(client));
+
+			}
 			//check if id is taken
 		} else {
 			int temp = ((float*)buf)[3];

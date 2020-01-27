@@ -1,5 +1,7 @@
 ﻿  ConnectionUDP.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\ConnectionUDP.cpp(69,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\ConnectionUDP.cpp(82,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\ConnectionUDP.cpp(99,143): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\ConnectionUDP.cpp(58,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\ConnectionUDP.cpp(78,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\ConnectionUDP.cpp(95,143): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Driver.cpp
+  Generating Code...
   PhysicsServer.vcxproj -> C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\x64\Debug\PhysicsServer.exe

@@ -49,7 +49,10 @@ void RetainedHandler::render() {
 		objs[i]->render(renderer);
 	}
 
-	player->render(renderer);//pass in shader on render?
+	if (!isServer) {
+		player->render(renderer);//pass in shader on render?
+	}
+	
 	//renderer->initRenderData();//init every time render is called?
 	renderer->Draw();
 }

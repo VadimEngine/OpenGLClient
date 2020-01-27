@@ -14,6 +14,8 @@ public:
 	RetainedRenderer* renderer;
 	std::vector<RetainedObj*> objs;
 
+	bool isServer;
+
 	GLboolean keys[1024];
 	//list of other objs
 

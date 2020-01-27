@@ -4,19 +4,14 @@
 #include "SandboxWindow.h"
 
 //REMOVE ALL REDUNDANT UNECESSARY METHODS
-class Connection {
+class ConnectionTCP {
 public:
 	
 	SandboxWindow* window;
 	//TCP
 	SOCKET sock;
-	//UDP
-	sockaddr_in UDPserver;
-	SOCKET UDPout;
 
-	int userId;
-
-	Connection();
+	ConnectionTCP();
 
 	void setWindow(SandboxWindow* myWindow);
 
@@ -29,22 +24,4 @@ public:
 	void TCPsendData(void* data, int size);//might need size. TCP?
 
 	void TCPclose();
-
-	//UDP
-
-	void UDPInit();
-
-	bool UDPConnect();
-
-	void UDPListen();
-
-	void UDPSend();
-
-	void UDPSend(char* data, int size);
-
-	void UDPClose();
-
-
-	//UDP
-
 };

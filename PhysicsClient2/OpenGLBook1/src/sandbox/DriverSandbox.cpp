@@ -4,11 +4,13 @@
 #include <chrono>
 #include <thread>
 #include "SandboxWindow.h"
-#include "Connection.h"
+#include "ConnectionTCP.h"
+#include "ConnectionUDP.h"
 
 #pragma comment(lib, "ws2_32.lib")
 
-Connection con;
+ConnectionTCP con;
+ConnectionUDP conUDP;
 bool TCP;
 bool connectionProtocol();
 
@@ -72,7 +74,12 @@ int main() {
 		//create window
 		myWindow = new SandboxWindow(800, 800, 0);
 		myWindow->serverMode = true;
-		con.setWindow(myWindow);
+		myWindow->setServer(myWindow->serverMode);
+		if (TCP) {
+			con.setWindow(myWindow);
+		} else {
+			conUDP.setWindow(myWindow);
+		}
 
 		int frames = 0;
 		double unprocessedSeconds = 0;
@@ -109,13 +116,17 @@ int main() {
 					}
 				} else {
 					//UDP
-					con.UDPSend();
-					con.UDPListen();
+					//con.UDPSend();
+					//con.UDPListen();
+
+					conUDP.UDPSend();
+					conUDP.UDPListen();
+
 					//click action
 
 					if (myWindow->leftClick) {
-						float toSend[4] = { -2, myWindow->mouseX, myWindow->mouseY , con.userId};
-						con.UDPSend((char*)toSend, 4 * sizeof(float));
+						float toSend[4] = { -2, myWindow->mouseX, myWindow->mouseY , conUDP.userId};
+						conUDP.UDPSend((char*)toSend, 4 * sizeof(float));
 						myWindow->leftClick = false;
 					}
 
@@ -149,7 +160,8 @@ int main() {
 		if (TCP) {
 			con.TCPclose();
 		} else {
-			con.UDPClose();
+			//con.UDPClose();
+			conUDP.UDPClose();
 		}
 	}
 
@@ -161,6 +173,7 @@ int main() {
 bool connectionProtocol() {
 	int stage = 0;
 	bool connected = false;
+	int connectCode;
 	std::string input;
 
 	while (true) {
@@ -223,7 +236,7 @@ bool connectionProtocol() {
 			}
 			break;
 
-		case 4://Decided TCP, if cant connect then decide if need to reconnect
+		case 4://Decided UDP, if cant connect then decide if need to reconnect
 
 			//ask for user id
 			std::cout << "Enter user a user id integer between 1-9" << std::endl << "> ";
@@ -233,28 +246,33 @@ bool connectionProtocol() {
 				std::cin >> input;
 			}
 
-			con.userId = std::stoi(input);
-			std::cout << "Userid chosen: " << std::stoi(input) << ": " << con.userId << std::endl;
+			//con.userId = std::stoi(input);
+			conUDP.userId = std::stoi(input);
+			std::cout << "Userid chosen: " << std::stoi(input) << ": " << conUDP.userId << std::endl;
 
 			std::cout << "Attempting to connect to a UDP server..." << std::endl;
 			//do connection//implement so it returns false if not connected
-			if (con.UDPConnect()) {
+			//connectCode = con.UDPConnect();
+			connectCode = conUDP.UDPConnect();
+			if (connectCode == 1) {
 				TCP = false;
 				return true;
 				break;
-			}
-			//failed to connect
-			std::cout << "Failed to connect to a UDP server. Would you like to try again? y/n" << std::endl << "> ";
-			std::cin >> input;
-			while (input != "y" && input != "n") {
-				std::cout << "Invalid input. Failed to connect to a UDP server. Would you like to try again? y/n" << std::endl << "> ";
-				std::cin >> input;
-			}
-
-			if (input == "y") {
-				stage = 4;
+			} else if (connectCode == -2) {
+				std::cout << "UserId already taken, please choose a different UserId" << std::endl;
 			} else {
-				stage = 0;
+				std::cout << "Failed to connect to a UDP server. Would you like to try again? y/n" << std::endl << "> ";
+				std::cin >> input;
+				while (input != "y" && input != "n") {
+					std::cout << "Invalid input. Failed to connect to a UDP server. Would you like to try again? y/n" << std::endl << "> ";
+					std::cin >> input;
+				}
+
+				if (input == "y") {
+					stage = 4;
+				} else {
+					stage = 0;
+				}
 			}
 			break;
 

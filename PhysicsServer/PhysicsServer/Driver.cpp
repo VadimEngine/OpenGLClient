@@ -10,7 +10,6 @@
 
 void updateParticles();
 
-
 Handler handler(10);
 
 //Create a exit protocol

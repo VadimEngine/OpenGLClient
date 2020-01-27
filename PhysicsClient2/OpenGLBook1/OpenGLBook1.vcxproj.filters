@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\sandbox\Connection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\sandbox\DriverSandbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,15 +33,18 @@
     <ClCompile Include="src\sandbox\SandboxWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\sandbox\ConnectionUDP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sandbox\ConnectionTCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\sandbox.frag" />
     <None Include="src\shaders\sandbox.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\sandbox\Connection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\sandbox\RetainedHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -58,6 +58,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\sandbox\SandboxWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sandbox\ConnectionUDP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sandbox\ConnectionTCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

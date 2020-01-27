@@ -133,7 +133,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\sandbox\Connection.cpp" />
+    <ClCompile Include="src\sandbox\ConnectionTCP.cpp" />
+    <ClCompile Include="src\sandbox\ConnectionUDP.cpp" />
     <ClCompile Include="src\sandbox\DriverSandbox.cpp" />
     <ClCompile Include="src\sandbox\RetainedHandler.cpp" />
     <ClCompile Include="src\sandbox\RetainedObj.cpp" />
@@ -146,7 +147,8 @@
     <None Include="src\shaders\sandbox.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\sandbox\Connection.h" />
+    <ClInclude Include="src\sandbox\ConnectionTCP.h" />
+    <ClInclude Include="src\sandbox\ConnectionUDP.h" />
     <ClInclude Include="src\sandbox\RetainedHandler.h" />
     <ClInclude Include="src\sandbox\RetainedObj.h" />
     <ClInclude Include="src\sandbox\RetainedRenderer.h" />
