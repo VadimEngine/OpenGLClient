@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <WS2tcpip.h>
-#include "SandboxWindow.h"
+#include "../GUI/SandboxWindow.h"
 
 
 class ConnectionUDP {

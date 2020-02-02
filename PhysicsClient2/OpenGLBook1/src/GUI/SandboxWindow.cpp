@@ -46,7 +46,7 @@ SandboxWindow::SandboxWindow(GLuint width, GLuint height, GLuint count) {
 	glfwGetFramebufferSize(window, &tempWidth, &tempHeight);
 	glViewport(0, 0, tempWidth, tempHeight);//specify lower left corner
 
-	handler = new RetainedHandler(count);
+	handler = new Handler(count);
 	handler->isServer = serverMode;
 }
 
@@ -101,7 +101,6 @@ void SandboxWindow::drawCoords(float x, float y) {
 		GLfloat x3 = x + cos((2 * pi / (float)sides) * (float)(j + 1)) * radius;
 		GLfloat y3 = y + sin((2 * pi / (float)sides) * (float)(j + 1)) * radius;
 
-		//std::cout << x1 << ", " << y1 << ": " << x2 << ", " << y2 << ": " << x3 << ", " << y3 << std::endl;
 		handler->renderer->addVertices(x1, y1);
 		handler->renderer->addVertices(x2, y2);
 		handler->renderer->addVertices(x3, y3);
@@ -109,7 +108,7 @@ void SandboxWindow::drawCoords(float x, float y) {
 }
 
 void  SandboxWindow::addServerlessP(float x, float y) {
-	handler->addObj(new RetainedObj(x, y, glm::vec3(0,0,0), NULL, false));//GLfloat x, GLfloat y, glm::vec3 color,
+	handler->addObj(new GameObject(x, y, glm::vec3(0,0,0), NULL, false));//GLfloat x, GLfloat y, glm::vec3 color,
 	//SandboxShader* myShader, GLboolean isPlayer
 }
 
@@ -123,7 +122,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 
-	//std::cout << ((SandboxWindow*)glfwGetWindowUserPointer(window))->handler->keys << std::endl;
 
 	if (action == GLFW_PRESS) {
 		((SandboxWindow*)glfwGetWindowUserPointer(window))->handler->keys[key] = true;
@@ -140,7 +138,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 	glfwGetWindowSize(window, &winWidth, &winHeight);
 
-	//std::cout << "Mouse adj: " << (2.0 * xpos / winWidth) - 1.0 << ", " << 1.0 - (2.0 * ypos / winHeight) << std::endl;
 	((SandboxWindow*)glfwGetWindowUserPointer(window))->mouseX = ((2.0 * xpos / winWidth) - 1.0);
 	((SandboxWindow*)glfwGetWindowUserPointer(window))->mouseY = (1.0 - (2.0 * ypos / winHeight));
 }

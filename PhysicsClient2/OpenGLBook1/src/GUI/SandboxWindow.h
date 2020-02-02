@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-#include "RetainedHandler.h"
-//#include "Connection.h"
+#include "../Engine/Handler.h"
 
 
 class SandboxWindow {
@@ -21,7 +20,7 @@ public:
 	GLfloat mouseY;//Vector?
 
 	GLFWwindow* window;
-	RetainedHandler* handler;
+	Handler* handler;
 	//Connection connection;
 	bool serverMode;
 	bool TCP;

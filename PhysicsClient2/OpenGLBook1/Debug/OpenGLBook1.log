@@ -1,22 +1,14 @@
 ﻿  ConnectionTCP.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\ConnectionTCP.cpp(16,20): warning C4018: '<': signed/unsigned mismatch
-  ConnectionUDP.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\ConnectionUDP.cpp(32,25): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\ConnectionUDP.cpp(32,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\ConnectionUDP.cpp(50,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\ConnectionUDP.cpp(88,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\ConnectionUDP.cpp(98,99): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\ConnectionUDP.cpp(98,99): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\ConnectionTCP.cpp(16,20): warning C4018: '<': signed/unsigned mismatch
   DriverSandbox.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\DriverSandbox.cpp(128,74): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\DriverSandbox.cpp(128,74): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  SandboxWindow.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(77,22): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(98,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(99,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(101,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(102,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(144,88): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\sandbox\SandboxWindow.cpp(145,68): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\DriverSandbox.cpp(132,74): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\DriverSandbox.cpp(132,74): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Handler.cpp
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(39,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(64,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(70,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(98,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(99,25): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(105,20): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
   OpenGLBook1.vcxproj -> C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\Debug\OpenGLBook1.exe

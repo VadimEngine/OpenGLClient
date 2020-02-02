@@ -3,9 +3,9 @@
 #include <WS2tcpip.h>
 #include <chrono>
 #include <thread>
-#include "SandboxWindow.h"
-#include "ConnectionTCP.h"
-#include "ConnectionUDP.h"
+#include "../GUI/SandboxWindow.h"
+#include "../Connection/ConnectionTCP.h"
+#include "../Connection/ConnectionUDP.h"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -14,8 +14,11 @@ ConnectionUDP conUDP;
 bool TCP;
 bool connectionProtocol();
 
-//TODO do not render player if running on server
-//Check if server connection is lost
+/// <summary>
+/// Main method that first promts in console to decide if they want to run with server or serverless.
+/// then runs the program accordingly. The user can addtionally decide if they want to connect to the server
+/// with TCP or UDP. The game loop will run and be limited to 60FPS.
+/// </summary>
 int main() {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	SandboxWindow* myWindow;
@@ -26,7 +29,8 @@ int main() {
 	//end of connection
 	std::cout << "End of connecting protocol" << std::endl;
 
-	//Add a Max FPS (other than 60)
+	//Add a Max FPS option (other than 60)
+	//combine serverless and server code to reduce reduntant code
 	if (serverless) {
 		//create window
 		myWindow = new SandboxWindow(800, 800, 5);
@@ -170,6 +174,7 @@ int main() {
 }
 
 // Returns true if connected//Have this in window or handler?//Add :q command to exit?
+// move to window/handler?
 bool connectionProtocol() {
 	int stage = 0;
 	bool connected = false;

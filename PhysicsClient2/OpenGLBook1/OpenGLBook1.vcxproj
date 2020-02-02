@@ -133,27 +133,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\sandbox\ConnectionTCP.cpp" />
-    <ClCompile Include="src\sandbox\ConnectionUDP.cpp" />
-    <ClCompile Include="src\sandbox\DriverSandbox.cpp" />
-    <ClCompile Include="src\sandbox\RetainedHandler.cpp" />
-    <ClCompile Include="src\sandbox\RetainedObj.cpp" />
-    <ClCompile Include="src\sandbox\RetainedRenderer.cpp" />
-    <ClCompile Include="src\sandbox\SandboxShander.cpp" />
-    <ClCompile Include="src\sandbox\SandboxWindow.cpp" />
+    <ClCompile Include="src\Connection\ConnectionTCP.cpp" />
+    <ClCompile Include="src\Connection\ConnectionUDP.cpp" />
+    <ClCompile Include="src\Engine\DriverSandbox.cpp" />
+    <ClCompile Include="src\Engine\Handler.cpp" />
+    <ClCompile Include="src\Engine\GameObject.cpp" />
+    <ClCompile Include="src\Graphics\Renderer.cpp" />
+    <ClCompile Include="src\Graphics\SandboxShander.cpp" />
+    <ClCompile Include="src\GUI\SandboxWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\shaders\image.frag" />
+    <None Include="src\shaders\image.vert" />
     <None Include="src\shaders\sandbox.frag" />
     <None Include="src\shaders\sandbox.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\sandbox\ConnectionTCP.h" />
-    <ClInclude Include="src\sandbox\ConnectionUDP.h" />
-    <ClInclude Include="src\sandbox\RetainedHandler.h" />
-    <ClInclude Include="src\sandbox\RetainedObj.h" />
-    <ClInclude Include="src\sandbox\RetainedRenderer.h" />
-    <ClInclude Include="src\sandbox\SandboxShader.h" />
-    <ClInclude Include="src\sandbox\SandboxWindow.h" />
+    <ClInclude Include="src\Connection\ConnectionTCP.h" />
+    <ClInclude Include="src\Connection\ConnectionUDP.h" />
+    <ClInclude Include="src\Engine\Handler.h" />
+    <ClInclude Include="src\Engine\GameObject.h" />
+    <ClInclude Include="src\Graphics\Renderer.h" />
+    <ClInclude Include="src\Graphics\SandboxShader.h" />
+    <ClInclude Include="src\GUI\SandboxWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\awesomeface.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -11,17 +11,17 @@
 #include <iostream>
 #include <string>
 #include <math.h>
-#include<cmath>
+#include <cmath>
 
-#include "SandboxShader.h"
-#include "RetainedRenderer.h"
+#include "../Graphics/SandboxShader.h"
+#include "../Graphics/Renderer.h"
 
 
-class RetainedObj {
+class GameObject {
 
 public:
-	GLfloat x, y;
 	glm::vec3 color;
+	GLfloat radius;
 
 	glm::vec2 position;
 	glm::vec2 velocity;
@@ -30,14 +30,12 @@ public:
 
 	GLboolean isPlayer;
 
-
-	RetainedObj(GLfloat x, GLfloat y, glm::vec3 color, SandboxShader* myShader, GLboolean isPlayer);
+	
+	///<summary> Test summ</summary>
+	GameObject(GLfloat x, GLfloat y, glm::vec3 color, SandboxShader* myShader, GLboolean isPlayer);
 
 	void tick(GLfloat dt, GLboolean keys[1024]);
 
-	void render(RetainedRenderer* renderer);
-
-	void renderCircle(RetainedRenderer* renderer);
-
+	void render(Renderer* renderer);
 };
 
