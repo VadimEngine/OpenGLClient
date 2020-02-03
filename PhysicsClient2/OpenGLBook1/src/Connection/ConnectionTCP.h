@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <WS2tcpip.h>
-#include "../GUI/SandboxWindow.h"
+#include "../GUI/Window.h"
 
 
 /// <summary> 
@@ -13,7 +13,7 @@ public:
 	/// <summary> 
 	/// Window that displays the data sent between server and client
 	/// </summary> 
-	SandboxWindow* window;
+	Window* window;
 	
 	/// <summary> 
 	/// Sock. TODO: look into what it does
@@ -28,10 +28,11 @@ public:
 	/// <summary> 
 	/// Set the window that will be updated by this connection
 	/// </summary> 
-	void setWindow(SandboxWindow* myWindow);
+	void setWindow(Window* myWindow);
 
 	/// <summary>
-	/// Inital connection to the server
+	/// Inital connection to the server. Temporarily only connects to 
+	/// server on local host
 	/// </summary>
 	bool TCPConnect();
 

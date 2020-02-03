@@ -139,8 +139,8 @@
     <ClCompile Include="src\Engine\Handler.cpp" />
     <ClCompile Include="src\Engine\GameObject.cpp" />
     <ClCompile Include="src\Graphics\Renderer.cpp" />
-    <ClCompile Include="src\Graphics\SandboxShander.cpp" />
-    <ClCompile Include="src\GUI\SandboxWindow.cpp" />
+    <ClCompile Include="src\Graphics\Shander.cpp" />
+    <ClCompile Include="src\GUI\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\image.frag" />
@@ -154,8 +154,8 @@
     <ClInclude Include="src\Engine\Handler.h" />
     <ClInclude Include="src\Engine\GameObject.h" />
     <ClInclude Include="src\Graphics\Renderer.h" />
-    <ClInclude Include="src\Graphics\SandboxShader.h" />
-    <ClInclude Include="src\GUI\SandboxWindow.h" />
+    <ClInclude Include="src\Graphics\Shader.h" />
+    <ClInclude Include="src\GUI\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\awesomeface.png" />

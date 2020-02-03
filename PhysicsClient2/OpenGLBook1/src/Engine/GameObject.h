@@ -1,41 +1,70 @@
 #pragma once
-
-//probably include header issues here
 #define GLEW_STATIC
 #include <GL/glew.h>//include GLEW before glfw
 #include <GLFW/glfw3.h>
-
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 
-#include <iostream>
-#include <string>
-#include <math.h>
-#include <cmath>
-
-#include "../Graphics/SandboxShader.h"
 #include "../Graphics/Renderer.h"
 
 
+/// <Summary>
+/// Game objects that will update with the game and be rendered.
+/// Currently only renders cirlces
+/// <Summary
 class GameObject {
 
 public:
-	glm::vec3 color;
+
+	/// <summary>
+	/// The radius of the gameobject, currenty only circular gameobjects.
+	/// Currently always .04
+	///</summary>
 	GLfloat radius;
 
+	/// <summary>
+	/// The position of the particle. Currenlty only x and y but
+	/// later can add the z coordinate
+	/// </summary>
 	glm::vec2 position;
+
+	/// <summary>
+	/// the velocity vector of this particle
+	/// </summary>
 	glm::vec2 velocity;
 
-	glm::vec2 lastPosition;
-
+	/// <summary>
+	/// If the following particle is a player particle.
+	/// Remove this field
+	/// </summary>
 	GLboolean isPlayer;
 
-	
-	///<summary> Test summ</summary>
-	GameObject(GLfloat x, GLfloat y, glm::vec3 color, SandboxShader* myShader, GLboolean isPlayer);
+	/// <summary>
+	/// Last position of the objects, used by player object to
+	/// calculate its velocity
+	/// </summary>
+	glm::vec2 lastPosition;
 
+	/// <summary>
+	/// The speed that the player particle moves 
+	/// </summary>
+	GLfloat speed;
+	
+	/// <summary>
+	/// Constutor, sets the coordinates and postion,
+	/// velocity is random and radius is always .04
+	/// </summary>
+	GameObject(GLfloat x, GLfloat y, GLboolean isPlayer);
+
+	/// <summary
+	/// Updates particle postion based on velocity.
+	/// If player then the particle's position is updated by the keys
+	/// </summary>
 	void tick(GLfloat dt, GLboolean keys[1024]);
 
+	/// <summary>
+	/// Calls Renderer to render a cirlce at the objects x, y
+	/// </summary>
 	void render(Renderer* renderer);
 };
 

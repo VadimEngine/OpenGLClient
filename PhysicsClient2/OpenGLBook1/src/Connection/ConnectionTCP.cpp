@@ -3,7 +3,7 @@
 ConnectionTCP::ConnectionTCP() {}
 
 
-void ConnectionTCP::setWindow(SandboxWindow* myWindow) {
+void ConnectionTCP::setWindow(Window* myWindow) {
 	window = myWindow;
 }
 
@@ -20,14 +20,10 @@ void ConnectionTCP::TCPlisten() {
 	}
 }
 
-//create copy or send by refernce?
-//return the result of the send?
 void ConnectionTCP::TCPsendData(void* data, int size) {
 	int sendResult = send(sock, (char*)data, size, 0);
-	//sendResult != SOCKET_ERROR
 }
 
-//Only if connected?
 void ConnectionTCP::TCPclose() {
 	closesocket(sock);
 	WSACleanup();
@@ -35,7 +31,7 @@ void ConnectionTCP::TCPclose() {
 
 bool ConnectionTCP::TCPConnect() {
 	std::string ipAddress = "127.0.0.1";	//ip address of the server
-	int port = 54000;				//Listening port number on the server
+	int port = 54000;						//Listening port number on the server
 
 	//Initilize winsock
 	WSADATA data;
@@ -59,6 +55,7 @@ bool ConnectionTCP::TCPConnect() {
 	hint.sin_family = AF_INET;
 	hint.sin_port = htons(port);
 	inet_pton(AF_INET, ipAddress.c_str(), &hint.sin_addr);
+	//hint.sin_addr.s_addr = INADDR_ANY;
 
 	//connect to the server
 	int connResult = connect(sock, (sockaddr*)&hint, sizeof(hint));
@@ -67,6 +64,5 @@ bool ConnectionTCP::TCPConnect() {
 	} else {
 		return true;
 	}
-
 	return false;
 }

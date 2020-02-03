@@ -1,10 +1,10 @@
-#include "Renderer.h"
 #include <SOIL.h>
 #include <fstream>
 
+#include "Renderer.h"
 
 
-Renderer::Renderer(SandboxShader* shader)
+Renderer::Renderer(Shader* shader)
 :shader(shader){
 	initRenderData();
 }
@@ -20,7 +20,6 @@ void Renderer::initRenderData() {
 	glGenBuffers(1, &VBO);
 }
 
-
 void Renderer::Draw() {//, glm::vec3 color	
 	shader->Use();
 	glBindVertexArray(VAO);
@@ -33,7 +32,6 @@ void Renderer::Draw() {//, glm::vec3 color
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
-
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//Wireframe
 	glDrawArrays(GL_TRIANGLES, 0, vertList.size()/3);//breaks here after some time: Exception thrown at 0x5DD1FA90 (ig75icd32.dll) in OpenGLBook1.exe: 0xC0000005: Access violation reading location 0x00000010.
 	glBindVertexArray(0);//Unbind

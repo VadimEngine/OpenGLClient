@@ -5,7 +5,7 @@
 #include "../Engine/Handler.h"
 
 
-class SandboxWindow {
+class Window {
 	
 public:
 
@@ -25,8 +25,8 @@ public:
 	bool serverMode;
 	bool TCP;
 
-	SandboxWindow(GLuint width, GLuint height, GLuint count);
-	~SandboxWindow();
+	Window(GLuint width, GLuint height, GLuint count);
+	~Window();
 
 	GLboolean shouldClose();
 
@@ -36,13 +36,9 @@ public:
 
 	void render();
 
-
 	void drawCoords(float x, float y);
 
 	void addServerlessP(float x, float y);
 
 	void setServer(bool isServer);
-
-
-	//set callback, to point to this object
 };

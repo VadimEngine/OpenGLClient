@@ -1,16 +1,26 @@
 #include <iostream>
-#include <string>
 #include <WS2tcpip.h>
 #include <chrono>
 #include <thread>
-#include "../GUI/SandboxWindow.h"
+#include "../GUI/Window.h"
 #include "../Connection/ConnectionTCP.h"
 #include "../Connection/ConnectionUDP.h"
 
 #pragma comment(lib, "ws2_32.lib")
 
+/// <summary>
+/// The TCP connection object. Is set by connectionProtocol()
+/// </summary>
 ConnectionTCP con;
+
+/// <summary>
+/// The UDP connection object, is set by connectionProtocol()
+/// </summary>
 ConnectionUDP conUDP;
+
+/// <summary>
+/// If TCP or UDP connection.
+/// </summary>
 bool TCP;
 bool connectionProtocol();
 
@@ -21,7 +31,7 @@ bool connectionProtocol();
 /// </summary>
 int main() {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	SandboxWindow* myWindow;
+	Window* myWindow;
 	std::cout << "Program started..." << std::endl;
 
 	bool serverless = !connectionProtocol();
@@ -33,7 +43,7 @@ int main() {
 	//combine serverless and server code to reduce reduntant code
 	if (serverless) {
 		//create window
-		myWindow = new SandboxWindow(800, 800, 5);
+		myWindow = new Window(800, 800, 5);
 		myWindow->serverMode = false;
 		//myWindow->connectionProtocol();
 		int frames = 0;
@@ -76,7 +86,7 @@ int main() {
 		}
 	} else {
 		//create window
-		myWindow = new SandboxWindow(800, 800, 0);
+		myWindow = new Window(800, 800, 0);
 		myWindow->serverMode = true;
 		myWindow->setServer(myWindow->serverMode);
 		if (TCP) {
@@ -120,14 +130,11 @@ int main() {
 					}
 				} else {
 					//UDP
-					//con.UDPSend();
-					//con.UDPListen();
-
-					conUDP.UDPSend();
+					float toSend[] = { -1, myWindow->handler->player->position.x, myWindow->handler->player->position.y, conUDP.userId };
+					conUDP.UDPSend((char*)toSend, sizeof(float) * 4);
 					conUDP.UDPListen();
 
 					//click action
-
 					if (myWindow->leftClick) {
 						float toSend[4] = { -2, myWindow->mouseX, myWindow->mouseY , conUDP.userId};
 						conUDP.UDPSend((char*)toSend, 4 * sizeof(float));
@@ -173,8 +180,14 @@ int main() {
 	return 0;
 }
 
-// Returns true if connected//Have this in window or handler?//Add :q command to exit?
-// move to window/handler?
+/// <summary>
+/// Promts the user to chose if they want to the application with a server
+/// or serverless. If the user choses server then the user can decide to run
+/// with TCP or UDP.
+/// </summary>
+/// <remarks>
+///	Move outside this class. Maybe in window or handler. Add :q to quit.
+/// </remarks>
 bool connectionProtocol() {
 	int stage = 0;
 	bool connected = false;

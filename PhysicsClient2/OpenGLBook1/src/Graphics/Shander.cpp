@@ -1,7 +1,7 @@
-#include "SandboxShader.h"
+#include "Shader.h"
 
 
-SandboxShader::SandboxShader(const GLchar* vertexPath, const GLchar* fragmentPath) {
+Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
 	std::string vertexCode;
 	std::string fragmentCode;
 	std::ifstream vShaderFile;
@@ -75,6 +75,6 @@ SandboxShader::SandboxShader(const GLchar* vertexPath, const GLchar* fragmentPat
 	glDeleteShader(fragment);
 }
 
-void SandboxShader::Use() {
+void Shader::Use() {
 	glUseProgram(this->Program);
 }

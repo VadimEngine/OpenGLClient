@@ -5,33 +5,38 @@
 #include <vector>
 #include <algorithm>
 
-#include "SandboxShader.h"
+#include "Shader.h"
 
-
+/// <summary>
+/// User Shader and OpenGL to render shapes
+/// </summary>
 class Renderer {
 
 public:
 	std::vector<GLfloat> vertList;
-	SandboxShader* shader;
+	Shader* shader;
 	GLuint VAO, VBO;
 
-	GLuint texture1;
-
-	Renderer(SandboxShader* shader);
+	Renderer(Shader* shader);
 	~Renderer();
 
-	void addVertices(GLfloat x, GLfloat y);
+	void addVertices(GLfloat x, GLfloat y);//not needed, can just add cirlce
 	void clear();
-	void Draw();//, glm::vec3 color
+	void Draw();
 
 
 	void initRenderData();
 
 	void renderText(std::string theString, float x, float y);
 
+	void renderTriange(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3);
+
 	//x y is the top left corner
 	void renderRectangle(float x, float y, float width, float height);
 
 	void renderCircle(float x, float y, float radius, int sides);
+
+	void renderPolygon(glm::vec3* points);
+
 
 };

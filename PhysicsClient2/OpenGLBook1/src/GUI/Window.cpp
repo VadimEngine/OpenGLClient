@@ -1,11 +1,11 @@
-#include "SandboxWindow.h"
+#include "Window.h"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);//mouse_move
 void mouse_enter_callback(GLFWwindow* window, int entered);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
-SandboxWindow::SandboxWindow(GLuint width, GLuint height, GLuint count) {
+Window::Window(GLuint width, GLuint height, GLuint count) {
 	//initilize glfw (graphics library framework)
 	if (!glfwInit()) {
 		std::cout << "ERROR" << std::endl;
@@ -51,20 +51,20 @@ SandboxWindow::SandboxWindow(GLuint width, GLuint height, GLuint count) {
 }
 
 
-SandboxWindow::~SandboxWindow() {
+Window::~Window() {
 	//delete window;//Handled by glfwTerminate
 	glfwDestroyWindow(window);
 	delete handler;
 }
 
 
-GLboolean SandboxWindow::shouldClose() {
+GLboolean Window::shouldClose() {
 	return glfwWindowShouldClose(window);
 }
 
-void SandboxWindow::getWidthandHeight(GLuint& width, GLuint height) {}
+void Window::getWidthandHeight(GLuint& width, GLuint height) {}
 
-void SandboxWindow::update() {
+void Window::update() {
 	//Save these upper variables ^
 	if (!serverMode) {
 		if (leftClick) {
@@ -77,7 +77,7 @@ void SandboxWindow::update() {
 	handler->tick(1/60.0);
 }
 
-void SandboxWindow::render() {
+void Window::render() {
 	glfwPollEvents();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -86,7 +86,7 @@ void SandboxWindow::render() {
 }
 
 //render client coords
-void SandboxWindow::drawCoords(float x, float y) {
+void Window::drawCoords(float x, float y) {
 	float radius = 0.05f;
 	float sides = 20;
 	double pi = 3.14159265358979323846;
@@ -107,12 +107,12 @@ void SandboxWindow::drawCoords(float x, float y) {
 	}
 }
 
-void  SandboxWindow::addServerlessP(float x, float y) {
-	handler->addObj(new GameObject(x, y, glm::vec3(0,0,0), NULL, false));//GLfloat x, GLfloat y, glm::vec3 color,
+void Window::addServerlessP(float x, float y) {
+	handler->addObj(new GameObject(x, y, false));//GLfloat x, GLfloat y, glm::vec3 color,
 	//SandboxShader* myShader, GLboolean isPlayer
 }
 
-void SandboxWindow::setServer(bool isServer) {
+void Window::setServer(bool isServer) {
 	handler->isServer = isServer;
 }
 
@@ -124,9 +124,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 
 	if (action == GLFW_PRESS) {
-		((SandboxWindow*)glfwGetWindowUserPointer(window))->handler->keys[key] = true;
+		((Window*)glfwGetWindowUserPointer(window))->handler->keys[key] = true;
 	} else if (action == GLFW_RELEASE) {
-		((SandboxWindow*)glfwGetWindowUserPointer(window))->handler->keys[key] = false;
+		((Window*)glfwGetWindowUserPointer(window))->handler->keys[key] = false;
 	}
 }
 
@@ -138,8 +138,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 	glfwGetWindowSize(window, &winWidth, &winHeight);
 
-	((SandboxWindow*)glfwGetWindowUserPointer(window))->mouseX = ((2.0 * xpos / winWidth) - 1.0);
-	((SandboxWindow*)glfwGetWindowUserPointer(window))->mouseY = (1.0 - (2.0 * ypos / winHeight));
+	((Window*)glfwGetWindowUserPointer(window))->mouseX = ((2.0 * xpos / winWidth) - 1.0);
+	((Window*)glfwGetWindowUserPointer(window))->mouseY = (1.0 - (2.0 * ypos / winHeight));
 }
 
 void mouse_enter_callback(GLFWwindow* window, int entered) {}
@@ -147,11 +147,11 @@ void mouse_enter_callback(GLFWwindow* window, int entered) {}
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
 
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		((SandboxWindow*)glfwGetWindowUserPointer(window))->leftClick = true;
+		((Window*)glfwGetWindowUserPointer(window))->leftClick = true;
 	}
 
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
-		((SandboxWindow*)glfwGetWindowUserPointer(window))->leftClick = false;
+		((Window*)glfwGetWindowUserPointer(window))->leftClick = false;
 	}
 }
 

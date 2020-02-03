@@ -2,10 +2,9 @@
 
 ConnectionUDP::ConnectionUDP() {}
 
-void ConnectionUDP::setWindow(SandboxWindow* myWindow) {
+void ConnectionUDP::setWindow(Window* myWindow) {
 	window = myWindow;
 }
-
 
 // make intand return code
 int ConnectionUDP::UDPConnect() {
@@ -53,27 +52,6 @@ int ConnectionUDP::UDPConnect() {
 }
 
 
-//not used?
-void ConnectionUDP::UDPInit() {
-	WSADATA data;
-	WORD version = MAKEWORD(2, 2);
-	int wsOK = WSAStartup(version, &data);
-	if (wsOK != 0) {
-		std::cout << "Can't start Winsock. " << wsOK << std::endl;
-		return;
-	}
-
-	//create a hint structure for the serer
-	/*sockaddr_in UDPserver;*/
-	UDPserver.sin_family = AF_INET;
-	UDPserver.sin_port = htons(54000);
-
-	inet_pton(AF_INET, "127.0.0.1", &UDPserver.sin_addr);
-
-	//Socket creation
-	/*SOCKET*/ UDPout = socket(AF_INET, SOCK_DGRAM, 0);
-}
-
 // Let user know if lost connection?
 void ConnectionUDP::UDPListen() {
 	char buf[1024];
@@ -89,14 +67,6 @@ void ConnectionUDP::UDPListen() {
 	}
 }
 
-void ConnectionUDP::UDPSend() {
-	float toSend[] = { -1, window->handler->player->position.x, window->handler->player->position.y, userId };
-	int sendok = sendto(UDPout, (char*)toSend, 4 * sizeof(float), 0, (sockaddr*)&UDPserver, sizeof(UDPserver));
-	if (sendok == SOCKET_ERROR) {
-		std::cout << "Sendto error: " << WSAGetLastError() << std::endl;
-	}
-}
-
 void ConnectionUDP::UDPSend(char* data, int size) {
 	int sendok = sendto(UDPout, data, size, 0, (sockaddr*)&UDPserver, sizeof(UDPserver));
 
@@ -106,46 +76,6 @@ void ConnectionUDP::UDPSend(char* data, int size) {
 }
 
 void ConnectionUDP::UDPClose() {
-	//close that socket
 	closesocket(UDPout);
-	//close down Winsock
-	WSACleanup();
-}
-
-
-
-
-
-void UDP() {
-	WSADATA data;
-	WORD version = MAKEWORD(2, 2);
-	int wsOK = WSAStartup(version, &data);
-	if (wsOK != 0) {
-		std::cout << "Can't start Winsock. " << wsOK << std::endl;
-		return;
-	}
-
-	//create a hint structure for the serer
-	sockaddr_in server;
-	server.sin_family = AF_INET;
-	server.sin_port = htons(54000);
-
-	inet_pton(AF_INET, "127.0.0.1", &server.sin_addr);
-
-	//Socket creation
-	SOCKET out = socket(AF_INET, SOCK_DGRAM, 0);
-
-	//write out to that socket
-	std::string s("Testing123");
-
-	//sendto = UDP
-	int sendok = sendto(out, s.c_str(), s.size() + 1, 0, (sockaddr*)&server, sizeof(server));
-	if (sendok == SOCKET_ERROR) {
-		std::cout << "Sendto error: " << WSAGetLastError() << std::endl;
-	}
-
-	//close that socket
-	closesocket(out);
-	//close down Winsock
 	WSACleanup();
 }

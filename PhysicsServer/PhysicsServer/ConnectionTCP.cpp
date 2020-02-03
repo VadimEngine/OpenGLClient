@@ -16,7 +16,8 @@ void ConnectionTCP::init() {
 
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(54000);//2222
-	inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr);
+	addr.sin_addr.s_addr = INADDR_ANY;
+	//inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr);
 
 	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);//2.2 
 
@@ -38,23 +39,19 @@ void ConnectionTCP::init() {
 		std::cout << "Build failed " << GetLastError() << std::endl;
 		exit(-1);
 	}
+#pragma warning( disable : 4996)
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
+	char* tempIp = inet_ntoa(addr.sin_addr);
+	char str[INET6_ADDRSTRLEN];
+	inet_ntop(AF_INET6, &addr, str, INET6_ADDRSTRLEN);
+	std::cout << "SeverIp:" << str << std::endl;
+
 
 	iResult = listen(sock, SOMAXCONN);
 	if (iResult) {
 		std::cout << "iResult failed " << GetLastError() << std::endl;
 		exit(-1);//Exit() instead?
 	}
-
-#ifdef false
-	while (client = accept(sock, 0, 0)) {
-		if (client == INVALID_SOCKET) {
-			std::cout << "Invalid client socket " << GetLastError() << std::endl;
-		} else {
-			std::thread(listenClient, (void*)&client, handler).detach();
-		}
-	}
-#endif // false
-
 }
 
 bool ConnectionTCP::listenForClient() {

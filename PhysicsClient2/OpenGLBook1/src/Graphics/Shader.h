@@ -7,11 +7,11 @@
 
 #include <GL/glew.h>
 
-class SandboxShader {
+class Shader {
 public:
 	GLuint Program;
 
-	SandboxShader(const GLchar* vertexSorucePath, const GLchar* fragmentSourcePath);
+	Shader(const GLchar* vertexSorucePath, const GLchar* fragmentSourcePath);
 
 	void Use();
 };
