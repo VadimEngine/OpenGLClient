@@ -4,7 +4,7 @@
 Handler::Handler(int count)
 	:keys{}, isServer(false) {
 	Shader* myShader = new Shader("src/shaders/sandbox.vert",
-								  "src/shaders/sandbox.frag");//delete in desctructor
+									"src/shaders/sandbox.frag");//delete in desctructor
 	renderer = new Renderer(myShader);
 	player = new GameObject(0, 0, true);
 	
