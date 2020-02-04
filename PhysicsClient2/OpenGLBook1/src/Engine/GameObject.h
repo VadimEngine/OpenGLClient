@@ -4,7 +4,6 @@
 #include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
-
 #include "../Graphics/Renderer.h"
 
 
@@ -15,7 +14,6 @@
 class GameObject {
 
 public:
-
 	/// <summary>
 	/// The radius of the gameobject, currenty only circular gameobjects.
 	/// Currently always .04

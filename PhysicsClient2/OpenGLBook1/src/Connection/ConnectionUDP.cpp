@@ -15,8 +15,7 @@ int ConnectionUDP::UDPConnect() {
 		std::cout << "Can't start Winsock. " << wsOK << std::endl;
 		return false;
 	}
-
-	//create a hint structure for the serer
+	//create a hint structure for the server
 	/*sockaddr_in UDPserver;*/
 	UDPserver.sin_family = AF_INET;
 	UDPserver.sin_port = htons(54000);
@@ -24,8 +23,7 @@ int ConnectionUDP::UDPConnect() {
 	inet_pton(AF_INET, "127.0.0.1", &UDPserver.sin_addr);
 
 	//Socket creation
-	/*SOCKET*/ UDPout = socket(AF_INET, SOCK_DGRAM, 0);
-	//END UDPInit()
+	UDPout = socket(AF_INET, SOCK_DGRAM, 0);
 
 	//send inital message and then listen
 	float toSend[] = { -9, userId };
@@ -50,7 +48,6 @@ int ConnectionUDP::UDPConnect() {
 		}
 	}
 }
-
 
 // Let user know if lost connection?
 void ConnectionUDP::UDPListen() {

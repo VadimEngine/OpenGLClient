@@ -1,36 +1,36 @@
 ﻿  ConnectionTCP.cpp
 C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\ConnectionTCP.cpp(16,20): warning C4018: '<': signed/unsigned mismatch
   ConnectionUDP.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\ConnectionUDP.cpp(31,25): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\ConnectionUDP.cpp(31,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\ConnectionUDP.cpp(45,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\ConnectionUDP.cpp(62,21): warning C4018: '<': signed/unsigned mismatch
-  DriverSandbox.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\DriverSandbox.cpp(133,113): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\DriverSandbox.cpp(133,113): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\DriverSandbox.cpp(139,74): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\DriverSandbox.cpp(139,74): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\ConnectionUDP.cpp(29,25): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\ConnectionUDP.cpp(29,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\ConnectionUDP.cpp(43,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\ConnectionUDP.cpp(59,21): warning C4018: '<': signed/unsigned mismatch
+  Driver.cpp
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Driver.cpp(134,113): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Driver.cpp(134,113): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Driver.cpp(140,92): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Driver.cpp(140,92): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  GameObject.cpp
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\GameObject.cpp(42,56): warning C4305: 'argument': truncation from 'double' to 'float'
+  Handler.cpp
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(29,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(40,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(46,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(70,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(71,25): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(76,20): warning C4018: '<': signed/unsigned mismatch
+  Window.cpp
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\GUI\Window.cpp(66,22): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\GUI\Window.cpp(87,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\GUI\Window.cpp(88,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\GUI\Window.cpp(90,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\GUI\Window.cpp(91,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\GUI\Window.cpp(131,13): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\GUI\Window.cpp(132,13): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+  Renderer.cpp
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Graphics\Renderer.cpp(75,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Graphics\Renderer.cpp(76,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Graphics\Renderer.cpp(78,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Graphics\Renderer.cpp(79,14): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
   Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
-LINK : warning LNK4286: symbol '___glewBindBuffer' defined in 'glew32s.lib(glew.obj)' is imported by 'Renderer.obj'
-LINK : warning LNK4286: symbol '___glewBufferData' defined in 'glew32s.lib(glew.obj)' is imported by 'Renderer.obj'
-LINK : warning LNK4286: symbol '___glewGenBuffers' defined in 'glew32s.lib(glew.obj)' is imported by 'Renderer.obj'
-LINK : warning LNK4286: symbol '___glewEnableVertexAttribArray' defined in 'glew32s.lib(glew.obj)' is imported by 'Renderer.obj'
-LINK : warning LNK4286: symbol '___glewVertexAttribPointer' defined in 'glew32s.lib(glew.obj)' is imported by 'Renderer.obj'
-LINK : warning LNK4286: symbol '___glewBindVertexArray' defined in 'glew32s.lib(glew.obj)' is imported by 'Renderer.obj'
-LINK : warning LNK4286: symbol '___glewGenVertexArrays' defined in 'glew32s.lib(glew.obj)' is imported by 'Renderer.obj'
-LINK : warning LNK4286: symbol '___glewAttachShader' defined in 'glew32s.lib(glew.obj)' is imported by 'Shander.obj'
-LINK : warning LNK4286: symbol '___glewCompileShader' defined in 'glew32s.lib(glew.obj)' is imported by 'Shander.obj'
-LINK : warning LNK4286: symbol '___glewCreateProgram' defined in 'glew32s.lib(glew.obj)' is imported by 'Shander.obj'
-LINK : warning LNK4286: symbol '___glewCreateShader' defined in 'glew32s.lib(glew.obj)' is imported by 'Shander.obj'
-LINK : warning LNK4286: symbol '___glewDeleteShader' defined in 'glew32s.lib(glew.obj)' is imported by 'Shander.obj'
-LINK : warning LNK4286: symbol '___glewGetProgramInfoLog' defined in 'glew32s.lib(glew.obj)' is imported by 'Shander.obj'
-LINK : warning LNK4286: symbol '___glewGetProgramiv' defined in 'glew32s.lib(glew.obj)' is imported by 'Shander.obj'
-LINK : warning LNK4286: symbol '___glewGetShaderInfoLog' defined in 'glew32s.lib(glew.obj)' is imported by 'Shander.obj'
-LINK : warning LNK4286: symbol '___glewGetShaderiv' defined in 'glew32s.lib(glew.obj)' is imported by 'Shander.obj'
-LINK : warning LNK4286: symbol '___glewLinkProgram' defined in 'glew32s.lib(glew.obj)' is imported by 'Shander.obj'
-LINK : warning LNK4286: symbol '___glewShaderSource' defined in 'glew32s.lib(glew.obj)' is imported by 'Shander.obj'
-LINK : warning LNK4286: symbol '___glewUseProgram' defined in 'glew32s.lib(glew.obj)' is imported by 'Shander.obj'
-glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\Debug\vc120.pdb'; linking object as if no debug info
   OpenGLBook1.vcxproj -> C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\Debug\OpenGLBook1.exe

@@ -2,8 +2,7 @@
 
 
 GameObject::GameObject(GLfloat x, GLfloat y, GLboolean isPlayer)
-	:isPlayer(isPlayer){
-
+	:isPlayer(isPlayer) {
 	radius = .04f;
 	position = glm::vec2(x, y);
 	float randXVel = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);

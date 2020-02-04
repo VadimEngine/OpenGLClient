@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-
 #include "GameObject.h"
 #include "../Graphics/Shader.h"
 #include "../Graphics/Renderer.h"
@@ -38,6 +37,9 @@ public:
 	/// boolean array to track which keys are pressed, updated by
 	/// the window
 	/// </summary>
+	/// <remarks>
+	/// Might be better if this was static
+	/// </remarks>
 	GLboolean keys[1024];
 
 public:
@@ -73,6 +75,3 @@ public:
 	/// </summary>
 	void collide(GameObject* obj1, GameObject* obj2);
 };
-
-
-

@@ -1,11 +1,14 @@
 #include "Window.h"
 
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);//mouse_move
 void mouse_enter_callback(GLFWwindow* window, int entered);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 Window::Window(GLuint width, GLuint height, GLuint count) {
+	leftClick = false;
+	mousePosition = glm::vec2(0,0);
 	//initilize glfw (graphics library framework)
 	if (!glfwInit()) {
 		std::cout << "ERROR" << std::endl;
@@ -14,10 +17,6 @@ Window::Window(GLuint width, GLuint height, GLuint count) {
 	}
 
 	glfwInit();
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	window = glfwCreateWindow(width, height, "OpenGLSandbox", nullptr, nullptr);
@@ -27,8 +26,6 @@ Window::Window(GLuint width, GLuint height, GLuint count) {
 	}
 
 	glfwSetWindowUserPointer(window, this);
-	//window->set
-
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
@@ -47,9 +44,7 @@ Window::Window(GLuint width, GLuint height, GLuint count) {
 	glViewport(0, 0, tempWidth, tempHeight);//specify lower left corner
 
 	handler = new Handler(count);
-	handler->isServer = serverMode;
 }
-
 
 Window::~Window() {
 	//delete window;//Handled by glfwTerminate
@@ -57,22 +52,17 @@ Window::~Window() {
 	delete handler;
 }
 
-
 GLboolean Window::shouldClose() {
 	return glfwWindowShouldClose(window);
 }
 
-void Window::getWidthandHeight(GLuint& width, GLuint height) {}
-
 void Window::update() {
-	//Save these upper variables ^
-	if (!serverMode) {
+	if (!handler->isServer) {
 		if (leftClick) {
-			addServerlessP(mouseX, mouseY);
+			handler->addObj(new GameObject(mousePosition.x, mousePosition.y, false));
 			leftClick = false;
 		}
 	}
-
 	//need to pass in an accurate delta time?
 	handler->tick(1/60.0);
 }
@@ -107,30 +97,31 @@ void Window::drawCoords(float x, float y) {
 	}
 }
 
-void Window::addServerlessP(float x, float y) {
-	handler->addObj(new GameObject(x, y, false));//GLfloat x, GLfloat y, glm::vec3 color,
-	//SandboxShader* myShader, GLboolean isPlayer
-}
-
 void Window::setServer(bool isServer) {
 	handler->isServer = isServer;
 }
 
+//Call back functions
+
+/// <summary>
+/// Key callback that sets the boolean array in handler that represets keys
+/// </summary>
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
-	//set pointer and get pointer of handler for reference
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
-
-
-	if (action == GLFW_PRESS) {
-		((Window*)glfwGetWindowUserPointer(window))->handler->keys[key] = true;
-	} else if (action == GLFW_RELEASE) {
-		((Window*)glfwGetWindowUserPointer(window))->handler->keys[key] = false;
+	if (key >= 0 && key < 1024) {
+		if (action == GLFW_PRESS) {
+			((Window*)glfwGetWindowUserPointer(window))->handler->keys[key] = true;
+		} else if (action == GLFW_RELEASE) {
+			((Window*)glfwGetWindowUserPointer(window))->handler->keys[key] = false;
+		}
 	}
 }
 
-
+/// <summary>
+/// Call back action that sets mousePosition of this window
+/// </summary
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	//get width and height
 	int winHeight;
@@ -138,18 +129,24 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 	glfwGetWindowSize(window, &winWidth, &winHeight);
 
-	((Window*)glfwGetWindowUserPointer(window))->mouseX = ((2.0 * xpos / winWidth) - 1.0);
-	((Window*)glfwGetWindowUserPointer(window))->mouseY = (1.0 - (2.0 * ypos / winHeight));
+	GLfloat mx = ((2.0 * xpos / winWidth) - 1.0);
+	GLfloat my = (1.0 - (2.0 * ypos / winHeight));
+	((Window*)glfwGetWindowUserPointer(window))->mousePosition = glm::vec2(mx, my);
 }
 
+/// <summary>
+/// Mouse enter callback. Not used at the moment but can be added to 
+/// future funcionaltiy that require knowing if mouse is in frame or not
+/// </summary>
 void mouse_enter_callback(GLFWwindow* window, int entered) {}
 
+/// <summary>
+/// 
+/// </summary>
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
-
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 		((Window*)glfwGetWindowUserPointer(window))->leftClick = true;
 	}
-
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
 		((Window*)glfwGetWindowUserPointer(window))->leftClick = false;
 	}

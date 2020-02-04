@@ -1,6 +1,5 @@
 #include <SOIL.h>
 #include <fstream>
-
 #include "Renderer.h"
 
 
@@ -15,56 +14,53 @@ Renderer::~Renderer() {
 }
 
 void Renderer::initRenderData() {
-	//GLuint VBO; //,VAO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 }
 
-void Renderer::Draw() {//, glm::vec3 color	
+void Renderer::Draw() {
 	shader->Use();
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertList.size() * sizeof(GLfloat), vertList.data(), GL_DYNAMIC_DRAW);//GL_STATIC_DRAW
+	glBufferData(GL_ARRAY_BUFFER, vertList.size() * sizeof(GLfloat), vertList.data(), GL_DYNAMIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);// 3 * sizeof(GLfloat) instead of 0?
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//Wireframe
-	glDrawArrays(GL_TRIANGLES, 0, vertList.size()/3);//breaks here after some time: Exception thrown at 0x5DD1FA90 (ig75icd32.dll) in OpenGLBook1.exe: 0xC0000005: Access violation reading location 0x00000010.
+	glDrawArrays(GL_TRIANGLES, 0, vertList.size()/3);
 	glBindVertexArray(0);//Unbind
 	
 	vertList.clear();	
-}
-
-//Temp metthod for rendering a circle
-void Renderer::addVertices(GLfloat x, GLfloat y) {
-	vertList.push_back(x);
-	vertList.push_back(y);
-	vertList.push_back(0);
-	//use a queue instead?
 }
 
 void Renderer::clear() {
 	vertList.clear();
 }
 
-//render methods
-//Render text by rendering from a spritesheet of characters
-void Renderer::renderText(std::string theString, float x, float y) {
+void Renderer::addVertices(GLfloat x, GLfloat y) {
+	vertList.push_back(x);
+	vertList.push_back(y);
+	vertList.push_back(0);
+}
+
+void Renderer::drawLine(glm::vec3 p1, glm::vec3 p2) {
 
 }
 
-//x y is the top left corner
-//add counter clock wise
+void Renderer::renderTriangle(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3) {
+	//Add triangle vertices to vertList
+}
+
 void Renderer::renderRectangle(float x, float y, float width, float height) {
 	//add vertex to list
 	addVertices(x, y);
 	addVertices(x, y - height);
 	addVertices(x + width, y - height);
-	
+
 	addVertices(x + width, y);
 	addVertices(x, y);
 	addVertices(x + width, y - height);
@@ -72,7 +68,6 @@ void Renderer::renderRectangle(float x, float y, float width, float height) {
 
 void Renderer::renderCircle(float x, float y, float radius, int sides) {
 	double pi = 3.14159265358979323846;
-
 	for (int i = 0; i < sides; i++) {
 		GLfloat x1 = x;
 		GLfloat y1 = y;
@@ -89,10 +84,16 @@ void Renderer::renderCircle(float x, float y, float radius, int sides) {
 	};
 }
 
-void renderImage() {
-	//GLuint FramebufferName
+void Renderer::renderPolygon(glm::vec3* points) {
+	//Add polygon verts to vertList
 }
 
-void renderPolygon(float* vertices) {
+void Renderer::renderImage() {
+	//GLuint FramebufferName
+	//Set OpenGL variables to render image at the given location
+}
 
+void Renderer::renderText(std::string theString, float x, float y) {
+	// draw subimages at given location
+	// take in font/font-size
 }

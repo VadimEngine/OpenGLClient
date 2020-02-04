@@ -1,7 +1,7 @@
 #include "ConnectionTCP.h"
 
-ConnectionTCP::ConnectionTCP() {}
 
+ConnectionTCP::ConnectionTCP() {}
 
 void ConnectionTCP::setWindow(Window* myWindow) {
 	window = myWindow;

@@ -1,5 +1,6 @@
 #include "Handler.h"
 
+
 Handler::Handler(int count)
 	:keys{}, isServer(false) {
 	Shader* myShader = new Shader("src/shaders/sandbox.vert",
@@ -85,7 +86,6 @@ void Handler::addObj(GameObject* obj) {
 void Handler::collide(GameObject* obj1, GameObject* obj2) {
 	float dist = sqrt(pow(obj1->position.x - obj2->position.x, 2)
 				       + pow(obj1->position.y - obj2->position.y, 2));
-
 	if (dist <= obj1->radius) {
 		glm::vec2 temp = glm::vec2(obj1->velocity.x, obj1->velocity.y);
 		obj1->velocity.x = obj2->velocity.x * 1.0f;

@@ -61,5 +61,4 @@ public:
 	/// Close winsock and socket.
 	/// </summary>
 	void UDPClose();
-
 };
