@@ -48,7 +48,7 @@ void Renderer::addVertices(GLfloat x, GLfloat y) {
 }
 
 void Renderer::drawLine(glm::vec3 p1, glm::vec3 p2) {
-
+	//draw line
 }
 
 void Renderer::renderTriangle(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3) {

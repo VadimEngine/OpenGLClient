@@ -2,7 +2,12 @@
 #include <iostream>
 #include "../Engine/Handler.h"
 
-
+/// <summary>
+/// IHandles the window logic for openGL, tells handler to render/update
+/// </summary>
+/// <remarks>
+/// Tracks user inut should be static and only in 1 location. Maybe in handler
+/// </remarks>
 class Window {
 public:
 	/// <summary>
@@ -49,7 +54,6 @@ public:
 	/// </summary>
 	GLboolean shouldClose();
 
-
 	/// <summary>
 	/// Updates the game, expected to be called 60 times a second
 	/// </summary>
@@ -66,13 +70,7 @@ public:
 	void render();
 
 	/// <summary>
-	/// Used in server mode to draw a cirlce at the given coordinate. 
-	/// may remove in future if server logic can be moved into window/handler
-	/// </summary>
-	void drawCoords(float x, float y);
-
-	/// <summary>
-	/// Sets whether the game mode is server-mode or none server mode
-	/// </summary>
-	void setServer(bool isServer);
+	/// Tells handler to close down it connection
+	/// </summary
+	void closeConnection();
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <WS2tcpip.h>
-#include "../GUI/Window.h"
+//#include "../GUI/Window.h"
 
 
 /// <summary> 
@@ -9,12 +9,6 @@
 /// </summary> 
 class ConnectionTCP {
 public:
-	
-	/// <summary> 
-	/// Window that displays the data sent between server and client
-	/// </summary> 
-	Window* window;
-	
 	/// <summary> 
 	/// Sock. TODO: look into what it does
 	/// </summary> 
@@ -25,24 +19,20 @@ public:
 	/// </summary> 
 	ConnectionTCP();
 
-	/// <summary> 
-	/// Set the window that will be updated by this connection
-	/// </summary> 
-	void setWindow(Window* myWindow);
-
 	/// <summary>
 	/// Inital connection to the server. Temporarily only connects to 
 	/// server on local host
 	/// </summary>
 	bool TCPConnect();
 
-	/// <summary>
-	/// Listen to server and update internal data accordinly
+	/// <summary
+	/// Method to retreive data from the server. fills the
+	/// float array up to index size-1.
 	/// </summary>
-	void TCPlisten();
+	void TCPGetData(void* data, int& size);
 
 	/// <summary> 
-	/// Send data to the server
+	/// Send data to the server.
 	/// </summary>
 	void TCPsendData(void* data, int size);//might need size. TCP?
 

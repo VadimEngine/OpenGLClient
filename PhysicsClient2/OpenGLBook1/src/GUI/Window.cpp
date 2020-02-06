@@ -6,6 +6,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);//mouse_move
 void mouse_enter_callback(GLFWwindow* window, int entered);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
+
+///Have a window.start method to start the openGL stuff?
 Window::Window(GLuint width, GLuint height, GLuint count) {
 	leftClick = false;
 	mousePosition = glm::vec2(0,0);
@@ -57,8 +59,9 @@ GLboolean Window::shouldClose() {
 }
 
 void Window::update() {
-	if (!handler->isServer) {
+	if (handler->connect->theModeInt == 0) {
 		if (leftClick) {
+			//this shold be in handler
 			handler->addObj(new GameObject(mousePosition.x, mousePosition.y, false));
 			leftClick = false;
 		}
@@ -75,30 +78,10 @@ void Window::render() {
 	glfwSwapBuffers(window);
 }
 
-//render client coords
-void Window::drawCoords(float x, float y) {
-	float radius = 0.05f;
-	float sides = 20;
-	double pi = 3.14159265358979323846;
-
-	for (int j = 0; j < sides; j++) {
-		GLfloat x1 = x;
-		GLfloat y1 = y;
-
-		GLfloat x2 = x + cos((2 * pi / (float)sides) * (float)j) * radius;
-		GLfloat y2 = y + sin((2 * pi / (float)sides) * (float)j) * radius;
-
-		GLfloat x3 = x + cos((2 * pi / (float)sides) * (float)(j + 1)) * radius;
-		GLfloat y3 = y + sin((2 * pi / (float)sides) * (float)(j + 1)) * radius;
-
-		handler->renderer->addVertices(x1, y1);
-		handler->renderer->addVertices(x2, y2);
-		handler->renderer->addVertices(x3, y3);
+void Window::closeConnection() {
+	if (handler->connect->theModeInt != 0) {
+		handler->connect->close();
 	}
-}
-
-void Window::setServer(bool isServer) {
-	handler->isServer = isServer;
 }
 
 //Call back functions
@@ -132,6 +115,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	GLfloat mx = ((2.0 * xpos / winWidth) - 1.0);
 	GLfloat my = (1.0 - (2.0 * ypos / winHeight));
 	((Window*)glfwGetWindowUserPointer(window))->mousePosition = glm::vec2(mx, my);
+	((Window*)glfwGetWindowUserPointer(window))->handler->mouseCoords = glm::vec2(mx, my);
 }
 
 /// <summary>
@@ -141,14 +125,16 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 void mouse_enter_callback(GLFWwindow* window, int entered) {}
 
 /// <summary>
-/// 
+///  Mouse click call back, sets left click in window and handler
 /// </summary>
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 		((Window*)glfwGetWindowUserPointer(window))->leftClick = true;
+		((Window*)glfwGetWindowUserPointer(window))->handler->leftClick = true;
 	}
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
 		((Window*)glfwGetWindowUserPointer(window))->leftClick = false;
+		((Window*)glfwGetWindowUserPointer(window))->handler->leftClick = false;
 	}
 }
 

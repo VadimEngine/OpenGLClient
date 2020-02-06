@@ -2,12 +2,9 @@
 
 ConnectionUDP::ConnectionUDP() {}
 
-void ConnectionUDP::setWindow(Window* myWindow) {
-	window = myWindow;
-}
-
-// make intand return code
+// make int and return code
 int ConnectionUDP::UDPConnect() {
+	std::cout << "UDPConnect" << std::endl;
 	WSADATA data;
 	WORD version = MAKEWORD(2, 2);
 	int wsOK = WSAStartup(version, &data);
@@ -16,7 +13,6 @@ int ConnectionUDP::UDPConnect() {
 		return false;
 	}
 	//create a hint structure for the server
-	/*sockaddr_in UDPserver;*/
 	UDPserver.sin_family = AF_INET;
 	UDPserver.sin_port = htons(54000);
 
@@ -36,7 +32,6 @@ int ConnectionUDP::UDPConnect() {
 	int serverLength = sizeof(UDPserver);
 	int bytesIn = recvfrom(UDPout, buf, 1024, 0, (sockaddr*)&UDPserver, &serverLength);//recvfrom= UDP?
 
-
 	if (bytesIn == -1) {
 		return -1;
 	} else {
@@ -49,23 +44,22 @@ int ConnectionUDP::UDPConnect() {
 	}
 }
 
-// Let user know if lost connection?
-void ConnectionUDP::UDPListen() {
+void ConnectionUDP::UDPGetData(void* data, int& size) {
+	std::cout << "UDPGetData" << std::endl;
 	char buf[1024];
 	int serverLength = sizeof(UDPserver);
 	int bytesIn = recvfrom(UDPout, buf, 1024, 0, (sockaddr*)&UDPserver, &serverLength);//recvfrom= UDP?
-	if (bytesIn != SOCKET_ERROR) {
-		//Draw coordinates
-		for (int i = 0; i < bytesIn / sizeof(float); i += 2) {
-			float x1 = ((float*)buf)[i];
-			float y1 = ((float*)buf)[i + 1];
-			window->drawCoords(x1, y1);//change to be same as in renderer
+	if (size != SOCKET_ERROR) {
+		size = bytesIn / 3;
+		for (int i = 0; i < size; i++) {
+			((float*)data)[i] = ((float*)buf)[i];
 		}
 	}
 }
 
-void ConnectionUDP::UDPSend(char* data, int size) {
-	int sendok = sendto(UDPout, data, size, 0, (sockaddr*)&UDPserver, sizeof(UDPserver));
+void ConnectionUDP::UDPSend(void* data, int size) {
+	std::cout << "UDPSend" << std::endl;
+	int sendok = sendto(UDPout, (char*)data, size, 0, (sockaddr*)&UDPserver, sizeof(UDPserver));
 
 	if (sendok == SOCKET_ERROR) {
 		std::cout << "Sendto error: " << WSAGetLastError() << std::endl;
@@ -73,6 +67,7 @@ void ConnectionUDP::UDPSend(char* data, int size) {
 }
 
 void ConnectionUDP::UDPClose() {
+	std::cout << "UDPClose" << std::endl;
 	closesocket(UDPout);
 	WSACleanup();
 }

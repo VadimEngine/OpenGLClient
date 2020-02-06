@@ -3,8 +3,8 @@
 #include <iostream>
 #include <unordered_map>
 
-#include "Particle.h"
-#include "Handler.h"
+#include "../Physics/Particle.h"
+#include "../Physics/Handler.h"
 
 
 class ConnectionUDP {

@@ -3,32 +3,6 @@
 
 ConnectionTCP::ConnectionTCP() {}
 
-void ConnectionTCP::setWindow(Window* myWindow) {
-	window = myWindow;
-}
-
-void ConnectionTCP::TCPlisten() {
-	char buf[4096];
-	ZeroMemory(buf, 4096);
-	int bytesRecieved = recv(sock, buf, 4096, 0);
-
-	//for now do this here
-	for (int i = 0; i < bytesRecieved / sizeof(float); i +=2) {
-		float x1 = ((float*)buf)[i];
-		float y1 = ((float*)buf)[i + 1];
-		window->drawCoords(x1, y1);//change to be same as in renderer
-	}
-}
-
-void ConnectionTCP::TCPsendData(void* data, int size) {
-	int sendResult = send(sock, (char*)data, size, 0);
-}
-
-void ConnectionTCP::TCPclose() {
-	closesocket(sock);
-	WSACleanup();
-}
-
 bool ConnectionTCP::TCPConnect() {
 	std::string ipAddress = "127.0.0.1";	//ip address of the server
 	int port = 54000;						//Listening port number on the server
@@ -65,4 +39,24 @@ bool ConnectionTCP::TCPConnect() {
 		return true;
 	}
 	return false;
+}
+
+void ConnectionTCP::TCPGetData(void* data, int& size) {
+	char buf[4096];
+	ZeroMemory(buf, 4096);
+	int bytesRecieved = recv(sock, buf, 4096, 0);
+
+	size = bytesRecieved / sizeof(float);
+	for (int i = 0; i < size; i++) {
+		((float*)data)[i] = ((float*)buf)[i];
+	}
+}
+
+void ConnectionTCP::TCPsendData(void* data, int size) {
+	int sendResult = send(sock, (char*)data, size, 0);
+}
+
+void ConnectionTCP::TCPclose() {
+	closesocket(sock);
+	WSACleanup();
 }

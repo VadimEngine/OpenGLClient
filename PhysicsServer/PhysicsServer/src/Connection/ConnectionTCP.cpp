@@ -98,7 +98,7 @@ void listenClient(void* data, Handler* handler) {
 
 			//delete[] temp;
 			delete temp2;
-		} else if (((float*)chunk)[0] == -1) {
+		} else if (((float*)chunk)[0] == -2) {
 			handler->add(((float*)chunk)[1], ((float*)chunk)[2]);
 		}
 

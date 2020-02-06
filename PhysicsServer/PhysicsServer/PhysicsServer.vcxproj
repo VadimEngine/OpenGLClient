@@ -123,18 +123,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConnectionTCP.cpp" />
-    <ClCompile Include="ConnectionUDP.cpp" />
-    <ClCompile Include="Driver.cpp" />
-    <ClCompile Include="Handler.cpp" />
-    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="src\Connection\ConnectionTCP.cpp" />
+    <ClCompile Include="src\Connection\ConnectionUDP.cpp" />
+    <ClCompile Include="src\Driver.cpp" />
+    <ClCompile Include="src\Physics\Handler.cpp" />
+    <ClCompile Include="src\Physics\Particle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Client.h" />
-    <ClInclude Include="ConnectionTCP.h" />
-    <ClInclude Include="ConnectionUDP.h" />
-    <ClInclude Include="Handler.h" />
-    <ClInclude Include="Particle.h" />
+    <ClInclude Include="src\Connection\Client.h" />
+    <ClInclude Include="src\Connection\ConnectionTCP.h" />
+    <ClInclude Include="src\Connection\ConnectionUDP.h" />
+    <ClInclude Include="src\Physics\Handler.h" />
+    <ClInclude Include="src\Physics\Particle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

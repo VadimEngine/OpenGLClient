@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Connection\Connection.cpp" />
     <ClCompile Include="src\Connection\ConnectionTCP.cpp" />
     <ClCompile Include="src\Connection\ConnectionUDP.cpp" />
     <ClCompile Include="src\Engine\Driver.cpp" />
@@ -149,6 +150,7 @@
     <None Include="src\shaders\sandbox.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Connection\Connection.h" />
     <ClInclude Include="src\Connection\ConnectionTCP.h" />
     <ClInclude Include="src\Connection\ConnectionUDP.h" />
     <ClInclude Include="src\Engine\Handler.h" />

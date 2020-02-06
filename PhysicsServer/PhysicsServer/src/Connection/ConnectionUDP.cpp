@@ -55,10 +55,11 @@ void ConnectionUDP::listen() {
 
 		//Inital connection
 		if (((float*)buf)[0] == -9) {
-			int temp = ((float*)buf)[1];
-			std::cout << "User connect with id:" << temp << std::endl;
+			int tempId = ((float*)buf)[1];
+			std::cout << "User connect with id:" << tempId << std::endl;
 
-			clientId = clientIp+temp;
+			clientId = clientIp+tempId;
+			std::cout << "CliendID: " << clientId << "  " << tempId << std::endl;
 
 			if (clientMap.find(clientId) == clientMap.end()) {
 				//add client
@@ -75,14 +76,14 @@ void ConnectionUDP::listen() {
 			}
 			//check if id is taken
 		} else {
-			int temp = ((float*)buf)[3];
-			clientId = clientIp + temp;
+			int tempId = ((float*)buf)[3];
+			clientId = clientIp + tempId;
 		};
 
 		Particle* temp = clientMap[clientId];
 
-		if (temp != nullptr && ((float*)buf)[0] == -1) {
-			temp->x = ((float*)buf)[1];//exception thrown here? access violation
+		if (temp != nullptr && ((float*)buf)[0] == 1) {
+			temp->x = ((float*)buf)[1];
 			temp->y = ((float*)buf)[2];
 			//std::cout << "P:" << p->x << ", " << p->y << std::endl;
 		}

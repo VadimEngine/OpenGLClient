@@ -3,12 +3,19 @@
 #include "GameObject.h"
 #include "../Graphics/Shader.h"
 #include "../Graphics/Renderer.h"
+//#include "../Connection/ConnectionTCP.h"
+//#include "../Connection/ConnectionUDP.h"
+#include "../Connection/Connection.h"
 
 
 /// <summary>
 /// Class to handle the game enviornment, iterates through all
-/// game objects and updates/renders them
+/// game objects and updates/renders them. Has a connection object
+/// to manage its server connection if needed
 /// </summary>
+/// <remarks>
+/// Confirm destructor is deleting correctly
+/// </remarks>
 class Handler {
 public:
 	/// <summary>
@@ -29,18 +36,27 @@ public:
 	std::vector<GameObject*> objs;
 
 	/// <summary>
-	/// If the game is running is server-mode
-	/// </summary>
-	bool isServer;
-
-	/// <summary>
 	/// boolean array to track which keys are pressed, updated by
 	/// the window
 	/// </summary>
 	/// <remarks>
-	/// Might be better if this was static
+	/// Might be better if this was static. should be in same location
+	/// as the leftclick/mouseCoords variables
 	/// </remarks>
 	GLboolean keys[1024];
+
+	/// <summary>
+	/// If left click is pressed.
+	/// </summary
+	bool leftClick;
+
+	/// <summary>
+	/// Tracks the mouse coordinates -1 to 1 for x and y
+	/// relative to OpenGL coordinate system 
+	/// </summary
+	glm::vec2 mouseCoords;
+
+	Connection* connect;
 
 public:
 	/// <summary>
@@ -74,4 +90,22 @@ public:
 	/// by swapping their velocities
 	/// </summary>
 	void collide(GameObject* obj1, GameObject* obj2);
+
+	/// <summary>
+	/// Promts the user to decide on the mode the application will run on.
+	/// options are 1) serverless 2)TCP 3)UDP. If connection cannot be
+	/// established or inavlid input is set then the user will be continually
+	/// promted until success.
+	/// </summary>
+	bool connectionProtocol();
+
+	/// <summary>
+	/// Closes down the TCP connection
+	/// </summary>
+	void TCPClose();
+
+	/// <summary>
+	/// Closes down the UPD conneciton
+	/// </summary>
+	void UDPClose();
 };

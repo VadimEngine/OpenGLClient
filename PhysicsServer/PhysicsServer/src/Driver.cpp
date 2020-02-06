@@ -2,9 +2,9 @@
 #include <thread>
 #include <iostream>
 #include <chrono>
-#include "Handler.h"
-#include "ConnectionTCP.h"
-#include "ConnectionUDP.h"
+#include "./Physics/Handler.h"
+#include "./Connection/ConnectionTCP.h"
+#include "./Connection/ConnectionUDP.h"
 
 #pragma comment(lib, "ws2_32.lib")
 

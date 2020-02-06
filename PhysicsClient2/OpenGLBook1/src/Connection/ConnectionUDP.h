@@ -1,20 +1,19 @@
 #pragma once
 #include <iostream>
 #include <WS2tcpip.h>
-#include "../GUI/Window.h"
+//#include "../GUI/Window.h"
 
 /// <summary>
 /// Class to handle UDP connection to server. Only works on local host
-/// for now.
+/// for now. User must select a userId (1-9) in order to connect
+/// and differentiate from other users on this IP.
 /// </summary>
+/// <remarks>
+/// Need to define the constants used to differentiate
+/// what the send/receive data represents
+/// </remarks>
 class ConnectionUDP {
 public:
-
-	/// <summary>
-	/// Window that will be updated by the server
-	/// </summary>
-	Window* window;
-
 	/// <summary>
 	/// Socket address of the server
 	/// </summary>
@@ -36,26 +35,21 @@ public:
 	ConnectionUDP();
 
 	/// <summary>
-	/// Sets the window that will be updated by this connection
-	/// </summary>
-	void setWindow(Window* myWindow);
-
-	/// <summary>
 	/// Inital connection to UDP server. Temporaily only connects
 	/// to server on olocal host.
 	/// </summary>
 	int UDPConnect();
 
 	/// <summary>
-	/// Listens to UDP server and updates the client data accordingly.
-	/// Only listens for server particle coordinates that will be rendered.
+	/// Gets data from the server. Fills the float array to
+	/// index size-1
 	/// </summary>
-	void UDPListen();
+	void UDPGetData(void* data, int& size);
 
 	/// <summary>
 	/// Send data to the UDP server to update accordingly
 	/// </summary>
-	void UDPSend(char* data, int size);
+	void UDPSend(void* data, int size);
 
 	/// <summary>
 	/// Close winsock and socket.

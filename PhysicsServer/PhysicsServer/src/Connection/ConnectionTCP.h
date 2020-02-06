@@ -2,8 +2,8 @@
 #include <WS2tcpip.h>
 #include <iostream>
 #include <thread>
-#include "Particle.h"
-#include "Handler.h"
+#include "../Physics/Particle.h"
+#include "../Physics/Handler.h"
 
 /*
 Class that establishes TCP connections between this server and 
