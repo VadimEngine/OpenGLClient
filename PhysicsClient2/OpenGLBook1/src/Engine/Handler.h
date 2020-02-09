@@ -56,6 +56,11 @@ public:
 	/// </summary
 	glm::vec2 mouseCoords;
 
+	/// <summary>
+	/// Connection object that handles connection
+	/// to a server, used to connect, send data and get data
+	/// from a server
+	/// </summary>
 	Connection* connect;
 
 public:
@@ -98,14 +103,4 @@ public:
 	/// promted until success.
 	/// </summary>
 	bool connectionProtocol();
-
-	/// <summary>
-	/// Closes down the TCP connection
-	/// </summary>
-	void TCPClose();
-
-	/// <summary>
-	/// Closes down the UPD conneciton
-	/// </summary>
-	void UDPClose();
 };

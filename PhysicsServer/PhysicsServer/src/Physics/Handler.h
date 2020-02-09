@@ -26,4 +26,6 @@ public:
 
 	std::tuple<int, float*> getSendData2();
 
+	static void UpdatePhysics(Handler* handler);
+
 };

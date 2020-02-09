@@ -1,11 +1,9 @@
 #include "ConnectionUDP.h"
 
 
-//have clients send a userid
-ConnectionUDP::ConnectionUDP(Handler* handler) {
-	this->handler = handler;
-}
+ConnectionUDP::ConnectionUDP() {
 
+}
 
 void ConnectionUDP::init() {
 	WSADATA data;
@@ -29,8 +27,7 @@ void ConnectionUDP::init() {
 	}
 }
 
-//disconnect user if no update for too long
-void ConnectionUDP::listen() {
+void ConnectionUDP::communicate(Handler* handler) {
 	sockaddr_in client;
 	int clientLength = sizeof(client);
 	ZeroMemory(&client, clientLength);//zero memory fills block with 0s (doesnt c++ already do that?)
@@ -58,14 +55,14 @@ void ConnectionUDP::listen() {
 			int tempId = ((float*)buf)[1];
 			std::cout << "User connect with id:" << tempId << std::endl;
 
-			clientId = clientIp+tempId;
+			clientId = clientIp + tempId;
 			std::cout << "CliendID: " << clientId << "  " << tempId << std::endl;
 
 			if (clientMap.find(clientId) == clientMap.end()) {
 				//add client
 				clientMap[clientId] = new Particle(0, 0, true);
 				handler->addClient(clientMap[clientId]);
-				float success[1] = {1};
+				float success[1] = { 1 };
 				sendto(in, (char*)success, (1) * sizeof(float), 0, (sockaddr*)&client, sizeof(client));
 
 			} else {
@@ -99,12 +96,15 @@ void ConnectionUDP::listen() {
 	}
 }
 
-//proper close method
+//send to who? pass in client info?
+void ConnectionUDP::sendData(void* data, int size) {
+
+}
+
+void ConnectionUDP::getData(void* data, int& size) {
+
+}
+
 void ConnectionUDP::close() {
-	/*
-	//close that socket
-	closesocket(UDPout);
-	//close down Winsock
-	WSACleanup();
-	*/
+
 }

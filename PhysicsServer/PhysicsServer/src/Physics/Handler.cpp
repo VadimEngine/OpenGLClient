@@ -21,7 +21,6 @@ Handler::~Handler() {
 	}
 	objs.clear();
 	clientObjs.clear();
-
 }
 
 void Handler::update(double dt) {//update properly, float dt?
@@ -51,7 +50,7 @@ void Handler::update(double dt) {//update properly, float dt?
 			Particle* p2 = objs[j];
 
 			float distance = sqrt( pow(p2->x - p1->x,2) + pow(p2->y - p1->y, 2));
-			if (distance < .05f) {
+			if (distance < .04f) {
 				//swap velocities
 				float tempXvel = p1->velx;
 				float tempYvel = p1->vely;
@@ -120,4 +119,17 @@ std::tuple<int, float*> Handler::getSendData2() {
 	mu.unlock();
 
 	return std::make_tuple(tempSize, temp);
+}
+
+void Handler::UpdatePhysics(Handler* handler) {
+	auto last = std::chrono::high_resolution_clock::now();//get current time
+	while (true) {
+		double dt = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - last).count() / 1000000000.0;//get time difference
+		if (dt >= 1.0 / 60.0) {//update if 1/60 seconds has passed in order to update 60 times a second
+			handler->update(dt);
+			last = std::chrono::high_resolution_clock::now();
+		} else {
+			std::this_thread::sleep_for(std::chrono::microseconds(1));//if too fast then sleep
+		}
+	}
 }

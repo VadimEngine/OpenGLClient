@@ -18,33 +18,36 @@
     <ClCompile Include="src\Driver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Connection\ConnectionTCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Connection\ConnectionUDP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Physics\Handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Physics\Particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Connection\Connection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Connection\ConnectionTCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Connection\ConnectionUDP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Connection\Client.h">
+    <ClInclude Include="src\Physics\Handler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Connection\Connection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Connection\ConnectionTCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Connection\ConnectionUDP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Physics\Handler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Physics\Particle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

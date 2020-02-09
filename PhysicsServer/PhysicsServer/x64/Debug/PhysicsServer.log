@@ -1,7 +1,8 @@
-﻿  ConnectionTCP.cpp
-  ConnectionUDP.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Connection\ConnectionUDP.cpp(58,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Connection\ConnectionUDP.cpp(79,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Connection\ConnectionUDP.cpp(96,143): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+﻿  ConnectionUDP2.cpp
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Connection\ConnectionUDP2.cpp(55,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Connection\ConnectionUDP2.cpp(76,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Connection\ConnectionUDP2.cpp(93,143): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Driver.cpp
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Connection\Connection.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   Generating Code...
   PhysicsServer.vcxproj -> C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\x64\Debug\PhysicsServer.exe

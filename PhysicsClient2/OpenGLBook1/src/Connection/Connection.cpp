@@ -1,11 +1,9 @@
 #include "Connection.h"
 
-Connection::Connection() {
-	//std::cout << theMode << std::endl;
-}
+Connection::Connection() {}
 
 void Connection::connectionProtocol() {
-	int stage = 0;
+	int stage = 0;//Switch to enum?
 	bool connected = false;
 	int connectCode;
 	std::string input;
@@ -29,8 +27,8 @@ void Connection::connectionProtocol() {
 
 		case 1://serverless chosen. Running serverless
 			std::cout << "Running program serverless." << std::endl;
-			//theMode = Serverless;
-			theModeInt = 0;
+			theMode = Serverless;
+			//theModeInt = 0;
 			return;
 			break;
 
@@ -53,8 +51,8 @@ void Connection::connectionProtocol() {
 			std::cout << "Attempting to connect to a TCP server..." << std::endl;
 			//do connection
 			if (TCPCon.TCPConnect()) {
-				//theMode = TCP;
-				theModeInt = 1;
+				theMode = TCP;
+
 				return;
 				break;
 			}
@@ -90,8 +88,7 @@ void Connection::connectionProtocol() {
 			//connectCode = con.UDPConnect();
 			connectCode = UDPCon.UDPConnect();
 			if (connectCode == 1) {
-				//theMode = UDP;
-				theModeInt = 2;
+				theMode = UDP;
 				return;
 				break;
 			} else if (connectCode == -2) {
@@ -118,24 +115,12 @@ void Connection::connectionProtocol() {
 	}
 }
 
-//No logic needed here for now?
-int Connection::connect() {
-	return -1;
-	//if (theMode == Serverless) {
-	if (theModeInt == 0) {
-	} else if (theModeInt == 1) {
-		
-	} else if (theModeInt == 2) {
-
-	}
-}
-
 void Connection::sendData(void* data, int size) {
-	if (theModeInt == 0) {
+	if (theMode == Serverless) {
 		return;
-	} else if (theModeInt == 1) {
+	} else if (theMode == TCP) {
 		TCPCon.TCPsendData(data, size);
-	} if (theModeInt == 2) {
+	} if (theMode == UDP) {
 		//append userID to end
 		float* UDPdata = new float[size / sizeof(float) + sizeof(float)];
 		for (int i = 0; i < size / sizeof(float); i++) {
@@ -149,11 +134,11 @@ void Connection::sendData(void* data, int size) {
 }
 
 void Connection::getData(void* data, int& size) {
-	if (theModeInt == 0) {
+	if (theMode == Serverless) {
 		return;
-	} else if (theModeInt == 1) {
+	} else if (theMode == TCP) {
 		TCPCon.TCPGetData(data, size);
-	} else if (theModeInt == 2) {
+	} else if (theMode == UDP) {
 		std::cout << "Get data" << std::endl;
 
 		UDPCon.UDPGetData(data, size);
@@ -162,11 +147,11 @@ void Connection::getData(void* data, int& size) {
 }
 
 void Connection::close() {
-	if (theModeInt == 0) {
+	if (theMode == Serverless) {
 		return;
-	} else if (theModeInt == 1) {
+	} else if (theMode == TCP) {
 		TCPCon.TCPclose();
-	} else if (theModeInt == 2) {
+	} else if (theMode == UDP) {
 		UDPCon.UDPClose();
 	}
 }

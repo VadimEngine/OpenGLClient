@@ -28,7 +28,7 @@ Handler::~Handler() {
 
 void Handler::tick(GLfloat dt) {
 	//do connections
-	if (connect->theModeInt != 0) {
+	if (connect->theMode != Serverless) {
 		int size;
 		float tempData[1024];
 		float temp[3] = { 1, player->position.x, player->position.y };
@@ -96,7 +96,7 @@ void Handler::render() {
 	for (int i = 0; i < objs.size(); i++) {
 		objs[i]->render(renderer);
 	}
-	if (connect->theModeInt == 0) {
+	if (connect->theMode == Serverless) {
 		player->render(renderer);
 	}
 	//Do the actual draw
@@ -124,12 +124,4 @@ void Handler::collide(GameObject* obj1, GameObject* obj2) {
 bool Handler::connectionProtocol() {
 	connect->connectionProtocol();
 	return -1;
-}
-
-void Handler::TCPClose() {
-	connect->close();
-}
-
-void Handler::UDPClose() {
-	connect->close();
 }

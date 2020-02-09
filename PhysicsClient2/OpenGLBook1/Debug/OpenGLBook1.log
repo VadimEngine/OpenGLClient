@@ -1,4 +1,9 @@
-﻿  Connection.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\Connection.cpp(170,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\Connection.cpp(174,41): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  Driver.cpp
+  Window.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\Dependencies\GLFW\include\GLFW\glfw3.h(104): message : see previous definition of 'APIENTRY'
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\GUI\Window.cpp(70,22): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\GUI\Window.cpp(115,13): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\GUI\Window.cpp(116,13): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+  Generating Code...
   OpenGLBook1.vcxproj -> C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\Debug\OpenGLBook1.exe

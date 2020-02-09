@@ -59,7 +59,7 @@ GLboolean Window::shouldClose() {
 }
 
 void Window::update() {
-	if (handler->connect->theModeInt == 0) {
+	if (handler->connect->theMode == Serverless) {
 		if (leftClick) {
 			//this shold be in handler
 			handler->addObj(new GameObject(mousePosition.x, mousePosition.y, false));
@@ -79,7 +79,7 @@ void Window::render() {
 }
 
 void Window::closeConnection() {
-	if (handler->connect->theModeInt != 0) {
+	if (handler->connect->theMode != Serverless) {
 		handler->connect->close();
 	}
 }
