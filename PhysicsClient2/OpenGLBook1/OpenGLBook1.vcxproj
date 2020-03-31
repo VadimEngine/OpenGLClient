@@ -141,6 +141,20 @@
     <ClCompile Include="src\Engine\GameObject.cpp" />
     <ClCompile Include="src\Graphics\Renderer.cpp" />
     <ClCompile Include="src\Graphics\Shander.cpp" />
+    <ClCompile Include="src\GUI\Component\Button.cpp" />
+    <ClCompile Include="src\GUI\Component\Component.cpp" />
+    <ClCompile Include="src\GUI\Component\ListView.cpp" />
+    <ClCompile Include="src\GUI\Component\ListViewElement.cpp" />
+    <ClCompile Include="src\GUI\Pages\ConnectPage.cpp" />
+    <ClCompile Include="src\GUI\Pages\GamePage.cpp" />
+    <ClCompile Include="src\GUI\Pages\InfoPage.cpp" />
+    <ClCompile Include="src\GUI\Pages\IntroPage.cpp" />
+    <ClCompile Include="src\GUI\Pages\LoadPage.cpp" />
+    <ClCompile Include="src\GUI\Pages\MenuPage.cpp" />
+    <ClCompile Include="src\GUI\Pages\Page.cpp" />
+    <ClCompile Include="src\GUI\Component\RadioButtonSet.cpp" />
+    <ClCompile Include="src\GUI\Component\TextField.cpp" />
+    <ClCompile Include="src\GUI\Component\TextInput.cpp" />
     <ClCompile Include="src\GUI\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +171,20 @@
     <ClInclude Include="src\Engine\GameObject.h" />
     <ClInclude Include="src\Graphics\Renderer.h" />
     <ClInclude Include="src\Graphics\Shader.h" />
+    <ClInclude Include="src\GUI\Component\Button.h" />
+    <ClInclude Include="src\GUI\Component\Component.h" />
+    <ClInclude Include="src\GUI\Component\ListViewElement.h" />
+    <ClInclude Include="src\GUI\Pages\ConnectPage.h" />
+    <ClInclude Include="src\GUI\Pages\GamePage.h" />
+    <ClInclude Include="src\GUI\Pages\InfoPage.h" />
+    <ClInclude Include="src\GUI\Pages\IntroPage.h" />
+    <ClInclude Include="src\GUI\Component\ListView.h" />
+    <ClInclude Include="src\GUI\Pages\LoadPage.h" />
+    <ClInclude Include="src\GUI\Pages\MenuPage.h" />
+    <ClInclude Include="src\GUI\Pages\Page.h" />
+    <ClInclude Include="src\GUI\Component\RadioButtonSet.h" />
+    <ClInclude Include="src\GUI\Component\TextField.h" />
+    <ClInclude Include="src\GUI\Component\TextInput.h" />
     <ClInclude Include="src\GUI\Window.h" />
   </ItemGroup>
   <ItemGroup>

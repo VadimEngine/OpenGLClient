@@ -139,10 +139,10 @@ void Connection::getData(void* data, int& size) {
 	} else if (theMode == TCP) {
 		TCPCon.TCPGetData(data, size);
 	} else if (theMode == UDP) {
-		std::cout << "Get data" << std::endl;
+		//std::cout << "Get data" << std::endl;
 
 		UDPCon.UDPGetData(data, size);
-		std::cout << "Get data recived: " << size << std::endl;
+		//std::cout << "Get data recived: " << size << std::endl;
 	}
 }
 

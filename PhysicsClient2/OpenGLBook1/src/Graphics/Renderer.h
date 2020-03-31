@@ -3,6 +3,7 @@
 #include <glm/vec3.hpp>
 #include <vector>
 #include "Shader.h"
+#include <unordered_map>
 
 
 /// <summary>
@@ -14,7 +15,9 @@ public:
 	/// <summary>
 	/// Shader class that is used to render the data
 	/// </summary>
-	Shader* shader;
+	Shader* polygonShader;
+
+	Shader* imageShader;
 
 	/// <summary>
 	///	Vertex array object and vertex buffer object
@@ -22,16 +25,27 @@ public:
 	/// </summary>
 	GLuint VAO, VBO;
 
+	GLuint polyVAO, polyVBO;
+
+	GLuint texture;
+
+	std::unordered_map<char, glm::vec2> charKeyMap;
+
 	/// <summary>
 	/// List of coordinates {x_1, y_1, z_1, ... x_n, y_n, z_n} 
 	// added to render
 	/// </summary>
+	/// <remarks>
+	/// label as for triangles.
+	/// <remarks>
 	std::vector<GLfloat> vertList;
+
+	std::vector<GLfloat> otherVertList;
 
 	/// <summary>
 	/// Constuctor that takes in a Shader to use for rendering
 	/// </summary>
-	Renderer(Shader* shader);
+	Renderer(Shader* polygonShader, Shader* imageShader);
 
 	/// <summary>
 	/// Destrucotr that clears the verList and deletes the Shader
@@ -55,45 +69,35 @@ public:
 	/// </summary>
 	void clear();
 
-	/// <summary>
-	/// Adds coordinates to the vertList at z=0 for rendering
-	/// </summary>
-	void addVertices(GLfloat x, GLfloat y);
+	void addVertexAndColor(glm::vec3 point, glm::vec3 color);
+	
+	void renderLineColor(glm::vec3 p1, glm::vec3 p2, glm::vec3 color, float width);
 
-	/// <summary>
-	/// Draws a line from p1 to p2
-	/// </summary>
-	void drawLine(glm::vec3 p1, glm::vec3 p2);
-
-	/// <summary>
-	/// Draws a triangle with the given corners. Should be counter-clockwise
-	/// </summary>
-	void renderTriangle(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3);
-
-	/// <summary>
-	/// Adds to the verList the corrdinates for a rectangle with the 
-	/// given dimensions and location. Coorinates are added counter clock wise
-	/// to the vertList. x, y is the top left corner
-	/// </summary>
-	void renderRectangle(float x, float y, float width, float height);
-
-	/// <summary>
-	/// Draws a cirlce with its center at (x,y 0) with given radius size.
-	/// the sides determines how "Round" the cirlce is
-	/// </summary>
-	void renderCircle(float x, float y, float radius, int sides);
-
-	/// <summary>
-	/// Place holder method, no yet implemented. Intended to draww
-	// a polygon with the given points
-	/// </summary>
-	void renderPolygon(glm::vec3* points);
+	void renderTriangleColor(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec3 color);
+	
+	void renderRectangleColor(glm::vec3 topLeft, float width, float height, glm::vec3 color);
+	
+	void renderCircleColor(glm::vec3 position, glm::vec3 color, float radius, float sides);
+	
 
 	/// <summary>
 	/// Place holder method, not yet implemented. Intended to draw 
 	/// the given image at a location
 	/// </summary>
-	void renderImage();
+	void renderImage(glm::vec3 position, glm::vec3 color);
+
+	void renderSubImage(glm::vec3 position, glm::vec3 color);
+
+	void renderSubImageAdvanced(glm::vec3 position,
+								glm::vec3 color,
+								float texWidth,
+								float texHeight,
+								float subWidth,
+								float subHeight,
+								float subX,
+								float subY);
+
+	void renderChar(char theChar, glm::vec3 position, glm::vec3 color, float size);
 
 	/// <summary>
 	/// Place holder method, not yet implemented. Intended to draw
@@ -102,5 +106,5 @@ public:
 	/// code and draw the sub image at a location. Will first use a simple
 	/// font with same character sizes
 	/// </summary>
-	void renderText(std::string theString, float x, float y);
+	void renderString(std::string theString, float x, float y);
 };

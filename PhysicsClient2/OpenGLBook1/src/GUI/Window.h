@@ -10,23 +10,6 @@
 /// </remarks>
 class Window {
 public:
-	/// <summary>
-	/// If the left mouse button is pressed
-	/// </summary>
-	/// <remark>
-	/// Change logic in outside code to not set it to false
-	/// when the action happens, instead summon an action on the
-	/// inital click/relase
-	/// </remark>
-	GLboolean leftClick;
-
-	//GLfloat mouseX;//-1.0 to 1.0
-	//GLfloat mouseY;//Vector?
-
-	/// <summary
-	/// Holds the mouse position
-	/// </summary>
-	glm::vec2 mousePosition;
 
 	/// <summary>
 	/// The OpenGl window that holds all the rendering.

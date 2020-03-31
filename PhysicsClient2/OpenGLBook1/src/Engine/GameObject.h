@@ -1,5 +1,6 @@
 #pragma once
 #define GLEW_STATIC
+//why is this here?
 #include <GL/glew.h>//include GLEW before glfw
 #include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
@@ -42,6 +43,9 @@ public:
 	/// calculate its velocity
 	/// </summary>
 	glm::vec2 lastPosition;
+
+	///Color
+	glm::vec3 color;
 
 	/// <summary>
 	/// The speed that the player particle moves 

@@ -45,7 +45,7 @@ int ConnectionUDP::UDPConnect() {
 }
 
 void ConnectionUDP::UDPGetData(void* data, int& size) {
-	std::cout << "UDPGetData" << std::endl;
+	//std::cout << "UDPGetData" << std::endl;
 	char buf[1024];
 	int serverLength = sizeof(UDPserver);
 	int bytesIn = recvfrom(UDPout, buf, 1024, 0, (sockaddr*)&UDPserver, &serverLength);//recvfrom= UDP?
@@ -58,7 +58,7 @@ void ConnectionUDP::UDPGetData(void* data, int& size) {
 }
 
 void ConnectionUDP::UDPSend(void* data, int size) {
-	std::cout << "UDPSend" << std::endl;
+	//std::cout << "UDPSend" << std::endl;
 	int sendok = sendto(UDPout, (char*)data, size, 0, (sockaddr*)&UDPserver, sizeof(UDPserver));
 
 	if (sendok == SOCKET_ERROR) {

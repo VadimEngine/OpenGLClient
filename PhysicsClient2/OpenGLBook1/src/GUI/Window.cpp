@@ -9,8 +9,6 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 ///Have a window.start method to start the openGL stuff?
 Window::Window(GLuint width, GLuint height, GLuint count) {
-	leftClick = false;
-	mousePosition = glm::vec2(0,0);
 	//initilize glfw (graphics library framework)
 	if (!glfwInit()) {
 		std::cout << "ERROR" << std::endl;
@@ -59,13 +57,6 @@ GLboolean Window::shouldClose() {
 }
 
 void Window::update() {
-	if (handler->connect->theMode == Serverless) {
-		if (leftClick) {
-			//this shold be in handler
-			handler->addObj(new GameObject(mousePosition.x, mousePosition.y, false));
-			leftClick = false;
-		}
-	}
 	//need to pass in an accurate delta time?
 	handler->tick(1/60.0);
 }
@@ -95,9 +86,20 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	if (key >= 0 && key < 1024) {
 		if (action == GLFW_PRESS) {
+			//weird GLWF issue where it detects only captial keys, to set the lower case,
+			//need to confirm shfit and/or caplock is not pressed?
 			((Window*)glfwGetWindowUserPointer(window))->handler->keys[key] = true;
+			//using letter key wrong, use to track all renderable characters
+			//if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
+			if ((key >= '.' && key <= 'z')) {
+				((Window*)glfwGetWindowUserPointer(window))->handler->letterKey = true;
+			}
 		} else if (action == GLFW_RELEASE) {
 			((Window*)glfwGetWindowUserPointer(window))->handler->keys[key] = false;
+			//if (key >= 'A' && key <= 'Z' || (key >= 'a' && key <= 'z')) {
+			if ((key >= '.' && key <= 'z')) {
+				((Window*)glfwGetWindowUserPointer(window))->handler->letterKey = false;
+			}
 		}
 	}
 }
@@ -114,7 +116,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 	GLfloat mx = ((2.0 * xpos / winWidth) - 1.0);
 	GLfloat my = (1.0 - (2.0 * ypos / winHeight));
-	((Window*)glfwGetWindowUserPointer(window))->mousePosition = glm::vec2(mx, my);
 	((Window*)glfwGetWindowUserPointer(window))->handler->mouseCoords = glm::vec2(mx, my);
 }
 
@@ -129,11 +130,9 @@ void mouse_enter_callback(GLFWwindow* window, int entered) {}
 /// </summary>
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		((Window*)glfwGetWindowUserPointer(window))->leftClick = true;
 		((Window*)glfwGetWindowUserPointer(window))->handler->leftClick = true;
 	}
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
-		((Window*)glfwGetWindowUserPointer(window))->leftClick = false;
 		((Window*)glfwGetWindowUserPointer(window))->handler->leftClick = false;
 	}
 }

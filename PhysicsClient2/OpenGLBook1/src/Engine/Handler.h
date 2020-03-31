@@ -3,9 +3,15 @@
 #include "GameObject.h"
 #include "../Graphics/Shader.h"
 #include "../Graphics/Renderer.h"
-//#include "../Connection/ConnectionTCP.h"
-//#include "../Connection/ConnectionUDP.h"
 #include "../Connection/Connection.h"
+
+#include "../GUI/Pages/Page.h"
+#include "../GUI/Pages/GamePage.h"
+#include "../GUI/Pages/MenuPage.h"
+#include "../GUI/Pages/IntroPage.h"
+#include "../GUI/Pages/InfoPage.h"
+#include "../GUI/Pages/LoadPage.h"
+#include "../GUI/Pages/ConnectPage.h"
 
 
 /// <summary>
@@ -18,6 +24,17 @@
 /// </remarks>
 class Handler {
 public:
+
+	bool letterKey;
+
+
+	int keyTypeCounter;
+	int lastKey;
+
+
+
+	Page* currentPage;
+
 	/// <summary>
 	/// The player objects that the user controls
 	/// </summary>
@@ -54,6 +71,9 @@ public:
 	/// Tracks the mouse coordinates -1 to 1 for x and y
 	/// relative to OpenGL coordinate system 
 	/// </summary
+	/// <remarks>
+	/// rename to mousePosition
+	/// </remarks>
 	glm::vec2 mouseCoords;
 
 	/// <summary>
@@ -103,4 +123,6 @@ public:
 	/// promted until success.
 	/// </summary>
 	bool connectionProtocol();
+
+	void initGame();
 };

@@ -17,8 +17,8 @@ int main() {
 	//Memory leak check
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	std::cout << "Program started..." << std::endl;
-	Window* myWindow = new Window(800, 800, 0);
-	myWindow->handler->connectionProtocol();
+	Window* myWindow = new Window(600, 800, 0);
+	//myWindow->handler->connectionProtocol();
 
 	//Add a Max FPS option (other than 60)
 	int frames = 0;
