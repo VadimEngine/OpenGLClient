@@ -1,25 +1,5 @@
-﻿  Connection.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Connection\Connection.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  ConnectionTCP.cpp
-  ConnectionUDP.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Connection\ConnectionUDP.cpp(55,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Connection\ConnectionUDP.cpp(76,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Connection\ConnectionUDP.cpp(93,143): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  Driver.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Connection\Connection.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Handler.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Handler.cpp(28,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Handler.cpp(36,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Handler.cpp(108,60): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Particle.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Particle.cpp(26,17): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Particle.cpp(27,17): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Particle.cpp(29,20): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Particle.cpp(33,19): warning C4305: '*=': truncation from 'double' to 'float'
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Particle.cpp(38,19): warning C4305: '*=': truncation from 'double' to 'float'
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Particle.cpp(43,19): warning C4305: '*=': truncation from 'double' to 'float'
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Particle.cpp(48,19): warning C4305: '*=': truncation from 'double' to 'float'
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Particle.cpp(52,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Particle.cpp(53,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
+﻿  Handler.cpp
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Handler.cpp(29,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Handler.cpp(37,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Handler.cpp(110,60): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   PhysicsServer.vcxproj -> C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\x64\Debug\PhysicsServer.exe

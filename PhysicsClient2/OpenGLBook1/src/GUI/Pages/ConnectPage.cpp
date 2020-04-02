@@ -12,7 +12,7 @@ ConnectPage::ConnectPage() {
 		//glm::vec3(.4, .4, .4), "", glm::vec2(.3, .1));
 
 	ipInput = new TextInput(glm::vec3(0 - (.3 / 2.0), -.3, 0),
-		glm::vec3(.4, .4, .4), "", glm::vec2(.3, .1));
+		glm::vec3(.4, .4, .4), "127.0.0.1", glm::vec2(.3, .1));
 	components.push_back(ipInput);
 
 
@@ -20,7 +20,7 @@ ConnectPage::ConnectPage() {
 		glm::vec3(.4, .4, .4), "SERVER IP", glm::vec2(.3, .1)));
 
 	idInput = new TextInput(glm::vec3(0 - (.3 / 2.0), -.6, 0),
-		glm::vec3(.4, .4, .4), "", glm::vec2(.3, .1));
+		glm::vec3(.4, .4, .4), "1", glm::vec2(.3, .1));
 
 	components.push_back(idInput);
 
@@ -36,7 +36,7 @@ ConnectPage::ConnectPage() {
 	components.push_back(connectModeInput);
 
 	connectStatus = new TextField(glm::vec3(0 - (.3 / 2.0), -.95, 0),
-		glm::vec3(.4, .4, .4), "STATUS: CANT CONNECT", glm::vec2(.3, .1));
+		glm::vec3(.4, .4, .4), "STATUS:", glm::vec2(.3, .1));
 
 	components.push_back(connectStatus);
 
@@ -97,15 +97,12 @@ void ConnectPage::mouseClick(glm::vec2 mouseClick) {
 
 			// confirm valid inputs
 			if (validIp && (mode._Equal("TCP") || (mode._Equal("UDP") && validId)) ) {
-			//if (true) {
-			// do connection
-
 				std::cout << "Connecting: " << mode << " ip: " << ip << " id: " << id << std::endl;
 				doConnect = true;
-				this->connectStatus->text = "Connecting...";
+				this->connectStatus->text = "STATUS: Connecting...";
 				nextPage = new GamePage();
 			} else {
-				this->connectStatus->text = "Invaid connect input";
+				this->connectStatus->text = "STATUS: Invaid connect input";
 			}
 
 		}

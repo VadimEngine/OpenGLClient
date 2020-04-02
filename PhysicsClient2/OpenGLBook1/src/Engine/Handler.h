@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "GameObject.h"
+#include "GameHandler.h"
 #include "../Graphics/Shader.h"
 #include "../Graphics/Renderer.h"
 #include "../Connection/Connection.h"
@@ -38,13 +39,15 @@ public:
 	/// <summary>
 	/// The player objects that the user controls
 	/// </summary>
-	GameObject* player;
+	//GameObject* player;
 
 	/// <summary>
 	/// The renderer object that takes in input and renders
 	/// using OpenGL
 	/// </summary>
 	Renderer* renderer;
+
+	GameHandler* gameHandler;
 
 	/// <summary>
 	/// List of all objects in the game enviornment. This handler

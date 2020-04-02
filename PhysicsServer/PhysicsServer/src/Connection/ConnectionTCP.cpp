@@ -36,9 +36,37 @@ void ConnectionTCP::init() {
 		std::cout << "iResult failed " << GetLastError() << std::endl;
 		exit(-1);//Exit() instead?
 	}
+
+//cancel warning for now until optimization and discover how to replace:
+// 'gethostbyname': Use getaddrinfo() or GetAddrInfoW()
+// 'inet_ntoa': Use inet_ntop() or InetNtop() instead
+#pragma warning( disable : 4996)
+
+	char ac[80];
+	if (gethostname(ac, sizeof(ac)) == SOCKET_ERROR) {
+		std::cerr << "Error " << WSAGetLastError() <<
+			" when getting local host name." << std::endl;
+		//return 1;
+	}
+	std::cout << "Host name is " << ac << "." << std::endl;
+
+	struct hostent* phe = gethostbyname(ac);
+	if (phe == 0) {
+		std::cerr << "Yow! Bad host lookup." << std::endl;
+		//return 1;
+	}
+
+	for (int i = 0; phe->h_addr_list[i] != 0; ++i) {
+		struct in_addr addr;
+		memcpy(&addr, phe->h_addr_list[i], sizeof(struct in_addr));
+		std::cout << "Address " << i << ": " << inet_ntoa(addr) << std::endl;
+	}
+
+
 }
 
 void ConnectionTCP::communicate(Handler* handler) {
+	//sned world name to client when they first connect
 	while(true) {
 		client = accept(sock, 0, 0);
 		if (client == INVALID_SOCKET) {
@@ -64,8 +92,8 @@ void ConnectionTCP::close() {
 }
 
 void listenClient2(void* data, Handler* handler) {
-	SOCKET* client = (SOCKET*)data;
-	SOCKET Client = *client;
+	//SOCKET* client = (SOCKET*)data;
+	SOCKET Client = *((SOCKET*)data);
 	std::cout << "Client connected" << std::endl;
 
 	Particle* p = new Particle(0, 0, true);//temp position
@@ -80,7 +108,7 @@ void listenClient2(void* data, Handler* handler) {
 			int size2;
 			float* temp2;
 			//Comment out until handler is figured out
-			std::tie(size2, temp2) = handler->getSendData2();;
+			std::tie(size2, temp2) = handler->getSendData2();
 			send(Client, (char*)temp2, size2 * sizeof(float), 0);
 
 			delete[] temp2;

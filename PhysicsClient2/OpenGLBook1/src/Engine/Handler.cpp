@@ -4,9 +4,10 @@
 Handler::Handler(int count)
 	:keys{}, leftClick(false) {
 	connect = new Connection();
-	connect->theMode = Serverless;
+	connect->theMode = ConnectionMode::Serverless;
 	mouseCoords = glm::vec2(0,0);
-	player = nullptr;
+	//player = nullptr;
+	lastKey = 0;
 	Shader* polygonShader = new Shader("src/shaders/sandbox.vert",
 									"src/shaders/sandbox.frag");//delete in desctructor
 
@@ -26,9 +27,11 @@ Handler::Handler(int count)
 }
 
 Handler::~Handler() {
+	/*
 	if (player != nullptr) {
 		delete player;
 	}
+	*/
 	delete renderer;
 	for (GameObject* p: objs) {
 		delete p;
@@ -37,8 +40,12 @@ Handler::~Handler() {
 }
 
 void Handler::initGame() {
-	player = new GameObject(0, 0, true);
-
+	//GameHandler
+	if (gameHandler != nullptr) {
+		delete gameHandler;
+	}
+	gameHandler = new GameHandler(connect->theMode != ConnectionMode::Serverless);
+	//player = new GameObject(0, 0, true);
 }
 
 
@@ -47,8 +54,8 @@ void Handler::tick(GLfloat dt) {
 	int size;
 	float tempData[1024];
 	if (connect->theMode != Serverless) {
-		if (player != nullptr) {
-			float temp[3] = { 1, player->position.x, player->position.y };
+		if (gameHandler->player != nullptr) {
+			float temp[3] = { 1, gameHandler->player->position.x, gameHandler->player->position.y };
 			connect->sendData(temp, 3 * sizeof(float));
 		}
 		connect->getData(tempData, size);
@@ -62,19 +69,23 @@ void Handler::tick(GLfloat dt) {
 		if (leftClick) {
 			float toSend[3] = { -2, mouseCoords.x, mouseCoords.y };
 			connect->sendData(toSend, 3 * sizeof(float));
-			leftClick = false;
+			//leftClick = false;
 		}
 	}
 
 
 	if (currentPage->type == Game) {
+		if (gameHandler != nullptr) {
+			gameHandler->tick(dt, leftClick, keys);
+		}
+		/*
 		for (int i = 0; i < objs.size(); i++) {
 			objs[i]->tick(dt, keys);
 		}
 		if (player != nullptr) {
 			player->tick(dt, keys);
 		}
-
+		
 		//Do gravity and in-bounds (can be do in obj?)
 		for (int i = 0; i < objs.size(); i++) {
 			GameObject* obj = objs[i];
@@ -111,6 +122,7 @@ void Handler::tick(GLfloat dt) {
 				collide(player, objs[i]);
 			}
 		}
+		*/
 	}
 
 	if (currentPage != nullptr) {
@@ -118,6 +130,7 @@ void Handler::tick(GLfloat dt) {
 		currentPage->mouseHover(mouseCoords);
 		if (leftClick) {
 			currentPage->mouseClick(mouseCoords);
+			std::cout << "Click page" << std::endl;
 		}
 		if (currentPage->nextPage != nullptr) {
 			//if going from connect to game
@@ -132,7 +145,7 @@ void Handler::tick(GLfloat dt) {
 					//connect->connectionProtocol();
 					//Assume TCP
 					if (mode._Equal("TCP")) {
-						if (connect->TCPCon.TCPConnect()) {
+						if (connect->TCPCon.TCPConnect(54000, ip)) {
 							connect->theMode = TCP;
 							initGame();
 							currentPage = currentPage->nextPage;
@@ -163,7 +176,7 @@ void Handler::tick(GLfloat dt) {
 				}
 
 
-			} else if (currentPage->nextPage->type == Game && player == nullptr) {
+			} else if (currentPage->nextPage->type == Game) {
 				//not sure what this block is for...
 				currentPage = currentPage->nextPage;
 				initGame();
@@ -174,15 +187,16 @@ void Handler::tick(GLfloat dt) {
 		}
 	}
 
-	if (leftClick && connect->theMode == Serverless) {
+	if (leftClick && connect->theMode == ConnectionMode::Serverless) {
 		if (currentPage->type == Game) {
-			addObj(new GameObject(mouseCoords.x, mouseCoords.y, false));
-			leftClick = false;
+			gameHandler->addObj(new GameObject(mouseCoords.x, mouseCoords.y, false));
+			//GameHandler
+			//addObj(new GameObject(mouseCoords.x, mouseCoords.y, false));
 		}
 	}
-	leftClick = false;
+	
 
-	if (currentPage->type == Connect) {
+	if (currentPage->type == PageType::Connect) {
 		//if last key = this key then increment key counter, else set to 0
 		//if keyCounter > 60 then add key
 		// Very convoluded logic, will replace later:
@@ -225,17 +239,32 @@ void Handler::tick(GLfloat dt) {
 
 		if (keyTypeCounter != 0 && keyTypeCounter < 15) {
 			keyTypeCounter = (keyTypeCounter + 1) % 15;
-			std::cout << "keyTypeCounter: " << keyTypeCounter << std::endl;
 		}
 
 	}
+
+	if (currentPage->type != PageType::Game && gameHandler != nullptr) {
+		delete gameHandler;
+		gameHandler = nullptr;
+		connect->close();
+		connect->theMode = ConnectionMode::Serverless;
+		
+
+		//connect->theMode = ConnectionMode::Serverless;
+		//disconnect from server
+	}
+	//do not carry the left click into the next tick
+	leftClick = false;
 
 }
 
 void Handler::render() {
 	//Add all the objects shape to the render
 	// dont render these if serverless?
-	if (currentPage->type == Game) {	
+	if (currentPage->type == Game) {
+		//GameHandler
+		gameHandler->render(renderer);
+		/*
 		for (int i = 0; i < objs.size(); i++) {
 			objs[i]->render(renderer);
 		}
@@ -244,11 +273,11 @@ void Handler::render() {
 				player->render(renderer);
 			}
 		}
+		*/
 	}
 	if (currentPage != nullptr) {
 		currentPage->render(renderer);
 	}
-
 
 	//Do the actual draw
 	renderer->Draw();
@@ -256,7 +285,8 @@ void Handler::render() {
 
 
 void Handler::addObj(GameObject* obj) {
-	objs.push_back(obj);
+	//objs.push_back(obj);
+	gameHandler->addObj(obj);
 }
 
 void Handler::collide(GameObject* obj1, GameObject* obj2) {

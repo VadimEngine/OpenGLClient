@@ -13,8 +13,12 @@ int main() {
 	std::cout << "MEMleak check " << std::endl;
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);//Uncomment this line to check for memory leaks
 #endif
+	std::string worldName;
 
-	Handler* handler = new Handler(10);
+	std::cout << "Enter a world name for this Server\n>";
+	std::cin >> worldName;
+
+	Handler* handler = new Handler(10, worldName);
 
 	std::thread(Handler::UpdatePhysics, handler).detach();
 	Connection* connect = new Connection(handler);

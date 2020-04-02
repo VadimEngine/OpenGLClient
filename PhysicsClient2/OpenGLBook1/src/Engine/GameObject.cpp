@@ -3,6 +3,7 @@
 
 GameObject::GameObject(GLfloat x, GLfloat y, GLboolean isPlayer)
 	:isPlayer(isPlayer) {
+	//create seperate class for player that extends GameObject
 	radius = .04f;
 	position = glm::vec2(x, y);
 	float randXVel = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
@@ -55,5 +56,5 @@ void GameObject::render(Renderer* renderer) {
 	//renderer->renderSubImageAdvanced(glm::vec3(position, 0.0), color,
 	//		256, 32, 6, 8, 0, 1);
 
-	renderer->renderString("TEST", position.x, position.y);
+	//renderer->renderString("TEST", position.x, position.y);
 }

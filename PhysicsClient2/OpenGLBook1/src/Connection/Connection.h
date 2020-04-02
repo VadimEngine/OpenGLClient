@@ -23,6 +23,7 @@ class Connection {
 public:
 	/// <summary>
 	/// The mode that the connection is handled
+	/// change to pointer
 	/// </summary>
 	ConnectionMode theMode;
 
@@ -30,6 +31,7 @@ public:
 	/// TCP connection object, used to handle
 	/// connecting, sending, and getting data
 	/// from TCP sever
+	/// change to pointer
 	/// </summary>
 	ConnectionTCP TCPCon;
 
@@ -37,6 +39,7 @@ public:
 	/// UDP connection object, used to handle
 	/// connecting, sending, and getting data from
 	/// UDP server
+	/// change to pointer
 	/// </summary>
 	ConnectionUDP UDPCon;
 

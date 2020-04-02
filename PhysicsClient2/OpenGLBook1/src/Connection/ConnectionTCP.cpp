@@ -1,12 +1,21 @@
 #include "ConnectionTCP.h"
 
 
-ConnectionTCP::ConnectionTCP() {}
+ConnectionTCP::ConnectionTCP() {
+	//assume prot 54000 and local host
+	//port = 54000;
+	//ipAddress = "127.0.0.1";
+	//"192.168.0.108";//got from ipconfig
+}
 
-bool ConnectionTCP::TCPConnect() {
-	std::string ipAddress = "127.0.0.1";	//ip address of the server
-	int port = 54000;						//Listening port number on the server
+ConnectionTCP::ConnectionTCP(int port, std::string ipAddress) {
+	//assume prot 54000 and local host
+	//port = port;
+	//this->ipAddress = ipAddress;
+}
 
+
+bool ConnectionTCP::TCPConnect(int port, std::string ipAddress) {
 	//Initilize winsock
 	WSADATA data;
 	WORD ver = MAKEWORD(2, 2);
@@ -48,6 +57,8 @@ void ConnectionTCP::TCPGetData(void* data, int& size) {
 
 	size = bytesRecieved / sizeof(float);
 	for (int i = 0; i < size; i++) {
+		//execption here when server is disconnect suddenly, check befre going into this line
+		// access violation writing location
 		((float*)data)[i] = ((float*)buf)[i];
 	}
 }

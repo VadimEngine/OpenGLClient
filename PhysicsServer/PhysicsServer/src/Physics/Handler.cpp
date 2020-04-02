@@ -4,7 +4,8 @@
 
 std::mutex mu;
 
-Handler::Handler(int pCount) {
+Handler::Handler(int pCount, std::string worldName)
+:worldName(worldName){
 	for (int i = 0; i < pCount; i++) {
 		float c1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 		float c2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
@@ -48,7 +49,8 @@ void Handler::update(double dt) {//update properly, float dt?
 		Particle* p1 = objs[i];
 		for (int j = i + 1; j < objs.size(); j++) {
 			Particle* p2 = objs[j];
-
+			//exception thrown where when client suddenly disconnects
+			//check before going to this line
 			float distance = sqrt( pow(p2->x - p1->x,2) + pow(p2->y - p1->y, 2));
 			if (distance < .04f) {
 				//swap velocities

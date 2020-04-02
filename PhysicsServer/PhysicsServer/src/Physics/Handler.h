@@ -9,7 +9,9 @@ public:
 	std::vector<Particle*> objs;
 	std::vector<Particle*> clientObjs;
 
-	Handler(int pCount);
+	std::string worldName;
+
+	Handler(int pCount, std::string worldName);
 
 	~Handler();
 

@@ -50,7 +50,8 @@ void Connection::connectionProtocol() {
 		case 3://Decided TCP, if cant connect then decide if need to reconnect
 			std::cout << "Attempting to connect to a TCP server..." << std::endl;
 			//do connection
-			if (TCPCon.TCPConnect()) {
+			//assume prot 54000 and local host
+			if (TCPCon.TCPConnect(54000, "127.0.0.1")) {
 				theMode = TCP;
 
 				return;

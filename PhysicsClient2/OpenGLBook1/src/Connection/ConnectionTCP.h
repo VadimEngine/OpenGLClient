@@ -14,16 +14,22 @@ public:
 	/// </summary> 
 	SOCKET sock;
 
+	//int port; //Listening port number on the server
+	//std::string ipAddress;
+
 	/// <summary> 
 	/// Default constuctor
 	/// </summary> 
 	ConnectionTCP();
 
+
+	ConnectionTCP(int port, std::string ipAddress);
+
 	/// <summary>
 	/// Inital connection to the server. Temporarily only connects to 
 	/// server on local host
 	/// </summary>
-	bool TCPConnect();
+	bool TCPConnect(int port, std::string ipAddress);
 
 	/// <summary
 	/// Method to retreive data from the server. fills the
