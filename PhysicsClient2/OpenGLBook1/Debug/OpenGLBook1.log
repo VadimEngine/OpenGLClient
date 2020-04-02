@@ -1,4 +1,0 @@
-﻿  Connection.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\Connection.cpp(127,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\Connection.cpp(131,41): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  OpenGLBook1.vcxproj -> C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\Debug\OpenGLBook1.exe
