@@ -1,6 +1,4 @@
-﻿  Handler.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\Dependencies\GLFW\include\GLFW\glfw3.h(104): message : see previous definition of 'APIENTRY'
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(66,79): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Engine\Handler.cpp(309,11): warning C4305: 'return': truncation from 'int' to 'bool'
+﻿  Connection.cpp
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\Connection.cpp(127,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\OpenGLBook1\src\Connection\Connection.cpp(131,41): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   OpenGLBook1.vcxproj -> C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsClient2\Debug\OpenGLBook1.exe

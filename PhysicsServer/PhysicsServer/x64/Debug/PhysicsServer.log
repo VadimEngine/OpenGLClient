@@ -1,5 +1,0 @@
-﻿  Handler.cpp
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Handler.cpp(29,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Handler.cpp(37,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\PhysicsServer\src\Physics\Handler.cpp(110,60): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  PhysicsServer.vcxproj -> C:\Users\user\Desktop\Programing\Other\GitTest\OpenGLClient\PhysicsServer\x64\Debug\PhysicsServer.exe

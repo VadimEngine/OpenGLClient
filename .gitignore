@@ -1,1 +1,3 @@
 .vs/
+$GIT_DIR/OpenGLClient/PhysicsClient2/Release
+$GIT_DIR/OpenGLClient/PhysicsClient2/Debug
