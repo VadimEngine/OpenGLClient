@@ -5,7 +5,8 @@
 
 class ConnectPage : public Page {
 public:
-	//Which to type
+	//Whcih input component is selected, make abstract
+	//to hold any input componenet
 	TextInput* myInput;
 
 	//User connection input
@@ -26,8 +27,10 @@ public:
 
 	void render(Renderer* renderer) override;
 
+	void keyPress(int key) override;
+
 	//int parameter instead of char to hold asciis
 	//larger than 256 such as delete (259 in glfw?)
-	void KeyType(int key);
+	//void KeyType(int key);
 
 };

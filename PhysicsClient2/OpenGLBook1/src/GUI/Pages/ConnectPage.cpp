@@ -17,7 +17,7 @@ ConnectPage::ConnectPage() {
 
 
 	components.push_back(new TextField(glm::vec3(0 - (.6), -.3, 0),
-		glm::vec3(.4, .4, .4), "SERVER IP", glm::vec2(.3, .1)));
+		glm::vec3(.4, .4, .4), "SERVER IP", glm::vec2(.3, .1), 1.0f));
 
 	idInput = new TextInput(glm::vec3(0 - (.3 / 2.0), -.6, 0),
 		glm::vec3(.4, .4, .4), "1", glm::vec2(.3, .1));
@@ -26,7 +26,7 @@ ConnectPage::ConnectPage() {
 
 
 	components.push_back(new TextField(glm::vec3(0 - (.6), -.6, 0),
-		glm::vec3(.4, .4, .4), "USER ID", glm::vec2(.3, .1)));
+		glm::vec3(.4, .4, .4), "USER ID", glm::vec2(.3, .1), 1.0f));
 
 	connectModeInput = new ListView(glm::vec3(0 - (.3 / 2.0), .9, 0),
 							glm::vec3(.4, .4, .4), "", glm::vec2(.3, .1*2));
@@ -36,16 +36,17 @@ ConnectPage::ConnectPage() {
 	components.push_back(connectModeInput);
 
 	connectStatus = new TextField(glm::vec3(0 - (.3 / 2.0), -.95, 0),
-		glm::vec3(.4, .4, .4), "STATUS:", glm::vec2(.3, .1));
+		glm::vec3(.4, .4, .4), "STATUS:", glm::vec2(.3, .1), 1.0f);
 
 	components.push_back(connectStatus);
+
+	components.push_back(new TextField(glm::vec3(0 - (.3 / 2.0), .1, 0),
+		glm::vec3(.4, .4, .4), "CONNECTION", glm::vec2(.3, .1), 1.0f));
 
 }
 
 void ConnectPage::render(Renderer * renderer) {
 	Page::render(renderer);
-	renderer->renderString("CONNECTION", -.3, 0);
-	//myInput->render(renderer);
 }
 
 
@@ -124,8 +125,10 @@ void ConnectPage::mouseClick(glm::vec2 mouseClick) {
 
 }
 
-void ConnectPage::KeyType(int key) {
-
+void ConnectPage::keyPress(int key) {
+	//handle the timeing and if character should be added in here
+	//
+	
 	if (myInput != nullptr) {
 		myInput->addKey(key);
 	}

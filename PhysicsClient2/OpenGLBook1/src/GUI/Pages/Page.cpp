@@ -14,7 +14,6 @@ void Page::render(Renderer* renderer) {
 	for (int i = 0; i < components.size(); i++) {
 		components[i]->render(renderer);
 	}
-
 }
 
 void Page::mouseHover(glm::vec2 mouseCoord) {
@@ -29,6 +28,4 @@ void Page::mouseHover(glm::vec2 mouseCoord) {
 	for (int i = 0; i < components.size(); i++) {
 		components[i]->mouseHover(mouseCoord);
 	}
-
-
 }

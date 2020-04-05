@@ -38,7 +38,7 @@ public:
 	/// Inital connection to UDP server. Temporaily only connects
 	/// to server on olocal host.
 	/// </summary>
-	int UDPConnect();
+	int UDPConnect(int port, std::string ipAddress);
 
 	/// <summary>
 	/// Gets data from the server. Fills the float array to

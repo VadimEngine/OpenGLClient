@@ -3,7 +3,7 @@
 ConnectionUDP::ConnectionUDP() {}
 
 // make int and return code
-int ConnectionUDP::UDPConnect() {
+int ConnectionUDP::UDPConnect(int port, std::string ipAddress) {
 	std::cout << "UDPConnect" << std::endl;
 	WSADATA data;
 	WORD version = MAKEWORD(2, 2);
@@ -14,9 +14,9 @@ int ConnectionUDP::UDPConnect() {
 	}
 	//create a hint structure for the server
 	UDPserver.sin_family = AF_INET;
-	UDPserver.sin_port = htons(54000);
+	UDPserver.sin_port = htons(port);
 
-	inet_pton(AF_INET, "127.0.0.1", &UDPserver.sin_addr);
+	inet_pton(AF_INET, ipAddress.c_str(), &UDPserver.sin_addr);
 
 	//Socket creation
 	UDPout = socket(AF_INET, SOCK_DGRAM, 0);
@@ -45,7 +45,6 @@ int ConnectionUDP::UDPConnect() {
 }
 
 void ConnectionUDP::UDPGetData(void* data, int& size) {
-	//std::cout << "UDPGetData" << std::endl;
 	char buf[1024];
 	int serverLength = sizeof(UDPserver);
 	int bytesIn = recvfrom(UDPout, buf, 1024, 0, (sockaddr*)&UDPserver, &serverLength);//recvfrom= UDP?
@@ -58,7 +57,6 @@ void ConnectionUDP::UDPGetData(void* data, int& size) {
 }
 
 void ConnectionUDP::UDPSend(void* data, int size) {
-	//std::cout << "UDPSend" << std::endl;
 	int sendok = sendto(UDPout, (char*)data, size, 0, (sockaddr*)&UDPserver, sizeof(UDPserver));
 
 	if (sendok == SOCKET_ERROR) {

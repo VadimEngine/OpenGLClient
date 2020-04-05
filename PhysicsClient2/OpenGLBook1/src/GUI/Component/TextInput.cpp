@@ -9,6 +9,9 @@ TextInput::TextInput(glm::vec3 position, glm::vec3 color, std::string text, glm:
 	counter = 0;
 	countLimit = 60;
 	increment = 1;
+
+	lastKey = 0;
+	keyTypeCounter = 0;
 }
 
 
@@ -26,7 +29,7 @@ void TextInput::render(Renderer* renderer) {
 	//render fill
 	renderer->renderRectangleColor(position, dimension.x, dimension.y, color);
 
-	renderer->renderString(text, position.x, position.y);
+	renderer->renderString(text, glm::vec2(position.x, position.y));
 
 	//draw caret if selected
 	if (selected) {
@@ -39,22 +42,30 @@ void TextInput::render(Renderer* renderer) {
 	if (counter > countLimit || counter < 0) {
 		increment *= -1;
 	}
+
+	if (keyTypeCounter != 0 && keyTypeCounter < 15) {
+		keyTypeCounter = (keyTypeCounter + 1) % 15;
+	}
 }
 
 //Add single key at first and if held for a second, then add freely
 void TextInput::addKey(int key) {
-	std::cout << "Keyinput: " << (int)key << std::endl;
-	if (key == 259) {
-		//std::cout << "Delete" << std::endl;
-		if (text.size() != 0) {
-			text.pop_back();
-		}
-		
-	} else {
-		text += key;
-		std::cout << "text: " << text << std::endl;
+	bool typeKey = false;
+	if (keyTypeCounter == 0 || lastKey != key) {
+		lastKey = key;
+		keyTypeCounter = 1;
+		typeKey = true;
 	}
-	
+
+	if (typeKey) {
+		if (key == 259) {
+			if (text.size() != 0) {
+				text.pop_back();
+			}
+		} else {
+			text += key;
+		}
+	}
 }
 
 bool TextInput::mouseClick(glm::vec2 mousePos) {

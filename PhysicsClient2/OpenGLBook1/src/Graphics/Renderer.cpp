@@ -430,9 +430,13 @@ void Renderer::renderSubImageAdvanced(glm::vec3 position,
 									  float subHeight,
 									  float subX,
 									  float subY) {
-
+	/*
 	float width = .06 / 2.0f;
 	float height = .08 / 2.0f;
+
+	//float width = .08 / 2.0f;
+	//float height = .1 / 2.0f;
+
 	//addpoint 1 top left
 	vertList.push_back(position.x);
 	vertList.push_back(position.y);
@@ -505,18 +509,115 @@ void Renderer::renderSubImageAdvanced(glm::vec3 position,
 	//add texture
 	vertList.push_back(0 + (subX * (subWidth / texWidth)));
 	vertList.push_back(1 - (subY * (subHeight / texHeight)));
-
+	*/
+	renderSubImageAdvanced(position, color, texWidth, texHeight,
+		subWidth, subHeight, subX, subY, 1);
 }
 
 
+void Renderer::renderSubImageAdvanced(glm::vec3 position,
+									  glm::vec3 color,
+									  float texWidth,
+									  float texHeight,
+									  float subWidth,
+									  float subHeight,
+									  float subX,
+									  float subY,
+									  float size) {
+
+	float width = (.06 / 2.0f) * size;
+	float height = (.08 / 2.0f) * size;
+
+	//float width = .08 / 2.0f;
+	//float height = .1 / 2.0f;
+
+	//addpoint 1 top left
+	vertList.push_back(position.x);
+	vertList.push_back(position.y);
+	vertList.push_back(position.z);
+	//add color
+	vertList.push_back(color.x);
+	vertList.push_back(color.y);
+	vertList.push_back(color.z);
+	//add texture
+	vertList.push_back(0 + (subX * (subWidth / texWidth)));//good
+	vertList.push_back(1 - (subY * (subHeight / texHeight)));
+
+	//addpoint 2 bottom left
+	vertList.push_back(position.x);
+	vertList.push_back(position.y - height);
+	vertList.push_back(position.z);
+	//add color
+	vertList.push_back(color.x);
+	vertList.push_back(color.y);
+	vertList.push_back(color.z);
+	//add texture
+
+	vertList.push_back(0 + (subX * (subWidth / texWidth)));
+	vertList.push_back(1 - ((subY + 1) * (subHeight / texHeight)));
+
+	//addpoint 3 bottom right
+	vertList.push_back(position.x + width);
+	vertList.push_back(position.y - height);
+	vertList.push_back(position.z);
+	//add color
+	vertList.push_back(color.x);
+	vertList.push_back(color.y);
+	vertList.push_back(color.z);
+	//add texture
+	vertList.push_back(0 + ((subX + 1) * (subWidth / texWidth)));
+	vertList.push_back(1 - ((subY + 1) * (subHeight / texHeight)));
+
+	//addpoint 4 bottom right
+	vertList.push_back(position.x + width);
+	vertList.push_back(position.y - height);
+	vertList.push_back(position.z);
+	//add color
+	vertList.push_back(color.x);
+	vertList.push_back(color.y);
+	vertList.push_back(color.z);
+	//add texture
+	vertList.push_back(0 + ((subX + 1) * (subWidth / texWidth)));
+	vertList.push_back(1 - ((subY + 1) * (subHeight / texHeight)));
+
+	//addpoint 5 top right
+	vertList.push_back(position.x + width);
+	vertList.push_back(position.y);
+	vertList.push_back(position.z);
+	//add color
+	vertList.push_back(color.x);
+	vertList.push_back(color.y);
+	vertList.push_back(color.z);
+	//add texture
+	vertList.push_back(0 + ((subX + 1) * (subWidth / texWidth)));
+	vertList.push_back(1 - (subY * (subHeight / texHeight)));
+
+	//addpoint 6 top left
+	vertList.push_back(position.x);
+	vertList.push_back(position.y);
+	vertList.push_back(position.z);
+	//add color
+	vertList.push_back(color.x);
+	vertList.push_back(color.y);
+	vertList.push_back(color.z);
+	//add texture
+	vertList.push_back(0 + (subX * (subWidth / texWidth)));
+	vertList.push_back(1 - (subY * (subHeight / texHeight)));
+}
+
+
+
+
+//update to use size?
 void Renderer::renderChar(char theChar, glm::vec3 position, glm::vec3 color, float size) {
 	renderSubImageAdvanced(position, color, 256, 32, 6, 8,
 						   charKeyMap[theChar].x,
-						   charKeyMap[theChar].y);
+						   charKeyMap[theChar].y,
+						   size);
 }
 
 
-void Renderer::renderString(std::string theString, float x, float y) {
+void Renderer::renderString(std::string theString, glm::vec2 topLeft) {
 	//limit the ascii range
 	// take in font/font-size
 	//assume character width
@@ -524,9 +625,20 @@ void Renderer::renderString(std::string theString, float x, float y) {
 	for (int i = 0; i < theString.size(); i++) {
 		//if (theString[i] >= '.' && theString[i] <= 'z') {
 		if ( charKeyMap.find(theString[i]) != charKeyMap.end()) {
-
-			renderChar(theString[i], glm::vec3(x + (i*1.0f*.03), y, 0) ,glm::vec3(1,1,1), 1.0f);
+			renderChar(theString[i], glm::vec3(topLeft.x + (i*1.0f*.03), topLeft.y, 0) ,glm::vec3(1,1,1), 1.0f);
 		}
 	}
+}
 
+void Renderer::renderString(std::string theString, glm::vec2 topLeft, float size) {
+	//limit the ascii range
+	// take in font/font-size
+	//assume character width
+
+	for (int i = 0; i < theString.size(); i++) {
+		//if (theString[i] >= '.' && theString[i] <= 'z') {
+		if (charKeyMap.find(theString[i]) != charKeyMap.end()) {
+			renderChar(theString[i], glm::vec3(topLeft.x + (i * size * .03), topLeft.y, 0), glm::vec3(1, 1, 1), size);
+		}
+	}
 }

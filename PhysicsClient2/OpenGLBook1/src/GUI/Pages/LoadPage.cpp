@@ -12,11 +12,13 @@ LoadPage::LoadPage() {
 	buttons.push_back(Button(glm::vec3(0 - (.3 / 2.0), -.30, 0),
 		glm::vec3(.4, .4, .4), "LOAD", glm::vec2(.3, .1)));
 
+	components.push_back(new TextField(glm::vec3(0 - (.3 / 2.0), .1, 0),
+		glm::vec3(.4, .4, .4), "SELECT NEW OR LOAD", glm::vec2(.3, .1), 1.0f));
+
 }
 
 void LoadPage::render(Renderer* renderer) {
 	Page::render(renderer);
-	renderer->renderString("SELECT NEW OR LOAD", -.3, 0);
 }
 
 void LoadPage::tick() {
@@ -35,4 +37,7 @@ void LoadPage::mouseClick(glm::vec2 mouseClick) {
 			nextPage = new GamePage();
 		}
 	}
+}
+
+void LoadPage::keyPress(int key) {
 }

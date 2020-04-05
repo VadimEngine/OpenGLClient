@@ -25,7 +25,7 @@ void ListViewElement::render(Renderer* renderer) {
 
 	//renderer->renderRectangleColor(position + glm::vec3(-.01, .01, 0), dimension.x + .02, dimension.y + .02, glm::vec3(1, 1, 1));
 	renderer->renderRectangleColor(position, dimension.x, dimension.y, color);
-	renderer->renderString(text, position.x, position.y);
+	renderer->renderString(text, glm::vec2(position.x, position.y));//; position.x, position.y
 
 }
 
@@ -40,7 +40,7 @@ void ListViewElement::renderSelected(Renderer* renderer) {
 
 	//renderer->renderRectangleColor(position + glm::vec3(-.01, .01, 0), dimension.x + .02, dimension.y + .02, glm::vec3(1, 1, 1));
 	renderer->renderRectangleColor(position, dimension.x, dimension.y, glm::vec3(.6, .6, .6));
-	renderer->renderString(text, position.x, position.y);
+	renderer->renderString(text, glm::vec2(position.x, position.y));
 }
 
 void ListViewElement::mouseHover(glm::vec2 mouseCoord) {

@@ -61,8 +61,6 @@ void ConnectionTCP::init() {
 		memcpy(&addr, phe->h_addr_list[i], sizeof(struct in_addr));
 		std::cout << "Address " << i << ": " << inet_ntoa(addr) << std::endl;
 	}
-
-
 }
 
 void ConnectionTCP::communicate(Handler* handler) {

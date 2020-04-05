@@ -36,9 +36,9 @@ int main() {
 		}
 
 		if (passedTime > 100'000'000) {
-			passedTime = 100'000'000;
+			passedTime = 100'000'000;//10^8
 		}
-		unprocessedSeconds += passedTime / 1000000000.0;
+		unprocessedSeconds += passedTime / 1'000'000'000.0;
 		bool ticked = false;
 		while (unprocessedSeconds > secondsPerTick) {
 			myWindow->update();//tick();
@@ -47,12 +47,14 @@ int main() {
 			tickCount++;
 			if (tickCount % 60 == 0) {
 				std::cout << "FPS: " << frames << std::endl;
-				auto t1000ns = std::chrono::nanoseconds(1000);
-				lastTime += t1000ns;
+				lastTime += std::chrono::nanoseconds(1000);
 				frames = 0;
 			}
 		}
+		// || true to see the max FPS
+		// && tickCount %2==0 for 30fps
 		if (ticked) {
+			//std::cout << "Passed time: " << passedTime << " Frames: " << frames << " unprocessedSeconds: " << unprocessedSeconds << "tickCount: " << tickCount << std::endl;
 			myWindow->render();
 			frames++;
 		} else {

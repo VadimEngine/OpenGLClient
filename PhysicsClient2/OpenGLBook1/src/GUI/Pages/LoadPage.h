@@ -13,4 +13,6 @@ public:
 	void tick() override;
 
 	void render(Renderer* renderer) override;
+
+	void keyPress(int key) override;
 };

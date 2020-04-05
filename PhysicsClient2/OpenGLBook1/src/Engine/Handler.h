@@ -13,6 +13,7 @@
 #include "../GUI/Pages/InfoPage.h"
 #include "../GUI/Pages/LoadPage.h"
 #include "../GUI/Pages/ConnectPage.h"
+#include "../GUI/GameHUD.h"
 
 
 /// <summary>
@@ -26,20 +27,7 @@
 class Handler {
 public:
 
-	bool letterKey;
-
-
-	int keyTypeCounter;
-	int lastKey;
-
-
-
 	Page* currentPage;
-
-	/// <summary>
-	/// The player objects that the user controls
-	/// </summary>
-	//GameObject* player;
 
 	/// <summary>
 	/// The renderer object that takes in input and renders
@@ -48,12 +36,6 @@ public:
 	Renderer* renderer;
 
 	GameHandler* gameHandler;
-
-	/// <summary>
-	/// List of all objects in the game enviornment. This handler
-	/// iterates all to update/render them
-	/// </summary>
-	std::vector<GameObject*> objs;
 
 	/// <summary>
 	/// boolean array to track which keys are pressed, updated by
@@ -69,11 +51,12 @@ public:
 	/// If left click is pressed.
 	/// </summary
 	bool leftClick;
+	bool rightClick;
 
 	/// <summary>
 	/// Tracks the mouse coordinates -1 to 1 for x and y
 	/// relative to OpenGL coordinate system 
-	/// </summary
+	/// </summary>
 	/// <remarks>
 	/// rename to mousePosition
 	/// </remarks>
@@ -91,7 +74,7 @@ public:
 	/// Constructor that initialize the game enviornment count number
 	/// of particles
 	/// </summary>
-	Handler(int count);
+	Handler();
 
 	/// <summary>
 	/// Destructor that deletes the renderer, player, and objects in objs
@@ -128,4 +111,6 @@ public:
 	bool connectionProtocol();
 
 	void initGame();
+
+	void setCurrentPage(Page* nextPage);
 };

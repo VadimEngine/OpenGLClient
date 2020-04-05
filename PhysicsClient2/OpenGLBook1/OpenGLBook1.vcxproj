@@ -146,6 +146,7 @@
     <ClCompile Include="src\GUI\Component\Component.cpp" />
     <ClCompile Include="src\GUI\Component\ListView.cpp" />
     <ClCompile Include="src\GUI\Component\ListViewElement.cpp" />
+    <ClCompile Include="src\GUI\GameHUD.cpp" />
     <ClCompile Include="src\GUI\Pages\ConnectPage.cpp" />
     <ClCompile Include="src\GUI\Pages\GamePage.cpp" />
     <ClCompile Include="src\GUI\Pages\InfoPage.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="src\GUI\Component\RadioButtonSet.cpp" />
     <ClCompile Include="src\GUI\Component\TextField.cpp" />
     <ClCompile Include="src\GUI\Component\TextInput.cpp" />
+    <ClCompile Include="src\GUI\Pages\SettingPage.cpp" />
     <ClCompile Include="src\GUI\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +178,7 @@
     <ClInclude Include="src\GUI\Component\Button.h" />
     <ClInclude Include="src\GUI\Component\Component.h" />
     <ClInclude Include="src\GUI\Component\ListViewElement.h" />
+    <ClInclude Include="src\GUI\GameHUD.h" />
     <ClInclude Include="src\GUI\Pages\ConnectPage.h" />
     <ClInclude Include="src\GUI\Pages\GamePage.h" />
     <ClInclude Include="src\GUI\Pages\InfoPage.h" />
@@ -187,10 +190,13 @@
     <ClInclude Include="src\GUI\Component\RadioButtonSet.h" />
     <ClInclude Include="src\GUI\Component\TextField.h" />
     <ClInclude Include="src\GUI\Component\TextInput.h" />
+    <ClInclude Include="src\GUI\Pages\SettingPage.h" />
     <ClInclude Include="src\GUI\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\awesomeface.png" />
+    <Image Include="res\font.png" />
+    <Image Include="res\font2.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

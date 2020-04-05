@@ -4,27 +4,35 @@
 GamePage::GamePage() {
 	this->type = Game;
 	nextPage = nullptr;
-	buttons.push_back(Button(glm::vec3(0 - (.3 / 2.0), .60, 0),
-		glm::vec3(.4, .4, .4), "MENU", glm::vec2(.3, .1)));
+	//gameHUD = new GameHUD();
 }
 
 void GamePage::render(Renderer* renderer) {
 	Page::render(renderer);
-	renderer->renderString("GAME HERE", -.3, 0);
-
+	gameHUD->render(renderer);
 	//Render HUD
 	//renderer->renderRectangleColor(glm::vec3(.7,1,0), .3, 2, glm::vec3(.5,.5,.5));
-
 }
 
 void GamePage::tick() {
-
+	Page::tick();
+	gameHUD->tick();
 }
 
-void GamePage::mouseClick(glm::vec2 mouseClick) {
+void GamePage::mouseClick(glm::vec2 mouseCoord) {
 	for (int i = 0; i < buttons.size(); i++) {
-		if (buttons[i].inbound(mouseClick) && buttons[i].text == "MENU") {
+		if (buttons[i].inbound(mouseCoord) && buttons[i].text == "MENU") {
 			nextPage = new MenuPage();
 		}
 	}
+	gameHUD->mouseClick(mouseCoord);
+}
+
+void GamePage::mouseHover(glm::vec2 mouseCoord) {
+	Page::mouseHover(mouseCoord);
+	gameHUD->mouseHover(mouseCoord);
+
+}
+
+void GamePage::keyPress(int key) {
 }

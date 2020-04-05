@@ -87,7 +87,7 @@ void Connection::connectionProtocol() {
 			std::cout << "Attempting to connect to a UDP server..." << std::endl;
 			//do connection//implement so it returns false if not connected
 			//connectCode = con.UDPConnect();
-			connectCode = UDPCon.UDPConnect();
+			connectCode = UDPCon.UDPConnect(54000, "127.0.0.1");
 			if (connectCode == 1) {
 				theMode = UDP;
 				return;
@@ -140,10 +140,7 @@ void Connection::getData(void* data, int& size) {
 	} else if (theMode == TCP) {
 		TCPCon.TCPGetData(data, size);
 	} else if (theMode == UDP) {
-		//std::cout << "Get data" << std::endl;
-
 		UDPCon.UDPGetData(data, size);
-		//std::cout << "Get data recived: " << size << std::endl;
 	}
 }
 

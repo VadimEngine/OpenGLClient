@@ -17,5 +17,5 @@ void RadioButtonSet::render(Renderer* renderer) {
 	//need list element class?
 	
 	
-	renderer->renderString("RADIOSET", -1,1);
+	renderer->renderString("RADIOSET", glm::vec2(-1,1));//-1, 1
 }

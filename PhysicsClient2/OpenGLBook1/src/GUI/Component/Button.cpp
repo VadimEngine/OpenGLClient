@@ -19,7 +19,7 @@ void Button::render(Renderer* renderer) {
 	}
 
 	renderer->renderRectangleColor(position, dimension.x, dimension.y, color);
-	renderer->renderString(text, position.x + .1, position.y - .01);
+	renderer->renderString(text, glm::vec2(position.x + .1, position.y - .01));//,  position.x + .1, position.y - .01
 }
 
 void Button::clickAction() {

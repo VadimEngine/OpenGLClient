@@ -9,7 +9,7 @@
 #include "../Component/RadioButtonSet.h"
 #include "../Component/ListView.h"
 
-enum PageType { Intro, Menu, Info, Connect, Load, Game };
+enum PageType { Intro, Menu, Info, Connect, Load, Game, Setting};
 
 class Page {
 public:
@@ -22,12 +22,17 @@ public:
 
 	Page* nextPage;
 
+	//constructor/destructor?
+
 	virtual void tick();
 
 	virtual void render(Renderer* renderer);
 
-	void mouseHover(glm::vec2 mouseCoord);
+	//should this be virtual
+	virtual void mouseHover(glm::vec2 mouseCoord);
 
-	virtual void mouseClick(glm::vec2 mouseClick) = 0;
+	virtual void mouseClick(glm::vec2 mouseCoord) = 0;
+
+	virtual void keyPress(int key) = 0;
 
 };

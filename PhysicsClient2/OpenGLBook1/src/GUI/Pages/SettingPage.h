@@ -2,12 +2,9 @@
 #include "Page.h"
 #include "MenuPage.h"
 
-class IntroPage : public Page {
+class SettingPage : public Page {
 public:
-	int countSize;
-	int counter;
-
-	IntroPage();
+	SettingPage();
 
 	void mouseClick(glm::vec2 mouseClick) override;
 
@@ -18,5 +15,3 @@ public:
 	void keyPress(int key) override;
 
 };
-
-

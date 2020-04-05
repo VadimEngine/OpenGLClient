@@ -1,13 +1,12 @@
 #include "Handler.h"
 
 
-Handler::Handler(int count)
+Handler::Handler()
 	:keys{}, leftClick(false) {
 	connect = new Connection();
 	connect->theMode = ConnectionMode::Serverless;
 	mouseCoords = glm::vec2(0,0);
 	//player = nullptr;
-	lastKey = 0;
 	Shader* polygonShader = new Shader("src/shaders/sandbox.vert",
 									"src/shaders/sandbox.frag");//delete in desctructor
 
@@ -16,27 +15,12 @@ Handler::Handler(int count)
 
 	renderer = new Renderer(polygonShader, imageShader);
 	
-	for (int i = 0; i < count; i++) {
-		float r1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 2.0f - 1;
-		float r2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 2.0f - 1;
-		objs.push_back(new GameObject(r1, r2, false));
-	}
 	currentPage = new IntroPage();
-	keyTypeCounter = 0;
-	letterKey = false;
+	rightClick = false;
 }
 
 Handler::~Handler() {
-	/*
-	if (player != nullptr) {
-		delete player;
-	}
-	*/
 	delete renderer;
-	for (GameObject* p: objs) {
-		delete p;
-	}
-	objs.clear();
 }
 
 void Handler::initGame() {
@@ -45,7 +29,6 @@ void Handler::initGame() {
 		delete gameHandler;
 	}
 	gameHandler = new GameHandler(connect->theMode != ConnectionMode::Serverless);
-	//player = new GameObject(0, 0, true);
 }
 
 
@@ -69,7 +52,6 @@ void Handler::tick(GLfloat dt) {
 		if (leftClick) {
 			float toSend[3] = { -2, mouseCoords.x, mouseCoords.y };
 			connect->sendData(toSend, 3 * sizeof(float));
-			//leftClick = false;
 		}
 	}
 
@@ -78,51 +60,11 @@ void Handler::tick(GLfloat dt) {
 		if (gameHandler != nullptr) {
 			gameHandler->tick(dt, leftClick, keys);
 		}
-		/*
-		for (int i = 0; i < objs.size(); i++) {
-			objs[i]->tick(dt, keys);
-		}
-		if (player != nullptr) {
-			player->tick(dt, keys);
-		}
-		
-		//Do gravity and in-bounds (can be do in obj?)
-		for (int i = 0; i < objs.size(); i++) {
-			GameObject* obj = objs[i];
 
-			if (obj->position.y > -1.0f && obj->position.y < 1) {
-				obj->velocity -= glm::vec2(0, .981) * dt;
-			}
-			if (obj->position.x <= -1) {
-				obj->velocity.x *= -0.9f;
-				obj->position.x = -1;
-			}
-			if (obj->position.x >= 1) {
-				obj->velocity.x *= -0.9f;
-				obj->position.x = 1;
-			}
-			if (obj->position.y <= -1) {
-				obj->velocity.y *= -1;
-				obj->position.y = -1;
-			}
-			if (obj->position.y >= 1) {
-				obj->velocity.y *= -0.9f;
-				obj->position.y = 1;
-			}
+		if (((GamePage*)currentPage)->gameHUD->toMenu) {
+			setCurrentPage(new MenuPage());
 		}
-		//do obj colisions
-		for (int i = 0; i < objs.size(); i++) {
-			for (int j = i + 1; j < objs.size(); j++) {
-				collide(objs[i], objs[j]);
-			}
-		}
-		//player-obj collisions
-		for (int i = 0; i < objs.size(); i++) {
-			if (player != nullptr) {
-				collide(player, objs[i]);
-			}
-		}
-		*/
+
 	}
 
 	if (currentPage != nullptr) {
@@ -130,7 +72,6 @@ void Handler::tick(GLfloat dt) {
 		currentPage->mouseHover(mouseCoords);
 		if (leftClick) {
 			currentPage->mouseClick(mouseCoords);
-			std::cout << "Click page" << std::endl;
 		}
 		if (currentPage->nextPage != nullptr) {
 			//if going from connect to game
@@ -142,13 +83,12 @@ void Handler::tick(GLfloat dt) {
 				//if connect success then set next swith to game page
 				if (((ConnectPage*)currentPage)->doConnect) {
 					std::cout << "Connectmode: " << mode << std::endl;
-					//connect->connectionProtocol();
-					//Assume TCP
 					if (mode._Equal("TCP")) {
 						if (connect->TCPCon.TCPConnect(54000, ip)) {
 							connect->theMode = TCP;
-							initGame();
-							currentPage = currentPage->nextPage;
+							//initGame();
+							setCurrentPage(currentPage->nextPage);
+							//currentPage = currentPage->nextPage;
 						} else {
 							((ConnectPage*)currentPage)->connectStatus->text = "Failed to connect to TCP Server";
 							((ConnectPage*)currentPage)->doConnect = false;
@@ -158,11 +98,12 @@ void Handler::tick(GLfloat dt) {
 						//you seem to always get it with ever new id, coulndt replicate on
 						//second attempt
 						connect->UDPCon.userId = std::stoi(id);
-						int connectCode = connect->UDPCon.UDPConnect();
+						int connectCode = connect->UDPCon.UDPConnect(54000, ip);
 						if (connectCode == 1) {
 							connect->theMode = UDP;
-							initGame();
-							currentPage = currentPage->nextPage;
+							//initGame();
+							setCurrentPage(currentPage->nextPage);
+							//currentPage = currentPage->nextPage;
 						} else if (connectCode == -2) {
 							((ConnectPage*)currentPage)->connectStatus->text = "UserId already taken";
 							((ConnectPage*)currentPage)->doConnect = false;
@@ -178,10 +119,12 @@ void Handler::tick(GLfloat dt) {
 
 			} else if (currentPage->nextPage->type == Game) {
 				//not sure what this block is for...
-				currentPage = currentPage->nextPage;
-				initGame();
+				setCurrentPage(currentPage->nextPage);
+				//currentPage = currentPage->nextPage;
+				//initGame();
 			} else {
-				currentPage = currentPage->nextPage;
+				setCurrentPage(currentPage->nextPage);
+				//currentPage = currentPage->nextPage;
 			}
 
 		}
@@ -190,71 +133,41 @@ void Handler::tick(GLfloat dt) {
 	if (leftClick && connect->theMode == ConnectionMode::Serverless) {
 		if (currentPage->type == Game) {
 			gameHandler->addObj(new GameObject(mouseCoords.x, mouseCoords.y, false));
-			//GameHandler
-			//addObj(new GameObject(mouseCoords.x, mouseCoords.y, false));
 		}
 	}
+
+	if (rightClick && gameHandler != nullptr) {
+		gameHandler->mouseClick(mouseCoords, 0);
+	}
+
+	bool keyTyped = false;
+	for (char i = '.'; i <= 'z'; i++) {
+		if (keys[i]) {
+			currentPage->keyPress(i);
+			keyTyped = true;
+			break;
+		}
+	}
+	//backspace
+	if (keys[GLFW_KEY_BACKSPACE] && !keyTyped) {
+		currentPage->keyPress(GLFW_KEY_BACKSPACE);
+	}
+	//space
+	if (keys[GLFW_KEY_SPACE] && !keyTyped) {
+		currentPage->keyPress(GLFW_KEY_SPACE);
+	}
+
 	
-
-	if (currentPage->type == PageType::Connect) {
-		//if last key = this key then increment key counter, else set to 0
-		//if keyCounter > 60 then add key
-		// Very convoluded logic, will replace later:
-		// Goal is to allow typing allow typing keys (currently A-Z),
-		// keyTypeCounter and lastKey is to prevent typing the same
-		// multiple times in a short time frame. Last key lets
-		// the system know that a different key is pressed and the key can be typed
-		// before the timer resets to 0
-		if (letterKey) {
-			//bool typed = false;
-			//iterate possible key presses from the input key map
-			for (char i = '.'; i <= 'z'; i++) {
-				if (keys[i]) {
-					if (keyTypeCounter == 0 || lastKey != i) {
-						((ConnectPage*)currentPage)->KeyType(i);
-						lastKey = i;
-						keyTypeCounter = 1;
-					}
-					//prevents 2 keys at once bug
-					break;
-				}
-			}
-
-		} else {
-			//backspace
-			if (keys[GLFW_KEY_BACKSPACE]) {
-				if (keyTypeCounter == 0 || lastKey != GLFW_KEY_BACKSPACE) {
-					((ConnectPage*)currentPage)->KeyType(GLFW_KEY_BACKSPACE);
-					lastKey = GLFW_KEY_BACKSPACE;
-					keyTypeCounter = 1;
-				}
-			} else if (keys[GLFW_KEY_SPACE]) {
-				if (keyTypeCounter == 0 || lastKey != GLFW_KEY_SPACE) {
-					((ConnectPage*)currentPage)->KeyType(GLFW_KEY_SPACE);
-					lastKey = GLFW_KEY_SPACE;
-					keyTypeCounter = 1;
-				}
-			}
-		}
-
-		if (keyTypeCounter != 0 && keyTypeCounter < 15) {
-			keyTypeCounter = (keyTypeCounter + 1) % 15;
-		}
-
-	}
-
-	if (currentPage->type != PageType::Game && gameHandler != nullptr) {
+	if (currentPage != nullptr && currentPage->type != PageType::Game && gameHandler != nullptr) {
 		delete gameHandler;
 		gameHandler = nullptr;
 		connect->close();
 		connect->theMode = ConnectionMode::Serverless;
-		
-
-		//connect->theMode = ConnectionMode::Serverless;
 		//disconnect from server
 	}
 	//do not carry the left click into the next tick
 	leftClick = false;
+	rightClick = false;
 
 }
 
@@ -262,18 +175,8 @@ void Handler::render() {
 	//Add all the objects shape to the render
 	// dont render these if serverless?
 	if (currentPage->type == Game) {
-		//GameHandler
 		gameHandler->render(renderer);
-		/*
-		for (int i = 0; i < objs.size(); i++) {
-			objs[i]->render(renderer);
-		}
-		if (connect->theMode == Serverless) {
-			if (player != nullptr) {
-				player->render(renderer);
-			}
-		}
-		*/
+
 	}
 	if (currentPage != nullptr) {
 		currentPage->render(renderer);
@@ -285,12 +188,11 @@ void Handler::render() {
 
 
 void Handler::addObj(GameObject* obj) {
-	//objs.push_back(obj);
 	gameHandler->addObj(obj);
 }
 
 void Handler::collide(GameObject* obj1, GameObject* obj2) {
-	//nullptry here, obj1
+	//nullptr here, obj1
 	float dist = sqrt(pow(obj1->position.x - obj2->position.x, 2)
 				       + pow(obj1->position.y - obj2->position.y, 2));
 	if (dist <= obj1->radius) {
@@ -307,4 +209,16 @@ bool Handler::connectionProtocol() {
 	//do this on connect button?
 	connect->connectionProtocol();
 	return -1;
+}
+
+void Handler::setCurrentPage(Page* nextPage) {
+	if (currentPage != nullptr) {
+		//would this delete the nextapge? Should nextPage be deleted in page destructor?
+		delete currentPage;
+	}
+	currentPage = nextPage;
+	if (currentPage->type == PageType::Game && ((GamePage*)currentPage)->gameHUD == nullptr) {
+		initGame();
+		((GamePage*)currentPage)->gameHUD = new GameHUD(connect, &(gameHandler->objs), gameHandler->player, &(gameHandler->selectedObj), gameHandler);
+	}
 }

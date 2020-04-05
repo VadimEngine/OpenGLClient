@@ -4,30 +4,28 @@ IntroPage::IntroPage() {
 	this->type = Intro;
 	countSize = 60 * 3;//3 seconds
 	counter = 0;
+
+	components.push_back(new TextField(glm::vec3(0 - (.3 / 2.0), .1, 0),
+		glm::vec3(.4, .4, .4), "VADIM GAMES", glm::vec2(.3, .1), 1.0f));
 }
 
 void IntroPage::mouseClick(glm::vec2 mouseClick) {
-	std::cout << "next page click" << std::endl;
 	//Click to skip intro
 	nextPage = new MenuPage();
 }
 
 void IntroPage::render(Renderer* renderer) {
 	Page::render(renderer);
-	renderer->renderString("VADIM GAMES", -.3, 0);
-
 }
 
-
-
 void IntroPage::tick() {
-	//std::cout << "counter: " << counter << std::endl;
-	//std::cout << "countSize: " << countSize << std::endl;
 	if (counter <= countSize) {
 		counter++;
 	} else {
-		std::cout << "Next page" << std::endl;
 		//lazy load this instead?
 		nextPage = new MenuPage();
 	}
+}
+
+void IntroPage::keyPress(int key) {
 }

@@ -43,7 +43,7 @@ Window::Window(GLuint width, GLuint height, GLuint count) {
 	glfwGetFramebufferSize(window, &tempWidth, &tempHeight);
 	glViewport(0, 0, tempWidth, tempHeight);//specify lower left corner
 
-	handler = new Handler(count);
+	handler = new Handler();
 }
 
 Window::~Window() {
@@ -78,28 +78,20 @@ void Window::closeConnection() {
 //Call back functions
 
 /// <summary>
-/// Key callback that sets the boolean array in handler that represets keys
+/// Key callback that sets the boolean array in handler that represets keys.
+///	weird GLWF issue where it detects only captial keys, to set the lower case,
+///	need to confirm shift and/or caplock is not pressed?
 /// </summary>
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
+
 	if (key >= 0 && key < 1024) {
 		if (action == GLFW_PRESS) {
-			//weird GLWF issue where it detects only captial keys, to set the lower case,
-			//need to confirm shfit and/or caplock is not pressed?
 			((Window*)glfwGetWindowUserPointer(window))->handler->keys[key] = true;
-			//using letter key wrong, use to track all renderable characters
-			//if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
-			if ((key >= '.' && key <= 'z')) {
-				((Window*)glfwGetWindowUserPointer(window))->handler->letterKey = true;
-			}
 		} else if (action == GLFW_RELEASE) {
 			((Window*)glfwGetWindowUserPointer(window))->handler->keys[key] = false;
-			//if (key >= 'A' && key <= 'Z' || (key >= 'a' && key <= 'z')) {
-			if ((key >= '.' && key <= 'z')) {
-				((Window*)glfwGetWindowUserPointer(window))->handler->letterKey = false;
-			}
 		}
 	}
 }
@@ -134,6 +126,12 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	}
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
 		((Window*)glfwGetWindowUserPointer(window))->handler->leftClick = false;
+	}
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS) {
+		((Window*)glfwGetWindowUserPointer(window))->handler->rightClick = true;
+	}
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE) {
+		((Window*)glfwGetWindowUserPointer(window))->handler->rightClick = false;
 	}
 }
 

@@ -25,6 +25,32 @@ void ConnectionUDP::init() {
 		std::cout << "Can't bind socket. " << WSAGetLastError() << std::endl;
 		return;
 	}
+
+	//cancel warning for now until optimization and discover how to replace:
+	// 'gethostbyname': Use getaddrinfo() or GetAddrInfoW()
+	// 'inet_ntoa': Use inet_ntop() or InetNtop() instead
+#pragma warning( disable : 4996)
+
+	char ac[80];
+	if (gethostname(ac, sizeof(ac)) == SOCKET_ERROR) {
+		std::cerr << "Error " << WSAGetLastError() <<
+			" when getting local host name." << std::endl;
+		//return 1;
+	}
+	std::cout << "Host name is " << ac << "." << std::endl;
+
+	struct hostent* phe = gethostbyname(ac);
+	if (phe == 0) {
+		std::cerr << "Yow! Bad host lookup." << std::endl;
+		//return 1;
+	}
+
+	for (int i = 0; phe->h_addr_list[i] != 0; ++i) {
+		struct in_addr addr;
+		memcpy(&addr, phe->h_addr_list[i], sizeof(struct in_addr));
+		std::cout << "Address " << i << ": " << inet_ntoa(addr) << std::endl;
+	}
+
 }
 
 void ConnectionUDP::communicate(Handler* handler) {

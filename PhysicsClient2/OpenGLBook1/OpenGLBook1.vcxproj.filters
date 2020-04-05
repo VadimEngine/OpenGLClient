@@ -87,6 +87,12 @@
     <ClCompile Include="src\Engine\GameHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\GUI\Pages\SettingPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUI\GameHUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\sandbox.frag" />
@@ -164,9 +170,21 @@
     <ClInclude Include="src\Engine\GameHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\GUI\Pages\SettingPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\GameHUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\awesomeface.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\font.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\font2.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -97,6 +97,16 @@ public:
 								float subX,
 								float subY);
 
+	void renderSubImageAdvanced(glm::vec3 position,
+								glm::vec3 color,
+								float texWidth,
+								float texHeight,
+								float subWidth,
+								float subHeight,
+								float subX,
+								float subY,
+								float size);
+
 	void renderChar(char theChar, glm::vec3 position, glm::vec3 color, float size);
 
 	/// <summary>
@@ -106,5 +116,7 @@ public:
 	/// code and draw the sub image at a location. Will first use a simple
 	/// font with same character sizes
 	/// </summary>
-	void renderString(std::string theString, float x, float y);
+	void renderString(std::string theString, glm::vec2 topLeft);
+
+	void renderString(std::string theString, glm::vec2 topLeft, float size);
 };
