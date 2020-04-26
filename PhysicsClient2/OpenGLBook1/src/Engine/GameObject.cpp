@@ -1,20 +1,28 @@
 #include "GameObject.h"
 
 
-GameObject::GameObject(GLfloat x, GLfloat y, GLboolean isPlayer)
-	:isPlayer(isPlayer) {
+GameObject::GameObject(GLfloat x, GLfloat y, GLboolean isPlayer, glm::vec3 color) {
+	this->isPlayer = isPlayer;
 	//create seperate class for player that extends GameObject
 	radius = .04f;
 	position = glm::vec2(x, y);
+
+	float randXVel = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+	float randYvel = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+	velocity = glm::vec2(randXVel, randYvel);
+	lastPosition = glm::vec2(x, y);
+	speed = 1;
+
+	this->color = color;
+}
+
+
+GameObject::GameObject(GLfloat x, GLfloat y, GLboolean isPlayer)
+:GameObject(x,y,isPlayer, glm::vec3(0,0,0)){
 	float randXVel = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 	float randYvel = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 	float randZvel = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-
-	velocity = glm::vec2(randXVel, randYvel);
-	lastPosition = glm::vec2(x,y);
-	speed = 1;
-
-	color = glm::vec3(randXVel, randYvel, randZvel);
+	this->color = glm::vec3(randXVel, randYvel, randZvel);
 }
 
 void GameObject::tick(GLfloat dt, GLboolean keys[1024]) {

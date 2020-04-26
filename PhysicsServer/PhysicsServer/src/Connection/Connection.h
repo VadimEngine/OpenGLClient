@@ -27,12 +27,12 @@ public:
 	/// <summary>
 	/// Object to handle TCP communication
 	/// </summary>
-	ConnectionTCP conTCP;
+	ConnectionTCP* conTCP;
 
 	/// <summary>
 	/// Object to handler UDP communication
 	/// </summary>
-	ConnectionUDP conUDP;
+	ConnectionUDP* conUDP;
 
 	/// <summary>
 	/// The Handler that will hold data that will be updated/sent

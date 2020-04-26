@@ -20,11 +20,16 @@ void GamePage::tick() {
 }
 
 void GamePage::mouseClick(glm::vec2 mouseCoord) {
-	for (int i = 0; i < buttons.size(); i++) {
-		if (buttons[i].inbound(mouseCoord) && buttons[i].text == "MENU") {
-			nextPage = new MenuPage();
+	for (int i = 0; i < components.size(); i++) {
+		if (components[i]->type == ComponentType::BUTTON) {
+			if (((Button*)components[i])->inbound(mouseCoord)) {
+				if (((Button*)components[i])->text == "MENU") {
+					nextPage = new MenuPage();
+				}
+			}
 		}
 	}
+
 	gameHUD->mouseClick(mouseCoord);
 }
 

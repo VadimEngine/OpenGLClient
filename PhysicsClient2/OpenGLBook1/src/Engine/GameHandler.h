@@ -1,10 +1,15 @@
 #pragma once
 #include "GameObject.h"
+#include <map>
+#include <iterator>
+#include "../Connection/Connection.h"
 
 class GameHandler {
 
 public:
 
+
+	Connection* theConnection;
 	/// <summary>
 	/// The player objects that the user controls
 	/// </summary>
@@ -18,6 +23,11 @@ public:
 	/// </summary>
 	std::vector<GameObject*> objs;
 
+	//ordered map so the next key can be found
+	std::map<int, GameObject*> serverObjs;
+	//use unsined int nad set 0 as no pointer?
+	int selectedId;
+
 	//not needed? can be derived from connection object
 	bool server;
 
@@ -25,7 +35,9 @@ public:
 	bool paused;
 
 
-	GameHandler(bool server);
+
+
+	GameHandler(bool server, Connection* theConnection);
 
 	~GameHandler();
 
@@ -43,6 +55,13 @@ public:
 	void selectNext();
 
 	void removeParticle(GameObject* obj);
+
+
+
+	void removeParticleServer(int theID);
+	void selectNextServer();
+	void addParticleServer(GameObject* obj, int id);
+
 
 	void setPause(bool pause);
 

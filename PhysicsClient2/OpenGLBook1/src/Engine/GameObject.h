@@ -11,7 +11,7 @@
 /// <Summary>
 /// Game objects that will update with the game and be rendered.
 /// Currently only renders cirlces
-/// <Summary
+/// <Summary>
 class GameObject {
 
 public:
@@ -51,12 +51,17 @@ public:
 	/// The speed that the player particle moves 
 	/// </summary>
 	GLfloat speed;
+
+	int id;
 	
 	/// <summary>
 	/// Constutor, sets the coordinates and postion,
 	/// velocity is random and radius is always .04
 	/// </summary>
 	GameObject(GLfloat x, GLfloat y, GLboolean isPlayer);
+
+
+	GameObject(GLfloat x, GLfloat y, GLboolean isPlayer, glm::vec3 color);
 
 	/// <summary
 	/// Updates particle postion based on velocity.

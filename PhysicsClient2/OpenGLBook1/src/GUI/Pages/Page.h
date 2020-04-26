@@ -16,13 +16,19 @@ public:
 
 	PageType type;
 
-	std::vector<Button> buttons;
+	//change to pointer
+	//std::vector<Button*> buttons;
+
+	Button* highlightedButton;
+	Component* selectedComponent;
 
 	std::vector<Component*> components;
 
 	Page* nextPage;
 
 	//constructor/destructor?
+	Page();
+
 
 	virtual void tick();
 

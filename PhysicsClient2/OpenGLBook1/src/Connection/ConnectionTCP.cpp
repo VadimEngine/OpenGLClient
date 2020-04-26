@@ -45,6 +45,10 @@ bool ConnectionTCP::TCPConnect(int port, std::string ipAddress) {
 	if (connResult == SOCKET_ERROR) {
 		std::cerr << "Can't connect to server, Error # " << WSAGetLastError() << std::endl;
 	} else {
+
+		float toSend[1] = { ConnectionConstants::CLIENT_CONNECT };
+		send(sock, (char*)toSend, 1 * sizeof(float), 0);
+
 		return true;
 	}
 	return false;
@@ -55,11 +59,11 @@ void ConnectionTCP::TCPGetData(void* data, int& size) {
 	ZeroMemory(buf, 4096);
 	int bytesRecieved = recv(sock, buf, 4096, 0);
 
-	size = bytesRecieved / sizeof(float);
+	size = bytesRecieved;
 	for (int i = 0; i < size; i++) {
 		//execption here when server is disconnect suddenly, check befre going into this line
 		// access violation writing location
-		((float*)data)[i] = ((float*)buf)[i];
+		((char*)data)[i] = buf[i];
 	}
 }
 

@@ -28,7 +28,7 @@ void Handler::initGame() {
 	if (gameHandler != nullptr) {
 		delete gameHandler;
 	}
-	gameHandler = new GameHandler(connect->theMode != ConnectionMode::Serverless);
+	gameHandler = new GameHandler(connect->theMode != ConnectionMode::Serverless, connect);
 }
 
 
@@ -38,21 +38,75 @@ void Handler::tick(GLfloat dt) {
 	float tempData[1024];
 	if (connect->theMode != Serverless) {
 		if (gameHandler->player != nullptr) {
-			float temp[3] = { 1, gameHandler->player->position.x, gameHandler->player->position.y };
+			float temp[3] = { ConnectionConstants::CLIENT_PARTICLE_PULL, gameHandler->player->position.x, gameHandler->player->position.y };
 			connect->sendData(temp, 3 * sizeof(float));
 		}
 		connect->getData(tempData, size);
 
-		for (int i = 0; i < size; i += 2) {
-			float x1 = tempData[i];
-			float y1 = tempData[i + 1];
-			renderer->renderCircleColor(glm::vec3(x1, y1, 0), glm::vec3(1,1,1), .04, 10);//render in update for now
-		}
+		//if (float)tempdata[0] == ::server_connet, then set HUD server info
+
+		if (tempData[0] == ConnectionConstants::SERVER_PARTICLE_POST) {
+			if (gameHandler != nullptr) {
+				/*
+				for (int i = 0; i < gameHandler->objs.size(); i++) {
+					delete gameHandler->objs[i];
+				}
+				gameHandler->objs.clear();
+				*/
+				std::map<int, GameObject*>::iterator itr = gameHandler->serverObjs.begin();
+				while (itr != gameHandler->serverObjs.end()) {
+					delete itr->second;
+					itr++;
+				}
+				gameHandler->serverObjs.clear();
+			}
+
+
+			for (int i = 1; i < size; i += 7) {
+				/*
+				float x1 = tempData[i];
+				float y1 = tempData[i + 1];
+				renderer->renderCircleColor(glm::vec3(x1, y1, 0), glm::vec3(1,1,1), .04, 10);//render in update for now might be why there is flicker
+				*/
+				int theId = tempData[i];
+				float theRad = tempData[i + 1];
+				float theX = tempData[i + 2];
+				float theY = tempData[i + 3];
+				float theCR = tempData[i + 4];
+				float theCG = tempData[i + 5];
+				float theCB = tempData[i + 6];
+
+				//clear particles from game
+				//add particles
+				GameObject* toAdd = new GameObject(theX, theY, false, glm::vec3(theCR, theCG, theCB));
+				toAdd->id = theId;
+				//gameHandler->addObj(toAdd);
+				gameHandler->addParticleServer(toAdd, theId);
+				//renderer->renderCircleColor(glm::vec3(theX, theY, 0), glm::vec3(theCR, theCG, theCB), theRad, 10);//render in update for now might be why there is flicker
+			}
+		} else if (tempData[0] == ConnectionConstants::SERVER_INFO) {
+			//set server info fields
+			if (currentPage->type == PageType::Game && ((GamePage*)currentPage)->gameHUD != nullptr) {
+				std::cout << "Update server info: " << std::endl;
+
+				std::string serverName;
+
+				for (int i = 4; i < 255 && ((char*)tempData)[i] != '\0'; i++) {
+					serverName+=((char*)tempData)[i];
+				}
+				std:: cout << "ServerName: " << serverName <<std::endl;
+				((GamePage*)currentPage)->gameHUD->serverNameInfo->text = "Server Name: " + serverName;
+
+			}
+		}		
 
 		if (leftClick) {
-			float toSend[3] = { -2, mouseCoords.x, mouseCoords.y };
+			float toSend[3] = { ConnectionConstants::CLIENT_PARTICLE_ADD, mouseCoords.x, mouseCoords.y };
 			connect->sendData(toSend, 3 * sizeof(float));
 		}
+		//send server info pull
+		//float toSend[1] = { ConnectionConstants::CLIENT_CONNECT };
+		//connect->sendData(toSend, 1 * sizeof(float));
 	}
 
 

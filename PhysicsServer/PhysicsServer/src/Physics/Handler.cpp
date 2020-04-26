@@ -1,4 +1,5 @@
 #include "Handler.h"
+//move these to header
 #include <mutex>
 #include <math.h>
 
@@ -9,7 +10,8 @@ Handler::Handler(int pCount, std::string worldName)
 	for (int i = 0; i < pCount; i++) {
 		float c1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 		float c2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-		objs.push_back(new Particle(c1, c2, false));
+		Particle* p = new Particle(c1, c2, false);
+		objs.push_back(p);
 	}
 }
 
@@ -52,7 +54,7 @@ void Handler::update(double dt) {//update properly, float dt?
 			//exception thrown where when client suddenly disconnects
 			//check before going to this line
 			float distance = sqrt( pow(p2->x - p1->x,2) + pow(p2->y - p1->y, 2));
-			if (distance < .04f) {
+			if (distance < .05f) {
 				//swap velocities
 				float tempXvel = p1->velx;
 				float tempYvel = p1->vely;
@@ -80,6 +82,17 @@ void Handler::add(float x, float y) {
 	objs.push_back(new Particle(x, y, false));
 }
 
+void Handler::removeParticle(int id) {
+	//iterate and remove if exists for now
+	for (int i = 0; i < objs.size(); i++) {
+		if (objs[i]->id == id) {
+			delete objs[i];
+			objs.erase(objs.begin() + i);
+			break;
+		}
+	}
+}
+
 //return the index of the posistion in this vector as an ID which can later be used to remove
 void Handler::addClient(Particle* p) {
 	clientObjs.push_back(p);
@@ -105,6 +118,7 @@ float* Handler::getSendData() {
 	return temp;
 }
 
+//make a vector and send vector to array?
 std::tuple<int, float*> Handler::getSendData2() {
 	mu.lock();
 	int tempSize = (objs.size() * 2) + (clientObjs.size() * 2);
@@ -122,6 +136,46 @@ std::tuple<int, float*> Handler::getSendData2() {
 
 	return std::make_tuple(tempSize, temp);
 }
+
+//might be faster (no need to convert back to array and
+//no need to resize the voecor when adding data)
+std::vector<float> Handler::getSendData3() {
+	mu.lock();
+	//set initial capaticy to avoid resizing
+	//std::vector<float> theData((objs.size() * 7) + (clientObjs.size() * 7) + 1);
+	std::vector<float> theData;
+
+	theData.push_back(ConnectionConstants::SERVER_PARTICLE_POST);
+	//first float(s) should indicate what this data is
+	// such as 1=particles data and then also state how many fields?
+	// but then the client code would need to be more dynamic to handle 
+	//various number of fields...
+	//id, radius, x, y, r, g, b ...
+	for (int i = 0; i < objs.size(); i++) {
+		theData.push_back(objs[i]->id);
+		theData.push_back(objs[i]->radius);
+		theData.push_back(objs[i]->x);
+		theData.push_back(objs[i]->y);
+		theData.push_back(objs[i]->color->r);
+		theData.push_back(objs[i]->color->g);
+		theData.push_back(objs[i]->color->b);
+	}
+
+	for (int i = 0; i < clientObjs.size(); i++) {
+		theData.push_back(clientObjs[i]->id);
+		theData.push_back(clientObjs[i]->radius);
+		theData.push_back(clientObjs[i]->x);
+		theData.push_back(clientObjs[i]->y);
+		theData.push_back(clientObjs[i]->color->r);
+		theData.push_back(clientObjs[i]->color->g);
+		theData.push_back(clientObjs[i]->color->b);
+	}
+
+	mu.unlock();
+	return theData;
+}
+
+
 
 void Handler::UpdatePhysics(Handler* handler) {
 	auto last = std::chrono::high_resolution_clock::now();//get current time

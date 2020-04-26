@@ -2,6 +2,7 @@
 #include "../Physics/Handler.h"
 #include <WS2tcpip.h>
 #include <thread>
+#include "ConnectionConstants.h"
 
 class ConnectionTCP {
 public:

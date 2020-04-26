@@ -1,9 +1,18 @@
 #include "Particle.h"
 
-Particle::Particle(float x, float y, bool isPlayer) {
+Particle::Particle(float x, float y, bool isPlayer)
+:Particle(x,y,isPlayer, new Color(1,0,0), .05f){
+	//Particle::Particle(x, y, isPlayer, new Color(1,1,1), .05f);
+}
+
+Particle::Particle(float x, float y, bool isPlayer, Color* color, float radius)
+:x(x), y(y), isPlayer(isPlayer), color(color), radius(radius){
+	//this->color = color;
+	//this->radius = radius;
+	this->id = ObjectIDGenerator::getNewId();
 	this->isPlayer = isPlayer;
-	this->x = x;
-	this->y = y;
+	//this->x = x;
+	//this->y = y;
 
 	if (!isPlayer) {
 		float c1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
@@ -28,8 +37,8 @@ void Particle::update(double dt) {//properly update, float dt
 
 		vely -= .981 * dt;
 
-		if (y < -1) {
-			y = -1;
+		if (y < -.7) {
+			y = -.7;
 			vely *= -1 * .9;
 		}
 

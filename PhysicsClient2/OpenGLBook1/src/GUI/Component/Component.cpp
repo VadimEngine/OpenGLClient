@@ -8,13 +8,12 @@ Component::Component(ComponentType type, glm::vec3 position, glm::vec3 color)
 	this->color = color;
 }
 
-void Component::render(Renderer* renderer) {
-}
+void Component::render(Renderer* renderer) {}
 
-void Component::tick() {
+void Component::renderHighlighted(Renderer* renderer) {}
 
-}
+void Component::tick() {}
 
-void Component::mouseHover(glm::vec2 mouseCoord) {
+void Component::mouseHover(glm::vec2 mouseCoord) {}
 
-}
+void Component::action() {}

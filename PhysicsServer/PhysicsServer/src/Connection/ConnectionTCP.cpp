@@ -70,6 +70,7 @@ void ConnectionTCP::communicate(Handler* handler) {
 		if (client == INVALID_SOCKET) {
 			std::cout << "Invalid client socket " << GetLastError() << std::endl;
 		} else {
+			//send server info and then begin the thread
 			std::thread(listenClient2, (void*)&client, handler).detach();
 		}
 	}
@@ -99,19 +100,48 @@ void listenClient2(void* data, Handler* handler) {
 
 	char chunk[200];
 	while (recv(Client, chunk, 200, 0)) {
-		if (((float*)chunk)[0] == 1) {
+
+		if (((float*)chunk)[0] == ConnectionConstants::CLIENT_CONNECT) {
+			//send server name
+			std::cout << "Server info request" << std::endl;
+			
+			char toSend[255];
+			//std::string testName = "0000ServerInfo";
+			
+			for (int i = 0; i < handler->worldName.size() + 1; i++) {
+				if (i == handler->worldName.size()) {
+					toSend[i+4] = '\0';
+				} else {
+					toSend[i+4] = handler->worldName[i];
+				}
+			}	
+			
+			((float*)toSend)[0] = ConnectionConstants::SERVER_INFO;
+
+			//float toSend[1] = { ConnectionConstants::SERVER_INFO };
+			send(Client, (char*)toSend, 255, 0);
+
+		} else if (((float*)chunk)[0] == ConnectionConstants::CLIENT_PARTICLE_PULL) {
 			p->x = ((float*)chunk)[1];
 			p->y = ((float*)chunk)[2];
 
 			int size2;
 			float* temp2;
 			//Comment out until handler is figured out
-			std::tie(size2, temp2) = handler->getSendData2();
-			send(Client, (char*)temp2, size2 * sizeof(float), 0);
+			//std::tie(size2, temp2) = handler->getSendData2();
+			//send(Client, (char*)temp2, size2 * sizeof(float), 0);
+			std::vector<float> sendData = handler->getSendData3();
+			send(Client, (char*)sendData.data(), sendData.size() * sizeof(float), 0);
 
-			delete[] temp2;
+			//delete[] temp2;
 		} else if (((float*)chunk)[0] == -2) {
+			//handler->add(((float*)chunk)[1], ((float*)chunk)[2]);
+		} else if (((float*)chunk)[0] == ConnectionConstants::CLIENT_PARTICLE_ADD) {
+			//add particle at sent location
 			handler->add(((float*)chunk)[1], ((float*)chunk)[2]);
+		} else if (((float*)chunk)[0] == ConnectionConstants::CLIENT_PARTICLE_REMOVE) {
+			//remove partice with sent id if it exists
+			handler->removeParticle(((float*)chunk)[1]);
 		}
 
 	}

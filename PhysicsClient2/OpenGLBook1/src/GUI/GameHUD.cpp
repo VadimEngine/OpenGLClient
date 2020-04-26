@@ -1,22 +1,22 @@
 #include "GameHUD.h"
 
 GameHUD::GameHUD(Connection* connect, std::vector<GameObject*>* gameObjects, GameObject* player, GameObject** selectedObj, GameHandler* gameHandler) {
-	buttons.push_back(Button(glm::vec3(.51, -.75, 0),
+	components.push_back(new Button(glm::vec3(.51, -.75, 0),
 		glm::vec3(.4, .4, .4), "MENU", glm::vec2(.3, .05)));
-	buttons.push_back(Button(glm::vec3(.51, -.85, 0),
+	components.push_back(new Button(glm::vec3(.51, -.85, 0),
 		glm::vec3(.4, .4, .4), "SAVE", glm::vec2(.3, .05)));
 
-	buttons.push_back(Button(glm::vec3(.15, -.71, 0),
+	components.push_back(new Button(glm::vec3(.15, -.71, 0),
 		glm::vec3(.4, .4, .4), "PAUSE", glm::vec2(.3, .05)));
 
 	//Make a radio button
-	buttons.push_back(Button(glm::vec3(-.44, -.95, 0),
+	components.push_back(new Button(glm::vec3(-.44, -.95, 0),
 		glm::vec3(.4, .4, .4), "GRAVITY", glm::vec2(.3, .05)));
 
-	buttons.push_back(Button(glm::vec3(.15, -.95, 0),
+	components.push_back(new Button(glm::vec3(.15, -.95, 0),
 		glm::vec3(.4, .4, .4), "REMOVE", glm::vec2(.3, .05)));
 
-	buttons.push_back(Button(glm::vec3(.15, -.78, 0),
+	components.push_back(new Button(glm::vec3(.15, -.78, 0),
 		glm::vec3(.4, .4, .4), "NEXT", glm::vec2(.3, .05)));
 
 	serverConnectionInfo = new TextField(glm::vec3(-1, -.7, 0),
@@ -30,22 +30,24 @@ GameHUD::GameHUD(Connection* connect, std::vector<GameObject*>* gameObjects, Gam
 		serverConnectionInfo->text = "Server UDP";
 	}
 
-	components.push_back(new TextField(glm::vec3(-1, -.75, 0),
-		glm::vec3(.4, .4, .4), "Server Name", glm::vec2(.3, .1), .85f));
+	serverNameInfo = new TextField(glm::vec3(-1, -.75, 0),
+		glm::vec3(.4, .4, .4), "Server Name", glm::vec2(.3, .1), .85f);
 
-	components.push_back(new TextField(glm::vec3(-1, -.80, 0),
-		glm::vec3(.4, .4, .4), "Server Ip", glm::vec2(.3, .1), .85f));
+	components.push_back(serverNameInfo);
 
-	serverClientsCount = new TextField(glm::vec3(-1, -.85, 0),
-		glm::vec3(.4, .4, .4), "Clients", glm::vec2(.3, .1), .85f);
+	//components.push_back(new TextField(glm::vec3(-1, -.80, 0),
+	//	glm::vec3(.4, .4, .4), "Server Ip", glm::vec2(.3, .1), .85f));
 
-	components.push_back(serverClientsCount);
+	//serverClientsCount = new TextField(glm::vec3(-1, -.85, 0),
+	//	glm::vec3(.4, .4, .4), "Clients", glm::vec2(.3, .1), .85f);
 
-	components.push_back(new TextField(glm::vec3(-1, -.90, 0),
-		glm::vec3(.4, .4, .4), "Client IP", glm::vec2(.3, .1), .85f));
+	//components.push_back(serverClientsCount);
 
-	components.push_back(new TextField(glm::vec3(-1, -.95, 0),
-		glm::vec3(.4, .4, .4), "Client ID", glm::vec2(.3, .1), .85f));
+	//components.push_back(new TextField(glm::vec3(-1, -.90, 0),
+	//	glm::vec3(.4, .4, .4), "Client IP", glm::vec2(.3, .1), .85f));
+
+	//components.push_back(new TextField(glm::vec3(-1, -.95, 0),
+	//	glm::vec3(.4, .4, .4), "Client ID", glm::vec2(.3, .1), .85f));
 
 	components.push_back(serverConnectionInfo);
 
@@ -82,12 +84,13 @@ GameHUD::GameHUD(Connection* connect, std::vector<GameObject*>* gameObjects, Gam
 	this->selectedObj = selectedObj;
 	this->gameHandler = gameHandler;
 	toMenu = false;
+	highlightedButton = nullptr;
 
 }
 
 void GameHUD::tick() {
-	for (Button button : buttons) {
-		button.tick();
+	for (Component* comp : components) {
+		comp->tick();
 	}
 	particlesInfo->text = "Particles " + std::to_string(gameObjects->size());
 
@@ -98,6 +101,16 @@ void GameHUD::tick() {
 	} else {
 		selectedInfo->text = "Particle ";
 	}
+
+	if (connect->theMode != ConnectionMode::Serverless) {
+		if (gameHandler->serverObjs.find(gameHandler->selectedId) != gameHandler->serverObjs.end()) {
+			GameObject* theObj = gameHandler->serverObjs.find(gameHandler->selectedId)->second;
+			selectedInfo->text = "Particle " + std::to_string((theObj)->position.x) + ", " + std::to_string((theObj)->position.y);
+		} else {
+			selectedInfo->text = "Particle ";
+		}
+	}
+
 }
 
 void GameHUD::render(Renderer* renderer) {
@@ -109,20 +122,29 @@ void GameHUD::render(Renderer* renderer) {
 
 	renderer->renderLineColor(glm::vec3(.5, -.7, 0), glm::vec3(.5, -1, 0), glm::vec3(.4, .4, .4), .01);
 
-	for (Button button : buttons) {
-		button.render(renderer);
-	}
+
 	for (int i = 0; i < components.size(); i++) {
-		components[i]->render(renderer);
+		if (components[i] == highlightedButton) {
+			components[i]->renderHighlighted(renderer);
+		} else {
+			components[i]->render(renderer);
+		}
+		
 	}
 }
 
 void GameHUD::mouseHover(glm::vec2 mouseCoord) {
-	for (int i = 0; i < buttons.size(); i++) {
-		if (buttons[i].inbound(mouseCoord)) {
-			buttons[i].setHighlight(true);
-		} else {
-			buttons[i].setHighlight(false);
+	bool highlighted = false;
+	for (int i = 0; i < components.size(); i++) {
+		if (components[i]->type == ComponentType::BUTTON) {
+			if (((Button*)components[i])->inbound(mouseCoord)) {
+				highlightedButton = (Button*)components[i];
+				highlighted = true;
+				//buttons[i].setHighlight(true);
+			}
+		}
+		if (!highlighted) {
+			highlightedButton = nullptr;
 		}
 	}
 }
@@ -130,21 +152,29 @@ void GameHUD::mouseHover(glm::vec2 mouseCoord) {
 //make it take in a function? or pass in a void* data
 //that can be used to update data
 void GameHUD::mouseClick(glm::vec2 mouseCoord) {
-	for (int i = 0; i < buttons.size(); i++) {
+	for (int i = 0; i < components.size(); i++) {
 		//Check inbound once, then do if else on the text/type
-		if (buttons[i].inbound(mouseCoord) && buttons[i].text == "MENU") {
-			//nextPage = new MenuPage();
-			toMenu = true;
-		} else if (buttons[i].inbound(mouseCoord) && buttons[i].text == "SAVE") {
-			std::cout << "Save game" << std::endl;
-		} else if (buttons[i].inbound(mouseCoord) && buttons[i].text == "NEXT") {
-			gameHandler->selectNext();
-		} else if (buttons[i].inbound(mouseCoord) && buttons[i].text == "REMOVE") {
-			gameHandler->removeParticle(gameHandler->selectedObj);
-		} else if (buttons[i].inbound(mouseCoord) && buttons[i].text == "PAUSE") {
-			gameHandler->setPause(!gameHandler->paused);
-		} else if (buttons[i].inbound(mouseCoord) && buttons[i].text == "GRAVITY") {
-			gameHandler->setGravity(!gameHandler->gravity);
+		if (((Button*)components[i])->inbound(mouseCoord)) {
+			if (((Button*)components[i])->text == "MENU") {
+				//nextPage = new MenuPage();
+				toMenu = true;
+			} else if (((Button*)components[i])->text == "SAVE") {
+				std::cout << "Save game" << std::endl;
+			} else if (((Button*)components[i])->text == "NEXT") {
+				gameHandler->selectNext();
+				gameHandler->selectNextServer();
+				std::cout << "Next: " << gameHandler->selectedId << std::endl;
+			} else if (((Button*)components[i])->text == "REMOVE") {
+				if (gameHandler->server) {
+					gameHandler->removeParticleServer(gameHandler->selectedId);
+				} else {
+					gameHandler->removeParticle(gameHandler->selectedObj);
+				}
+			} else if (((Button*)components[i])->text == "PAUSE") {
+				gameHandler->setPause(!gameHandler->paused);
+			} else if (((Button*)components[i])->text == "GRAVITY") {
+				gameHandler->setGravity(!gameHandler->gravity);
+			}
 		}
 	}
 }

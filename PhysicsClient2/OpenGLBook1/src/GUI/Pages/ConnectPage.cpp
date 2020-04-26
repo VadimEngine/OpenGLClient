@@ -2,10 +2,10 @@
 
 ConnectPage::ConnectPage() {
 	this->type = Connect;
-	buttons.push_back(Button(glm::vec3(0 - (.3 / 2.0), .60, 0),
+	components.push_back(new Button(glm::vec3(0 - (.3 / 2.0), .60, 0),
 		glm::vec3(.4, .4, .4), "MENU", glm::vec2(.3, .1)));
 
-	buttons.push_back(Button(glm::vec3(0 - (.3 / 2.0), .30, 0),
+	components.push_back(new Button(glm::vec3(0 - (.3 / 2.0), .30, 0),
 		glm::vec3(.4, .4, .4), "CONNECT", glm::vec2(.3, .1)));
 
 	//myInput = new TextInput(glm::vec3(0 - (.3 / 2.0), -.3, 0),
@@ -55,59 +55,6 @@ void ConnectPage::tick() {
 }
 
 void ConnectPage::mouseClick(glm::vec2 mouseClick) {
-	for (int i = 0; i < buttons.size(); i++) {
-		if (buttons[i].inbound(mouseClick) && buttons[i].text == "MENU") {
-			nextPage = new MenuPage();
-		} 
-		if (buttons[i].inbound(mouseClick) && buttons[i].text == "CONNECT") {
-			std::string mode;// = connectModeInput->selectedElement->text;
-			std::string ip = ipInput->text;
-			std::string id = idInput->text;
-			if (connectModeInput->selectedElement != nullptr) {
-				mode = connectModeInput->selectedElement->text;
-			} else {
-				continue;
-			}
-			
-			bool validIp = ip.size() != 0;
-
-			char* p;
-			long converted = strtol(id.c_str(), &p, 10);
-
-
-			bool validId = *p == 0;
-			if (validId) {
-				std::cout << "Valid id" << converted << std::endl;
-			} else {
-				std::cout << "Invalid id" << std::endl;
-			}
-			//validate ip only consists of numbrs and '.'
-			//can use regex later?
-			for (int i = 0; i < ip.length(); i++) {
-				if ( !(isdigit(ip[i]) || ip[i]=='.') ){
-					validIp = false;
-					break;
-				}
-			}
-
-			if (validIp) {
-				std::cout << "Valid Ip" << ip << std::endl;
-			} else {
-				std::cout << "Invlaid Ip" << ip << std::endl;
-			}
-
-			// confirm valid inputs
-			if (validIp && (mode._Equal("TCP") || (mode._Equal("UDP") && validId)) ) {
-				std::cout << "Connecting: " << mode << " ip: " << ip << " id: " << id << std::endl;
-				doConnect = true;
-				this->connectStatus->text = "STATUS: Connecting...";
-				nextPage = new GamePage();
-			} else {
-				this->connectStatus->text = "STATUS: Invaid connect input";
-			}
-
-		}
-	}
 	for (int i = 0; i < components.size(); i++) {
 		if (components[i]->type == LISTVIEW) {
 			((ListView*)components[i])->mouseClick(mouseClick);
@@ -117,6 +64,59 @@ void ConnectPage::mouseClick(glm::vec2 mouseClick) {
 				((TextInput*)components[i])->selected = true;
 			} else {
 				((TextInput*)components[i])->selected = false;
+			}
+		} else if (components[i]->type == ComponentType::BUTTON) {
+			if (((Button*)components[i])->inbound(mouseClick)) {
+				if (((Button*)components[i])->text == "MENU") {
+					nextPage = new MenuPage();
+				}
+				if (((Button*)components[i])->text == "CONNECT") {
+					std::string mode;// = connectModeInput->selectedElement->text;
+					std::string ip = ipInput->text;
+					std::string id = idInput->text;
+					if (connectModeInput->selectedElement != nullptr) {
+						mode = connectModeInput->selectedElement->text;
+					} else {
+						continue;
+					}
+
+					bool validIp = ip.size() != 0;
+
+					char* p;
+					long converted = strtol(id.c_str(), &p, 10);
+
+
+					bool validId = *p == 0;
+					if (validId) {
+						std::cout << "Valid id" << converted << std::endl;
+					} else {
+						std::cout << "Invalid id" << std::endl;
+					}
+					//validate ip only consists of numbrs and '.'
+					//can use regex later?
+					for (int i = 0; i < ip.length(); i++) {
+						if (!(isdigit(ip[i]) || ip[i] == '.')) {
+							validIp = false;
+							break;
+						}
+					}
+
+					if (validIp) {
+						std::cout << "Valid Ip" << ip << std::endl;
+					} else {
+						std::cout << "Invlaid Ip" << ip << std::endl;
+					}
+
+					// confirm valid inputs
+					if (validIp && (mode._Equal("TCP") || (mode._Equal("UDP") && validId))) {
+						std::cout << "Connecting: " << mode << " ip: " << ip << " id: " << id << std::endl;
+						doConnect = true;
+						this->connectStatus->text = "STATUS: Connecting...";
+						nextPage = new GamePage();
+					} else {
+						this->connectStatus->text = "STATUS: Invaid connect input";
+					}
+				}
 			}
 		}
 	}

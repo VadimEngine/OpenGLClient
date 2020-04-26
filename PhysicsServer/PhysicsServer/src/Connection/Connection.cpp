@@ -30,26 +30,28 @@ void Connection::connectProtocol() {
 
 void Connection::init() {
 	if (theMode == TCP) {
-		conTCP.init();
+		conTCP = new ConnectionTCP;
+		conTCP->init();
 	} else if (theMode == UDP) {
-		conUDP.init();
+		conUDP = new ConnectionUDP();
+		conUDP->init();
 	}
 }
 
 void Connection::close() {
 	if (theMode == TCP) {
-		conTCP.close();
+		conTCP->close();
 	} else if (theMode == UDP) {
-		conUDP.close();
+		conUDP->close();
 	}
 }
 
 
 void Connection::communicate() {
 	if (theMode == TCP) {
-		conTCP.communicate(this->handler);
+		conTCP->communicate(this->handler);
 	} else if (theMode == UDP) {
-		conUDP.communicate(this->handler);
+		conUDP->communicate(this->handler);
 	}
 }
 

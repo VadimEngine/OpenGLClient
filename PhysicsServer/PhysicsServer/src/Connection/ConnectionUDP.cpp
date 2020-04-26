@@ -41,7 +41,7 @@ void ConnectionUDP::init() {
 
 	struct hostent* phe = gethostbyname(ac);
 	if (phe == 0) {
-		std::cerr << "Yow! Bad host lookup." << std::endl;
+		std::cerr << "Error. Bad host lookup." << std::endl;
 		//return 1;
 	}
 
@@ -114,11 +114,14 @@ void ConnectionUDP::communicate(Handler* handler) {
 		if (((float*)buf)[0] == -2) {
 			handler->add(((float*)buf)[1], ((float*)buf)[2]);
 		}
-
-		float* coords = handler->getSendData();
-		sendto(in, (char*)coords, (handler->objs.size() * 2 + handler->clientObjs.size() * 2) * sizeof(float), 0, (sockaddr*)&client, sizeof(client));
+		//update to getSendData3 for UDP
+		//float* coords = handler->getSendData();
+		//sendto(in, (char*)coords, (handler->objs.size() * 2 + handler->clientObjs.size() * 2) * sizeof(float), 0, (sockaddr*)&client, sizeof(client));
 		//std::cout << "Sending: " << (handler.objs.size() * 2 + handler.clientObjs.size() * 2) << std::endl;
-		delete coords;
+		//delete coords;
+
+		std::vector<float> toSend = handler->getSendData3();
+		sendto(in, (char*)toSend.data(), (toSend.size()) * sizeof(float), 0, (sockaddr*)&client, sizeof(client));
 	}
 }
 

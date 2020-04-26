@@ -16,9 +16,11 @@ public:
 
 	glm::vec3 position;
 
-	std::vector<Button> buttons;
+	//std::vector<Button*> buttons;
 
 	std::vector<Component*> components;
+
+	Button* highlightedButton;
 
 	TextField* serverConnectionInfo;
 	TextField* serverNameInfo;

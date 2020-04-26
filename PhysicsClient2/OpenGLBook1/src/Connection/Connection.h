@@ -1,6 +1,7 @@
 #pragma once
 #include "ConnectionTCP.h"
 #include "ConnectionUDP.h"
+#include "ConnectionConstants.h"
 #include <string>
 
 
@@ -17,6 +18,13 @@ enum ConnectionMode {Serverless, TCP, UDP};
 /// such as Ip or port number. input can help to allow
 /// connecting to multiple servers at once. Or even allowing
 /// this client to be a server is needed
+///
+/// Might need to make this work on a different thread?
+/// keep the server data saved and surrounded by lock(s)
+/// and have tick/render read the data of most recently saved
+/// data from server, also need connection time out and ping?
+/// server data update might not need to be 60 times a second?
+///
 /// </remarks>
 class Connection {
 

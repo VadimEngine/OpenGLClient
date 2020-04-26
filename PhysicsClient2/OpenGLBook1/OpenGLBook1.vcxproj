@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Connection\Connection.h" />
+    <ClInclude Include="src\Connection\ConnectionConstants.h" />
     <ClInclude Include="src\Connection\ConnectionTCP.h" />
     <ClInclude Include="src\Connection\ConnectionUDP.h" />
     <ClInclude Include="src\Engine\GameHandler.h" />

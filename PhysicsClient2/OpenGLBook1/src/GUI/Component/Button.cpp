@@ -1,12 +1,12 @@
 #include "Button.h"
 
 
-Button::Button(glm::vec3 position, glm::vec3 color, std::string text, glm::vec2 dimension) {
+Button::Button(glm::vec3 position, glm::vec3 color, std::string text, glm::vec2 dimension)
+:Component::Component(ComponentType::BUTTON, position, color){
 	this->position = position;
 	this->color = color;
 	this->text = text;
 	this->dimension = dimension;
-	highLight = false;
 }
 
 void Button::tick() {
@@ -14,9 +14,13 @@ void Button::tick() {
 }
 
 void Button::render(Renderer* renderer) {
-	if (highLight) {
-		renderer->renderRectangleColor(position + glm::vec3(-.01,.01,0), dimension.x + .02, dimension.y + .02, glm::vec3(1,1,1));
-	}
+	renderer->renderRectangleColor(position, dimension.x, dimension.y, color);
+	renderer->renderString(text, glm::vec2(position.x + .1, position.y - .01));//,  position.x + .1, position.y - .01
+}
+
+
+void Button::renderHighlighted(Renderer* renderer) {
+	renderer->renderRectangleColor(position + glm::vec3(-.01, .01, 0), dimension.x + .02, dimension.y + .02, glm::vec3(1, 1, 1));
 
 	renderer->renderRectangleColor(position, dimension.x, dimension.y, color);
 	renderer->renderString(text, glm::vec2(position.x + .1, position.y - .01));//,  position.x + .1, position.y - .01
@@ -32,8 +36,4 @@ bool Button::inbound(glm::vec2 coord) {
 		return true;
 	}
 	return false;
-}
-
-void Button::setHighlight(bool value) {
-	this->highLight = value;
 }

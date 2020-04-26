@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <WS2tcpip.h>
+#include "ConnectionConstants.h"
 //#include "../GUI/Window.h"
 
 
