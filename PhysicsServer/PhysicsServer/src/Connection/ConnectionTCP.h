@@ -21,10 +21,4 @@ public:
 	void getData(void* data, int& size);
 
 	void close();
-
-
-
-
-
-
 };

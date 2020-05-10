@@ -9,8 +9,7 @@
 /// Tracks user inut should be static and only in 1 location. Maybe in handler
 /// </remarks>
 class Window {
-public:
-
+private:
 	/// <summary>
 	/// The OpenGl window that holds all the rendering.
 	/// </summary>
@@ -21,6 +20,7 @@ public:
 	/// </summary>
 	Handler* handler;
 
+public:
 	/// <summary>
 	/// Constructor that generates a window with the given dimensions
 	/// and with count number of particles
@@ -33,7 +33,7 @@ public:
 	~Window();
 
 	/// <summary>
-	/// If the window should, such as if the player has pressed the close button
+	/// If the window should, such as if the user has pressed the close button
 	/// </summary>
 	GLboolean shouldClose();
 
@@ -48,12 +48,17 @@ public:
 	void update();
 
 	/// <summary>
-	/// Draws the game data with OpenGL, calls handler->render()
+	/// Draws the game data with OpenGL by calling handler->render()
 	/// <summary>
 	void render();
 
 	/// <summary>
-	/// Tells handler to close down it connection
+	/// Tells handler to close down its connection
 	/// </summary
 	void closeConnection();
+
+	/// <summary>
+	/// getter for the handler for this window
+	///</summary?
+	Handler* getHandler();
 };

@@ -2,7 +2,7 @@
 
 
 MenuPage::MenuPage() {
-	this->type = Menu;
+	this->type = PageType::MENU;
 
 	components.push_back(new TextField(glm::vec3(0 - (.3 / 2.0), .80, 0),
 		glm::vec3(.4, .4, .4), "MENU", glm::vec2(.3, .1), 1.0f));
@@ -26,7 +26,7 @@ MenuPage::MenuPage() {
 
 void MenuPage::mouseClick(glm::vec2 mouseClick) {
 	//Check inbound once, then do if else on the text/type
-	for (int i = 0; i < components.size(); i++) {
+	for (unsigned int i = 0; i < components.size(); i++) {
 		if (components[i]->type == ComponentType::BUTTON) {
 			if (((Button*)components[i])->inbound(mouseClick)) {
 				if (((Button*)components[i])->text == "EXIT") {
@@ -53,5 +53,4 @@ void MenuPage::tick() {
 	Page::tick();
 }
 
-void MenuPage::keyPress(int key) {
-}
+void MenuPage::keyPress(int key) {}

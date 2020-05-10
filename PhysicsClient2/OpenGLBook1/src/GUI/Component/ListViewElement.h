@@ -4,9 +4,8 @@
 
 class ListViewElement : public Component {
 public:
-
 	//selected (might just have a boolean parameter in the render method)
-	//high lighed
+	//highlighed
 	glm::vec2 dimension;
 	std::string text;
 	bool hover;
@@ -20,5 +19,4 @@ public:
 	void mouseHover(glm::vec2 mouseCoord) override;
 
 	void renderSelected(Renderer* renderer);
-
 };

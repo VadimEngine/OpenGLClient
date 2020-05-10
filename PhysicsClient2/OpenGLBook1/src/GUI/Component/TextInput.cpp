@@ -14,7 +14,6 @@ TextInput::TextInput(glm::vec3 position, glm::vec3 color, std::string text, glm:
 	keyTypeCounter = 0;
 }
 
-
 void TextInput::tick() {
 	Component::tick();
 }
@@ -28,7 +27,6 @@ void TextInput::render(Renderer* renderer) {
 
 	//render fill
 	renderer->renderRectangleColor(position, dimension.x, dimension.y, color);
-
 	renderer->renderString(text, glm::vec2(position.x, position.y));
 
 	//draw caret if selected

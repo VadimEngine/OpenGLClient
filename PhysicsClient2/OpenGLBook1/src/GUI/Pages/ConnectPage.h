@@ -5,7 +5,7 @@
 
 class ConnectPage : public Page {
 public:
-	//Whcih input component is selected, make abstract
+	//Which input component is selected, make abstract
 	//to hold any input componenet
 	TextInput* myInput;
 
@@ -17,7 +17,6 @@ public:
 	TextField* connectStatus;
 
 	bool doConnect = false;
-
 
 	ConnectPage();
 
@@ -32,5 +31,4 @@ public:
 	//int parameter instead of char to hold asciis
 	//larger than 256 such as delete (259 in glfw?)
 	//void KeyType(int key);
-
 };

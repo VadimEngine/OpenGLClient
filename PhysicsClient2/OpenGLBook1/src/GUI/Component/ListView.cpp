@@ -22,7 +22,6 @@ void ListView::render(Renderer* renderer) {
 			elements[i]->render(renderer);
 		} else {
 			elements[i]->renderSelected(renderer);
-			//render selected
 		}
 
 	}
@@ -61,4 +60,3 @@ void ListView::mouseClick(glm::vec2 mousePos) {
 		}
 	}
 }
-

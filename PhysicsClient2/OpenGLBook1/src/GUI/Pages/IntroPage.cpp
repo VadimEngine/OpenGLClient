@@ -1,7 +1,7 @@
 #include "IntroPage.h"
 
 IntroPage::IntroPage() {
-	this->type = Intro;
+	this->type = PageType::INTRO;
 	countSize = 60 * 3;//3 seconds
 	counter = 0;
 
@@ -27,5 +27,4 @@ void IntroPage::tick() {
 	}
 }
 
-void IntroPage::keyPress(int key) {
-}
+void IntroPage::keyPress(int key) {}

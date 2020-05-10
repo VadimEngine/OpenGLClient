@@ -9,7 +9,6 @@ public:
 	int countLimit;
 	int increment;
 
-
 	std::string text;
 	glm::vec2 dimension;
 
@@ -18,7 +17,6 @@ public:
 	//for typing
 	int keyTypeCounter;
 	int lastKey;
-
 
 	TextInput(glm::vec3 position, glm::vec3 color, std::string text, glm::vec2 dimension);
 
@@ -29,5 +27,4 @@ public:
 	void addKey(int key);
 
 	bool mouseClick(glm::vec2 mouseCoord);
-
 };

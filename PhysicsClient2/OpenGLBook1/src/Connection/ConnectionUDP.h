@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <WS2tcpip.h>
+#include "ConnectionConstants.h"
 //#include "../GUI/Window.h"
 
 /// <summary>
@@ -13,7 +14,7 @@
 /// what the send/receive data represents
 /// </remarks>
 class ConnectionUDP {
-public:
+private:
 	/// <summary>
 	/// Socket address of the server
 	/// </summary>
@@ -29,10 +30,15 @@ public:
 	/// </summary>
 	int userId;
 
+	std::string serverName;
+	
+public:
 	/// <summary>
 	/// Empty Constuctor
 	/// </summary>
 	ConnectionUDP();
+
+	~ConnectionUDP();
 
 	/// <summary>
 	/// Inital connection to UDP server. Temporaily only connects
@@ -55,4 +61,10 @@ public:
 	/// Close winsock and socket.
 	/// </summary>
 	void UDPClose();
+
+	void setUserID(int id);
+
+	int getUserId();
+
+	std::string getServerName();
 };

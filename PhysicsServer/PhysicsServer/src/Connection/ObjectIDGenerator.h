@@ -1,7 +1,6 @@
 #pragma once
 #include <unordered_set>
 
-
 class ObjectIDGenerator {
 public:
 	//maybe tree/orderd set would be better so "holes"
@@ -12,7 +11,4 @@ public:
 	static int lastId;
 
 	static int getNewId();
-
-
-
 };

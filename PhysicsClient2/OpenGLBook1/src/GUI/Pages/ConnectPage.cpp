@@ -1,15 +1,12 @@
 #include "ConnectPage.h"
 
 ConnectPage::ConnectPage() {
-	this->type = Connect;
+	this->type = PageType::CONNECT;
 	components.push_back(new Button(glm::vec3(0 - (.3 / 2.0), .60, 0),
 		glm::vec3(.4, .4, .4), "MENU", glm::vec2(.3, .1)));
 
 	components.push_back(new Button(glm::vec3(0 - (.3 / 2.0), .30, 0),
 		glm::vec3(.4, .4, .4), "CONNECT", glm::vec2(.3, .1)));
-
-	//myInput = new TextInput(glm::vec3(0 - (.3 / 2.0), -.3, 0),
-		//glm::vec3(.4, .4, .4), "", glm::vec2(.3, .1));
 
 	ipInput = new TextInput(glm::vec3(0 - (.3 / 2.0), -.3, 0),
 		glm::vec3(.4, .4, .4), "127.0.0.1", glm::vec2(.3, .1));
@@ -49,13 +46,12 @@ void ConnectPage::render(Renderer * renderer) {
 	Page::render(renderer);
 }
 
-
 void ConnectPage::tick() {
 	Page::tick();
 }
 
 void ConnectPage::mouseClick(glm::vec2 mouseClick) {
-	for (int i = 0; i < components.size(); i++) {
+	for (unsigned int i = 0; i < components.size(); i++) {
 		if (components[i]->type == LISTVIEW) {
 			((ListView*)components[i])->mouseClick(mouseClick);
 		} else if (components[i]->type == TEXTINPUT) {
@@ -85,7 +81,6 @@ void ConnectPage::mouseClick(glm::vec2 mouseClick) {
 					char* p;
 					long converted = strtol(id.c_str(), &p, 10);
 
-
 					bool validId = *p == 0;
 					if (validId) {
 						std::cout << "Valid id" << converted << std::endl;
@@ -94,7 +89,7 @@ void ConnectPage::mouseClick(glm::vec2 mouseClick) {
 					}
 					//validate ip only consists of numbrs and '.'
 					//can use regex later?
-					for (int i = 0; i < ip.length(); i++) {
+					for (unsigned int i = 0; i < ip.length(); i++) {
 						if (!(isdigit(ip[i]) || ip[i] == '.')) {
 							validIp = false;
 							break;
@@ -120,19 +115,11 @@ void ConnectPage::mouseClick(glm::vec2 mouseClick) {
 			}
 		}
 	}
-
-
-
 }
 
 void ConnectPage::keyPress(int key) {
-	//handle the timeing and if character should be added in here
-	//
-	
+	//handle the timeing and if character should be added in here	
 	if (myInput != nullptr) {
 		myInput->addKey(key);
 	}
-
-
-	//myInput->addKey(key);
 }

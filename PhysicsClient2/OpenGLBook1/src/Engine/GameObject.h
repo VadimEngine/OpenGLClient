@@ -14,23 +14,12 @@
 /// <Summary>
 class GameObject {
 
-public:
+private:
 	/// <summary>
 	/// The radius of the gameobject, currenty only circular gameobjects.
 	/// Currently always .04
 	///</summary>
 	GLfloat radius;
-
-	/// <summary>
-	/// The position of the particle. Currenlty only x and y but
-	/// later can add the z coordinate
-	/// </summary>
-	glm::vec2 position;
-
-	/// <summary>
-	/// the velocity vector of this particle
-	/// </summary>
-	glm::vec2 velocity;
 
 	/// <summary>
 	/// If the following particle is a player particle.
@@ -53,7 +42,22 @@ public:
 	GLfloat speed;
 
 	int id;
-	
+
+public:
+	/// <summary>
+	/// The position of the particle. Currenlty only x and y but
+	/// later can add the z coordinate
+	/// </summary>
+	glm::vec2 position;
+
+	/// <summary>
+	/// the velocity vector of this particle
+	/// </summary>
+	glm::vec2 velocity;
+
+
+
+public:
 	/// <summary>
 	/// Constutor, sets the coordinates and postion,
 	/// velocity is random and radius is always .04
@@ -62,6 +66,8 @@ public:
 
 
 	GameObject(GLfloat x, GLfloat y, GLboolean isPlayer, glm::vec3 color);
+
+	~GameObject();
 
 	/// <summary
 	/// Updates particle postion based on velocity.
@@ -73,5 +79,11 @@ public:
 	/// Calls Renderer to render a cirlce at the objects x, y
 	/// </summary>
 	void render(Renderer* renderer);
+
+	int getId();
+
+	GLfloat getRadius();
+
+	void setId(int id);
 };
 

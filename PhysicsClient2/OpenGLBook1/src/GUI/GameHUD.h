@@ -11,42 +11,42 @@
 
 //class MenuPage; //forward declarations
 
+class Handler;
+
+
+/// <summary>
+/// Heads up Display during game.
+/// </summary>
+///<remarks>
+/// Include TextField* serverClientsCount, serverIpInfo,
+/// clientIpInfo, clientIdInfo;
+///</remarks>
 class GameHUD {
-public:
-
+private:
 	glm::vec3 position;
-
-	//std::vector<Button*> buttons;
 
 	std::vector<Component*> components;
 
 	Button* highlightedButton;
 
 	TextField* serverConnectionInfo;
-	TextField* serverNameInfo;
-	TextField* serverClientsCount;
-	TextField* serverIpInfo;
-	TextField* clientIpInfo;
-	TextField* clientIdInfo;
-	
 
+	TextField* serverNameInfo;
 
 	TextField* particlesInfo;
+
 	TextField* playerInfo;
+
 	TextField* selectedInfo;
 
-	//placeholders
-	Connection* connect;
-	Page* nextPage;
-	GameObject* player;
-	GameObject** selectedObj;
-	std::vector<GameObject*>* gameObjects;
-	//maybe gamehandler should have a gameHud?
-	GameHandler* gameHandler;
+	std::string serverName;
 
-	bool toMenu;
+	Handler* handler;
 
-	GameHUD(Connection* connect, std::vector<GameObject*>* gameObjects, GameObject* player, GameObject** selectedObj, GameHandler* gameHandler);
+public:
+	GameHUD(Handler* handler);
+
+	~GameHUD();
 
 	void tick();
 
@@ -54,14 +54,9 @@ public:
 
 	void mouseHover(glm::vec2 mouseCoord);
 
-
 	//make it take in a function? or pass in a void* data
 	//that can be used to update data
 	void mouseClick(glm::vec2 mouseCoord);
 
-	/*
-	void mouse action
-	void key action
-	*/
-
+	void setServerName(std::string serverName);
 };

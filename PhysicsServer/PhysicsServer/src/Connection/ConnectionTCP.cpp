@@ -37,7 +37,7 @@ void ConnectionTCP::init() {
 		exit(-1);//Exit() instead?
 	}
 
-//cancel warning for now until optimization and discover how to replace:
+// cancel warning for now until optimization and discover how to replace:
 // 'gethostbyname': Use getaddrinfo() or GetAddrInfoW()
 // 'inet_ntoa': Use inet_ntop() or InetNtop() instead
 #pragma warning( disable : 4996)
@@ -76,13 +76,9 @@ void ConnectionTCP::communicate(Handler* handler) {
 	}
 }
 
-void ConnectionTCP::sendData(void* data, int size) {
+void ConnectionTCP::sendData(void* data, int size) {}
 
-}
-
-void ConnectionTCP::getData(void* data, int& size) {
-
-}
+void ConnectionTCP::getData(void* data, int& size) {}
 
 void ConnectionTCP::close() {
 	closesocket(client);
@@ -98,16 +94,11 @@ void listenClient2(void* data, Handler* handler) {
 	Particle* p = new Particle(0, 0, true);//temp position
 	handler->addClient(p);
 
-	char chunk[200];
-	while (recv(Client, chunk, 200, 0)) {
-
-		if (((float*)chunk)[0] == ConnectionConstants::CLIENT_CONNECT) {
-			//send server name
-			std::cout << "Server info request" << std::endl;
-			
+	char buff[200];
+	while (recv(Client, buff, 200, 0)) {
+		if (((float*)buff)[0] == ConnectionConstants::CLIENT_CONNECT) {
+			//send server name			
 			char toSend[255];
-			//std::string testName = "0000ServerInfo";
-			
 			for (int i = 0; i < handler->worldName.size() + 1; i++) {
 				if (i == handler->worldName.size()) {
 					toSend[i+4] = '\0';
@@ -115,33 +106,31 @@ void listenClient2(void* data, Handler* handler) {
 					toSend[i+4] = handler->worldName[i];
 				}
 			}	
-			
 			((float*)toSend)[0] = ConnectionConstants::SERVER_INFO;
-
-			//float toSend[1] = { ConnectionConstants::SERVER_INFO };
 			send(Client, (char*)toSend, 255, 0);
-
-		} else if (((float*)chunk)[0] == ConnectionConstants::CLIENT_PARTICLE_PULL) {
-			p->x = ((float*)chunk)[1];
-			p->y = ((float*)chunk)[2];
-
-			int size2;
-			float* temp2;
-			//Comment out until handler is figured out
-			//std::tie(size2, temp2) = handler->getSendData2();
-			//send(Client, (char*)temp2, size2 * sizeof(float), 0);
-			std::vector<float> sendData = handler->getSendData3();
+		} else if (((float*)buff)[0] == ConnectionConstants::CLIENT_PARTICLE_PULL) {
+			p->x = ((float*)buff)[1];
+			p->y = ((float*)buff)[2];
+			std::vector<float> sendData = handler->getSendData();
 			send(Client, (char*)sendData.data(), sendData.size() * sizeof(float), 0);
-
-			//delete[] temp2;
-		} else if (((float*)chunk)[0] == -2) {
-			//handler->add(((float*)chunk)[1], ((float*)chunk)[2]);
-		} else if (((float*)chunk)[0] == ConnectionConstants::CLIENT_PARTICLE_ADD) {
+		} else if (((float*)buff)[0] == ConnectionConstants::CLIENT_PARTICLE_ADD) {
 			//add particle at sent location
-			handler->add(((float*)chunk)[1], ((float*)chunk)[2]);
-		} else if (((float*)chunk)[0] == ConnectionConstants::CLIENT_PARTICLE_REMOVE) {
+			handler->add(((float*)buff)[1], ((float*)buff)[2]);
+		} else if (((float*)buff)[0] == ConnectionConstants::CLIENT_PARTICLE_REMOVE) {
 			//remove partice with sent id if it exists
-			handler->removeParticle(((float*)chunk)[1]);
+			handler->removeParticle(((float*)buff)[1]);
+		} else if (((float*)buff)[0] == ConnectionConstants::CLIENT_GRAVITY) {
+			if (((float*)buff)[1] == 0) {
+				handler->gravtiy = false;
+			} else {
+				handler->gravtiy = true;
+			}
+		} else if (((float*)buff)[0] == ConnectionConstants::CLIENT_PAUSE) {
+			if (((float*)buff)[1] == 0) {
+				handler->paused = false;
+			} else {
+				handler->paused = true;
+			}
 		}
 
 	}

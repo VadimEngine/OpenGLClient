@@ -3,7 +3,6 @@
 
 Component::Component(ComponentType type, glm::vec3 position, glm::vec3 color)
 :type(type) {
-	//this->type = type;
 	this->position = position;
 	this->color = color;
 }

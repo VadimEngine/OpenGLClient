@@ -18,5 +18,4 @@ public:
 	void render(Renderer* renderer) override;
 
 	void keyPress(int key) override;
-
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 namespace ConnectionConstants {
+	//replace with enum
 	//when client is doing an inital connection
 	static const int CLIENT_CONNECT = 1;
 	//when connection is success and sending server info

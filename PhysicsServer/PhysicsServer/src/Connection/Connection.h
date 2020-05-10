@@ -53,5 +53,4 @@ public:
 	void sendData(void* data, int size);
 
 	void getData(void* data, int& size);
-
 };

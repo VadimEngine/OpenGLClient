@@ -26,6 +26,4 @@ public:
 	virtual void mouseHover(glm::vec2 mouseCoord);
 
 	virtual void action();
-
-
 };

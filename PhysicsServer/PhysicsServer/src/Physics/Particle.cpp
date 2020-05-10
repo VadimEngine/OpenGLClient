@@ -35,7 +35,7 @@ void Particle::update(double dt) {//properly update, float dt
 		x += velx * dt;
 		y += vely * dt;
 
-		vely -= .981 * dt;
+		//vely -= .981 * dt;
 
 		if (y < -.7) {
 			y = -.7;

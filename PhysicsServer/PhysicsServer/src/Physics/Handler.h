@@ -5,12 +5,19 @@
 #include "Particle.h"
 #include "../Connection/ConnectionConstants.h"
 
+#include <mutex>
+#include <math.h>
+
 class Handler {
 public:
+	std::mutex mu;
 	std::vector<Particle*> objs;
 	std::vector<Particle*> clientObjs;
 
 	std::string worldName;
+
+	bool gravtiy;
+	bool paused;
 
 	Handler(int pCount, std::string worldName);
 
@@ -25,12 +32,9 @@ public:
 
 	void addClient(Particle* p);
 
-	float* getSendData();
-
 	//might need to return a pointer to a vector
-	std::vector<float> getSendData3();
+	std::vector<float> getSendData();
 
-	std::tuple<int, float*> getSendData2();
 
 	static void UpdatePhysics(Handler* handler);
 

@@ -12,7 +12,8 @@ Renderer::Renderer(Shader* polygonShader, Shader* imageShader)
 :polygonShader(polygonShader), imageShader(imageShader) {
 	initRenderData();
 	//init the charKeyMap
-
+	//redo this to be more calcuated/derived, such as equation
+	//dependent on character postion in image
 	charKeyMap.insert({ 'A', glm::vec2(0,0) });
 	charKeyMap.insert({ 'B', glm::vec2(1,0) });
 	charKeyMap.insert({ 'C', glm::vec2(2,0) });
@@ -89,9 +90,6 @@ Renderer::~Renderer() {
 }
 
 void Renderer::initRenderData() {
-	
-
-
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 
@@ -123,7 +121,6 @@ void Renderer::initRenderData() {
 }
 
 void Renderer::Draw() {
-
 	//draw polygon
 
 	glBindVertexArray(polyVAO);
@@ -157,10 +154,7 @@ void Renderer::Draw() {
 
 	otherVertList.clear();
 
-
-
-	//Draw image
-	
+	//Draw image	
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -421,7 +415,6 @@ void Renderer::renderSubImage(glm::vec3 position, glm::vec3 color) {
 	vertList.push_back(1);
 }
 
-
 void Renderer::renderSubImageAdvanced(glm::vec3 position,
 									  glm::vec3 color,
 									  float texWidth,
@@ -430,90 +423,9 @@ void Renderer::renderSubImageAdvanced(glm::vec3 position,
 									  float subHeight,
 									  float subX,
 									  float subY) {
-	/*
-	float width = .06 / 2.0f;
-	float height = .08 / 2.0f;
-
-	//float width = .08 / 2.0f;
-	//float height = .1 / 2.0f;
-
-	//addpoint 1 top left
-	vertList.push_back(position.x);
-	vertList.push_back(position.y);
-	vertList.push_back(position.z);
-	//add color
-	vertList.push_back(color.x);
-	vertList.push_back(color.y);
-	vertList.push_back(color.z);
-	//add texture
-	vertList.push_back(0 + (subX * (subWidth / texWidth)));//good
-	vertList.push_back(1 - (subY * (subHeight / texHeight)));
-
-	//addpoint 2 bottom left
-	vertList.push_back(position.x);
-	vertList.push_back(position.y - height);
-	vertList.push_back(position.z);
-	//add color
-	vertList.push_back(color.x);
-	vertList.push_back(color.y);
-	vertList.push_back(color.z);
-	//add texture
-
-	vertList.push_back(0 + (subX * (subWidth / texWidth)));
-	vertList.push_back(1 - ((subY + 1) * (subHeight / texHeight)));
-
-	//addpoint 3 bottom right
-	vertList.push_back(position.x + width);
-	vertList.push_back(position.y - height);
-	vertList.push_back(position.z);
-	//add color
-	vertList.push_back(color.x);
-	vertList.push_back(color.y);
-	vertList.push_back(color.z);
-	//add texture
-	vertList.push_back(0 + ((subX + 1) * (subWidth / texWidth)));
-	vertList.push_back(1 - ((subY + 1) * (subHeight / texHeight)));
-
-	//addpoint 4 bottom right
-	vertList.push_back(position.x + width);
-	vertList.push_back(position.y - height);
-	vertList.push_back(position.z);
-	//add color
-	vertList.push_back(color.x);
-	vertList.push_back(color.y);
-	vertList.push_back(color.z);
-	//add texture
-	vertList.push_back(0 + ((subX + 1) * (subWidth / texWidth)));
-	vertList.push_back(1 - ((subY + 1) * (subHeight / texHeight)));
-
-	//addpoint 5 top right
-	vertList.push_back(position.x + width);
-	vertList.push_back(position.y);
-	vertList.push_back(position.z);
-	//add color
-	vertList.push_back(color.x);
-	vertList.push_back(color.y);
-	vertList.push_back(color.z);
-	//add texture
-	vertList.push_back(0 + ((subX + 1) * (subWidth / texWidth)));
-	vertList.push_back(1 - (subY * (subHeight / texHeight)));
-
-	//addpoint 6 top left
-	vertList.push_back(position.x);
-	vertList.push_back(position.y);
-	vertList.push_back(position.z);
-	//add color
-	vertList.push_back(color.x);
-	vertList.push_back(color.y);
-	vertList.push_back(color.z);
-	//add texture
-	vertList.push_back(0 + (subX * (subWidth / texWidth)));
-	vertList.push_back(1 - (subY * (subHeight / texHeight)));
-	*/
 	renderSubImageAdvanced(position, color, texWidth, texHeight,
 		subWidth, subHeight, subX, subY, 1);
 }
-
 
 void Renderer::renderSubImageAdvanced(glm::vec3 position,
 									  glm::vec3 color,
@@ -528,9 +440,6 @@ void Renderer::renderSubImageAdvanced(glm::vec3 position,
 	float width = (.06 / 2.0f) * size;
 	float height = (.08 / 2.0f) * size;
 
-	//float width = .08 / 2.0f;
-	//float height = .1 / 2.0f;
-
 	//addpoint 1 top left
 	vertList.push_back(position.x);
 	vertList.push_back(position.y);
@@ -604,9 +513,6 @@ void Renderer::renderSubImageAdvanced(glm::vec3 position,
 	vertList.push_back(0 + (subX * (subWidth / texWidth)));
 	vertList.push_back(1 - (subY * (subHeight / texHeight)));
 }
-
-
-
 
 //update to use size?
 void Renderer::renderChar(char theChar, glm::vec3 position, glm::vec3 color, float size) {

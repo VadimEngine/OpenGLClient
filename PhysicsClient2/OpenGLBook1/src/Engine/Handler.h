@@ -25,8 +25,7 @@
 /// Confirm destructor is deleting correctly
 /// </remarks>
 class Handler {
-public:
-
+private:
 	Page* currentPage;
 
 	/// <summary>
@@ -35,6 +34,9 @@ public:
 	/// </summary>
 	Renderer* renderer;
 
+	/// <summary>
+	/// Seperate handler to handle game logic
+	/// </summay>
 	GameHandler* gameHandler;
 
 	/// <summary>
@@ -49,7 +51,7 @@ public:
 
 	/// <summary>
 	/// If left click is pressed.
-	/// </summary
+	/// </summary>
 	bool leftClick;
 	bool rightClick;
 
@@ -102,15 +104,25 @@ public:
 	/// </summary>
 	void collide(GameObject* obj1, GameObject* obj2);
 
-	/// <summary>
-	/// Promts the user to decide on the mode the application will run on.
-	/// options are 1) serverless 2)TCP 3)UDP. If connection cannot be
-	/// established or inavlid input is set then the user will be continually
-	/// promted until success.
-	/// </summary>
-	bool connectionProtocol();
-
 	void initGame();
 
 	void setCurrentPage(Page* nextPage);
+
+	void setMousePosition(glm::vec2 position);
+
+	void setMouseX(GLfloat xPosition);
+
+	void setMouseY(GLfloat yPosition);
+
+	void setRightClick(GLboolean rightClick);
+
+	void setLeftClick(GLboolean leftClick);
+
+	Connection* getConnection();
+
+	bool keyPressed(int keyCode);
+
+	void setKeyPress(int keyCode, GLboolean value);
+
+	GameHandler* getGameHander();
 };

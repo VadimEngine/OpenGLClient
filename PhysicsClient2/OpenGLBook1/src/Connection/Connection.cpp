@@ -1,156 +1,66 @@
 #include "Connection.h"
 
-Connection::Connection() {}
+Connection::Connection() {
+	this->TCPCon = new ConnectionTCP();
+	this->UDPCon = new ConnectionUDP();
+	this->theMode = ConnectionMode::SERVERLESS;
+}
 
-void Connection::connectionProtocol() {
-	int stage = 0;//Switch to enum?
-	bool connected = false;
-	int connectCode;
-	std::string input;
-
-	while (true) {
-		switch (stage) {
-		case 0://Decide if serverless or servermode
-			std::cout << "Would you like to connect to server? y/n" << std::endl << "> ";
-			std::cin >> input;
-			while (input != "y" && input != "n") {
-				std::cout << "Invalid input. Would you like to connect to server? y/n" << std::endl << "> ";
-				std::cin >> input;
-			}
-
-			if (input == "y") {//serverless mode chosen
-				stage = 2;
-			} else {//server mode chosen
-				stage = 1;
-			}
-			break;
-
-		case 1://serverless chosen. Running serverless
-			std::cout << "Running program serverless." << std::endl;
-			theMode = Serverless;
-			//theModeInt = 0;
-			return;
-			break;
-
-		case 2://Server mode chosen, decide if TCP or UDP
-			std::cout << "Connect to server using TCP(1) or UDP(2)?" << std::endl << "> ";
-			std::cin >> input;
-			while (input != "1" && input != "2") {
-				std::cout << "Invalid input. Connect to server using TCP(1) or UDP(2)?" << std::endl << "> ";
-				std::cin >> input;
-			}
-
-			if (input == "1") {//TCP mode chosen
-				stage = 3;
-			} else {//UDP mode chosen
-				stage = 4;
-			}
-			break;
-
-		case 3://Decided TCP, if cant connect then decide if need to reconnect
-			std::cout << "Attempting to connect to a TCP server..." << std::endl;
-			//do connection
-			//assume prot 54000 and local host
-			if (TCPCon.TCPConnect(54000, "127.0.0.1")) {
-				theMode = TCP;
-
-				return;
-				break;
-			}
-
-			//failed to connect
-			std::cout << "Failed to connect to a TCP server. Would you like to try again? y/n" << std::endl << "> ";
-			std::cin >> input;
-			while (input != "y" && input != "n") {
-				std::cout << "Invalid input. Failed to connect to a TCP server. Would you like to try again? y/n" << std::endl << "> ";
-				std::cin >> input;
-			}
-			if (input == "y") {
-				stage = 3;
-			} else {
-				stage = 0;
-			}
-			break;
-
-		case 4://Decided UDP, if cant connect then decide if need to reconnect
-			//ask for user id
-			std::cout << "Enter user a user id integer between 1-9" << std::endl << "> ";
-			std::cin >> input;
-			while (!isdigit(input[0])) {
-				std::cout << "Invalid input. Enter user a user id integer between 1-9" << std::endl << "> ";
-				std::cin >> input;
-			}
-
-			UDPCon.userId = std::stoi(input);
-			std::cout << "Userid chosen: " << std::stoi(input) << ": " << UDPCon.userId << std::endl;
-
-			std::cout << "Attempting to connect to a UDP server..." << std::endl;
-			//do connection//implement so it returns false if not connected
-			//connectCode = con.UDPConnect();
-			connectCode = UDPCon.UDPConnect(54000, "127.0.0.1");
-			if (connectCode == 1) {
-				theMode = UDP;
-				return;
-				break;
-			} else if (connectCode == -2) {
-				std::cout << "UserId already taken, please choose a different UserId" << std::endl;
-			} else {
-				std::cout << "Failed to connect to a UDP server. Would you like to try again? y/n" << std::endl << "> ";
-				std::cin >> input;
-				while (input != "y" && input != "n") {
-					std::cout << "Invalid input. Failed to connect to a UDP server. Would you like to try again? y/n" << std::endl << "> ";
-					std::cin >> input;
-				}
-
-				if (input == "y") {
-					stage = 4;
-				} else {
-					stage = 0;
-				}
-			}
-			break;
-
-		default:
-			break;
-		}
-	}
+Connection::~Connection() {
+	delete TCPCon;
+	delete UDPCon;
 }
 
 void Connection::sendData(void* data, int size) {
-	if (theMode == Serverless) {
+	if (theMode == ConnectionMode::SERVERLESS) {
 		return;
-	} else if (theMode == TCP) {
-		TCPCon.TCPsendData(data, size);
-	} if (theMode == UDP) {
+	} else if (theMode == ConnectionMode::TCP) {
+		TCPCon->TCPsendData(data, size);
+	} if (theMode == ConnectionMode::UDP) {
 		//append userID to end
 		float* UDPdata = new float[size / sizeof(float) + sizeof(float)];
-		for (int i = 0; i < size / sizeof(float); i++) {
+		for (unsigned int i = 0; i < size / sizeof(float); i++) {
 			UDPdata[i] = ((float*)data)[i];
 		}
 
-		UDPdata[size / sizeof(float)] = UDPCon.userId;
-		UDPCon.UDPSend(UDPdata, size + sizeof(float));
+		UDPdata[size / sizeof(float)] = UDPCon->getUserId();
+		UDPCon->UDPSend(UDPdata, size + sizeof(float));
 		delete[] UDPdata;
 	}
 }
 
 void Connection::getData(void* data, int& size) {
-	if (theMode == Serverless) {
+	if (theMode == ConnectionMode::SERVERLESS) {
 		return;
-	} else if (theMode == TCP) {
-		TCPCon.TCPGetData(data, size);
-	} else if (theMode == UDP) {
-		UDPCon.UDPGetData(data, size);
+	} else if (theMode == ConnectionMode::TCP) {
+		TCPCon->TCPGetData(data, size);
+	} else if (theMode == ConnectionMode::UDP) {
+		UDPCon->UDPGetData(data, size);
 	}
 }
 
 void Connection::close() {
-	if (theMode == Serverless) {
+	if (theMode == ConnectionMode::SERVERLESS) {
 		return;
-	} else if (theMode == TCP) {
-		TCPCon.TCPclose();
-	} else if (theMode == UDP) {
-		UDPCon.UDPClose();
+	} else if (theMode == ConnectionMode::TCP) {
+		TCPCon->TCPclose();
+	} else if (theMode == ConnectionMode::UDP) {
+		UDPCon->UDPClose();
 	}
 }
 
+ConnectionMode Connection::getMode() {
+	return theMode;
+}
+
+void Connection::setMode(ConnectionMode theMode) {
+	this->theMode = theMode;
+}
+
+ConnectionTCP* Connection::getTCPConnect() {
+	return TCPCon;
+}
+
+ConnectionUDP* Connection::getUDPConnect() {
+	return UDPCon;
+}

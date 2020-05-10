@@ -14,6 +14,10 @@ ConnectionTCP::ConnectionTCP(int port, std::string ipAddress) {
 	//this->ipAddress = ipAddress;
 }
 
+ConnectionTCP::~ConnectionTCP() {
+	//call close?
+	TCPclose();
+}
 
 bool ConnectionTCP::TCPConnect(int port, std::string ipAddress) {
 	//Initilize winsock
@@ -62,7 +66,7 @@ void ConnectionTCP::TCPGetData(void* data, int& size) {
 	size = bytesRecieved;
 	for (int i = 0; i < size; i++) {
 		//execption here when server is disconnect suddenly, check befre going into this line
-		// access violation writing location
+		//access violation writing location
 		((char*)data)[i] = buf[i];
 	}
 }

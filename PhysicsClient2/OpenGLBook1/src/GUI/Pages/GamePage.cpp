@@ -2,7 +2,7 @@
 
 
 GamePage::GamePage() {
-	this->type = Game;
+	this->type = PageType::GAME;
 	nextPage = nullptr;
 	//gameHUD = new GameHUD();
 }
@@ -20,7 +20,7 @@ void GamePage::tick() {
 }
 
 void GamePage::mouseClick(glm::vec2 mouseCoord) {
-	for (int i = 0; i < components.size(); i++) {
+	for (unsigned int i = 0; i < components.size(); i++) {
 		if (components[i]->type == ComponentType::BUTTON) {
 			if (((Button*)components[i])->inbound(mouseCoord)) {
 				if (((Button*)components[i])->text == "MENU") {
@@ -36,8 +36,6 @@ void GamePage::mouseClick(glm::vec2 mouseCoord) {
 void GamePage::mouseHover(glm::vec2 mouseCoord) {
 	Page::mouseHover(mouseCoord);
 	gameHUD->mouseHover(mouseCoord);
-
 }
 
-void GamePage::keyPress(int key) {
-}
+void GamePage::keyPress(int key) {}

@@ -2,6 +2,10 @@
 
 ConnectionUDP::ConnectionUDP() {}
 
+ConnectionUDP::~ConnectionUDP() {
+	UDPClose();
+}
+
 // make int and return code
 int ConnectionUDP::UDPConnect(int port, std::string ipAddress) {
 	std::cout << "UDPConnect" << std::endl;
@@ -10,7 +14,7 @@ int ConnectionUDP::UDPConnect(int port, std::string ipAddress) {
 	int wsOK = WSAStartup(version, &data);
 	if (wsOK != 0) {
 		std::cout << "Can't start Winsock. " << wsOK << std::endl;
-		return false;
+		return -1;//return error int save as a constant
 	}
 	//create a hint structure for the server
 	UDPserver.sin_family = AF_INET;
@@ -22,7 +26,7 @@ int ConnectionUDP::UDPConnect(int port, std::string ipAddress) {
 	UDPout = socket(AF_INET, SOCK_DGRAM, 0);
 
 	//send inital message and then listen
-	float toSend[] = { -9, userId };
+	float toSend[] = { ConnectionConstants::CLIENT_CONNECT, userId };
 	int sendok = sendto(UDPout, (char*)toSend, 2 * sizeof(float), 0, (sockaddr*)&UDPserver, sizeof(UDPserver));
 	if (sendok == SOCKET_ERROR) {
 		std::cout << "Sendto error: " << WSAGetLastError() << std::endl;
@@ -36,10 +40,20 @@ int ConnectionUDP::UDPConnect(int port, std::string ipAddress) {
 		return -1;
 	} else {
 		int code = ((float*)buf)[0];
-		if (code == -1) {
-			return -2;
+		if (code == ConnectionConstants::SERVER_CLIENTID_INVALID) {
+			return ConnectionConstants::SERVER_CLIENTID_INVALID;
 		} else {
-			return 1;
+			//set servername from input
+			std::string theServerName;
+
+			for (int i = 4; i < 255 && ((char*)buf)[i] != '\0'; i++) {
+				theServerName += ((char*)buf)[i];
+			}
+
+			this->serverName = theServerName;
+			std::cout <<"ServerName: " << serverName << std::endl;
+
+			return ConnectionConstants::SERVER_INFO;
 		}
 	}
 }
@@ -68,4 +82,16 @@ void ConnectionUDP::UDPClose() {
 	std::cout << "UDPClose" << std::endl;
 	closesocket(UDPout);
 	WSACleanup();
+}
+
+void ConnectionUDP::setUserID(int id) {
+	this->userId = id;
+}
+
+int ConnectionUDP::getUserId() {
+	return userId;
+}
+
+std::string ConnectionUDP::getServerName() {
+	return serverName;
 }

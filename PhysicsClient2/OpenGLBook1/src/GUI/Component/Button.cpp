@@ -9,9 +9,7 @@ Button::Button(glm::vec3 position, glm::vec3 color, std::string text, glm::vec2 
 	this->dimension = dimension;
 }
 
-void Button::tick() {
-
-}
+void Button::tick() {}
 
 void Button::render(Renderer* renderer) {
 	renderer->renderRectangleColor(position, dimension.x, dimension.y, color);
@@ -26,9 +24,7 @@ void Button::renderHighlighted(Renderer* renderer) {
 	renderer->renderString(text, glm::vec2(position.x + .1, position.y - .01));//,  position.x + .1, position.y - .01
 }
 
-void Button::clickAction() {
-
-}
+void Button::clickAction() {}
 
 bool Button::inbound(glm::vec2 coord) {
 	if (coord.x >= position.x && coord.x <= position.x + dimension.x

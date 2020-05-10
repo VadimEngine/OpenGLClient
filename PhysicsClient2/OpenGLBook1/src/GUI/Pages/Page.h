@@ -9,7 +9,7 @@
 #include "../Component/RadioButtonSet.h"
 #include "../Component/ListView.h"
 
-enum PageType { Intro, Menu, Info, Connect, Load, Game, Setting};
+enum class PageType: char { INTRO, MENU, INFO, CONNECT, LOAD, GAME, SETTING};
 
 class Page {
 public:
@@ -17,7 +17,6 @@ public:
 	PageType type;
 
 	//change to pointer
-	//std::vector<Button*> buttons;
 
 	Button* highlightedButton;
 	Component* selectedComponent;
@@ -40,5 +39,4 @@ public:
 	virtual void mouseClick(glm::vec2 mouseCoord) = 0;
 
 	virtual void keyPress(int key) = 0;
-
 };

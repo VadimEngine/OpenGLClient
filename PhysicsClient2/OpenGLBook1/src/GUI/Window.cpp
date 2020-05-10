@@ -1,13 +1,11 @@
 #include "Window.h"
 
-
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);//mouse_move
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void mouse_enter_callback(GLFWwindow* window, int entered);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 
-///Have a window.start method to start the openGL stuff?
 Window::Window(GLuint width, GLuint height, GLuint count) {
 	//initilize glfw (graphics library framework)
 	if (!glfwInit()) {
@@ -70,12 +68,17 @@ void Window::render() {
 }
 
 void Window::closeConnection() {
-	if (handler->connect->theMode != Serverless) {
-		handler->connect->close();
+	if (handler->getConnection()->getMode() != ConnectionMode::SERVERLESS) {
+		handler->getConnection()->close();
 	}
 }
 
-//Call back functions
+Handler* Window::getHandler() {
+	return handler;
+}
+
+
+//Call back functions***********************************************************************************
 
 /// <summary>
 /// Key callback that sets the boolean array in handler that represets keys.
@@ -89,9 +92,13 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	if (key >= 0 && key < 1024) {
 		if (action == GLFW_PRESS) {
-			((Window*)glfwGetWindowUserPointer(window))->handler->keys[key] = true;
+			//((Window*)glfwGetWindowUserPointer(window))->getHandler()->keys[key] = true;
+			((Window*)glfwGetWindowUserPointer(window))->getHandler()->setKeyPress(key, true);
+
 		} else if (action == GLFW_RELEASE) {
-			((Window*)glfwGetWindowUserPointer(window))->handler->keys[key] = false;
+			//((Window*)glfwGetWindowUserPointer(window))->getHandler()->keys[key] = false;
+			((Window*)glfwGetWindowUserPointer(window))->getHandler()->setKeyPress(key, false);
+
 		}
 	}
 }
@@ -106,9 +113,11 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 	glfwGetWindowSize(window, &winWidth, &winHeight);
 
-	GLfloat mx = ((2.0 * xpos / winWidth) - 1.0);
+	GLfloat mx = ((2.0f * xpos / winWidth) - 1.0f);
 	GLfloat my = (1.0 - (2.0 * ypos / winHeight));
-	((Window*)glfwGetWindowUserPointer(window))->handler->mouseCoords = glm::vec2(mx, my);
+	//((Window*)glfwGetWindowUserPointer(window))->getHandler()->mouseCoords = glm::vec2(mx, my);
+	((Window*)glfwGetWindowUserPointer(window))->getHandler()->setMousePosition(glm::vec2(mx, my));
+
 }
 
 /// <summary>
@@ -122,16 +131,22 @@ void mouse_enter_callback(GLFWwindow* window, int entered) {}
 /// </summary>
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		((Window*)glfwGetWindowUserPointer(window))->handler->leftClick = true;
+		//((Window*)glfwGetWindowUserPointer(window))->getHandler()->leftClick = true;
+		((Window*)glfwGetWindowUserPointer(window))->getHandler()->setLeftClick(true);
 	}
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
-		((Window*)glfwGetWindowUserPointer(window))->handler->leftClick = false;
+		//((Window*)glfwGetWindowUserPointer(window))->getHandler()->leftClick = false;
+		((Window*)glfwGetWindowUserPointer(window))->getHandler()->setLeftClick(false);
+
 	}
 	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS) {
-		((Window*)glfwGetWindowUserPointer(window))->handler->rightClick = true;
+		//((Window*)glfwGetWindowUserPointer(window))->getHandler()->rightClick = true;
+		((Window*)glfwGetWindowUserPointer(window))->getHandler()->setRightClick(true);
+
 	}
 	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE) {
-		((Window*)glfwGetWindowUserPointer(window))->handler->rightClick = false;
+		//((Window*)glfwGetWindowUserPointer(window))->getHandler()->rightClick = false;
+		((Window*)glfwGetWindowUserPointer(window))->getHandler()->setRightClick(false);
+
 	}
 }
-

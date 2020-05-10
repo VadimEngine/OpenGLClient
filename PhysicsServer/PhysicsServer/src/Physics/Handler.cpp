@@ -1,12 +1,10 @@
 #include "Handler.h"
-//move these to header
-#include <mutex>
-#include <math.h>
-
-std::mutex mu;
 
 Handler::Handler(int pCount, std::string worldName)
 :worldName(worldName){
+	gravtiy = true;
+	paused = false;
+
 	for (int i = 0; i < pCount; i++) {
 		float c1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 		float c2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
@@ -32,7 +30,12 @@ void Handler::update(double dt) {//update properly, float dt?
 		if (objs[i]->isDelete) {
 			objs.erase(objs.begin() + i);
 		} else {
-			objs[i]->update(dt);
+			if (!paused) {
+				objs[i]->update(dt);
+				if (gravtiy) {
+					objs[i]->vely -= .981 * dt;
+				}
+			}
 		}
 	}
 
@@ -42,7 +45,13 @@ void Handler::update(double dt) {//update properly, float dt?
 			clientObjs.erase(clientObjs.begin() + i);
 			delete p;
 		} else {
-			clientObjs[i]->update(dt);
+			if (!paused) {
+				clientObjs[i]->update(dt);
+				if (gravtiy) {
+					objs[i]->vely -= .981 * dt;
+				}
+				
+			}
 		}
 	}
 
@@ -98,48 +107,9 @@ void Handler::addClient(Particle* p) {
 	clientObjs.push_back(p);
 }
 
-
-/*Retruns a float array of the coordinates of the particles in the simulator
- */
-float* Handler::getSendData() {
-	mu.lock();
-	float* temp = new float[(objs.size() * 2) + (clientObjs.size() * 2)];
-
-	for (int i = 0; i < objs.size(); i++) {
-		temp[2 * i] = objs[i]->x;
-		temp[2 * i + 1] = objs[i]->y;
-	}
-	for (int i = 0; i < clientObjs.size(); i++) {
-		temp[(objs.size() * 2) + (2 * i)] = clientObjs[i]->x;
-		temp[(objs.size() * 2) + (2 * i) + 1] = clientObjs[i]->y;
-	}
-	mu.unlock();
-
-	return temp;
-}
-
-//make a vector and send vector to array?
-std::tuple<int, float*> Handler::getSendData2() {
-	mu.lock();
-	int tempSize = (objs.size() * 2) + (clientObjs.size() * 2);
-	float* temp = new float[(objs.size() * 2) + (clientObjs.size() * 2)];
-
-	for (int i = 0; i < objs.size(); i++) {
-		temp[2 * i] = objs[i]->x;
-		temp[2 * i + 1] = objs[i]->y;
-	}
-	for (int i = 0; i < clientObjs.size(); i++) {
-		temp[(objs.size() * 2) + (2 * i)] = clientObjs[i]->x;
-		temp[(objs.size() * 2) + (2 * i) + 1] = clientObjs[i]->y;
-	}
-	mu.unlock();
-
-	return std::make_tuple(tempSize, temp);
-}
-
 //might be faster (no need to convert back to array and
-//no need to resize the voecor when adding data)
-std::vector<float> Handler::getSendData3() {
+//no need to resize the vector when adding data)
+std::vector<float> Handler::getSendData() {
 	mu.lock();
 	//set initial capaticy to avoid resizing
 	//std::vector<float> theData((objs.size() * 7) + (clientObjs.size() * 7) + 1);
@@ -174,8 +144,6 @@ std::vector<float> Handler::getSendData3() {
 	mu.unlock();
 	return theData;
 }
-
-
 
 void Handler::UpdatePhysics(Handler* handler) {
 	auto last = std::chrono::high_resolution_clock::now();//get current time

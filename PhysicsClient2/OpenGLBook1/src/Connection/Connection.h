@@ -8,7 +8,7 @@
 /// <summary>
 /// Enum for possible connection modes of the application
 /// </summary>
-enum ConnectionMode {Serverless, TCP, UDP};
+enum class ConnectionMode : char {SERVERLESS, TCP, UDP};
 
 /// <summary>
 /// Class to handler all connection logic.
@@ -28,7 +28,12 @@ enum ConnectionMode {Serverless, TCP, UDP};
 /// </remarks>
 class Connection {
 
-public:
+private:
+
+	//server name
+	std::string serverName;
+
+
 	/// <summary>
 	/// The mode that the connection is handled
 	/// change to pointer
@@ -39,28 +44,22 @@ public:
 	/// TCP connection object, used to handle
 	/// connecting, sending, and getting data
 	/// from TCP sever
-	/// change to pointer
 	/// </summary>
-	ConnectionTCP TCPCon;
+	ConnectionTCP* TCPCon;
 
 	/// <summary>
 	/// UDP connection object, used to handle
 	/// connecting, sending, and getting data from
 	/// UDP server
-	/// change to pointer
 	/// </summary>
-	ConnectionUDP UDPCon;
-
+	ConnectionUDP* UDPCon;
+public:
 	/// <summary>
-	/// Constructor. Does not initilize anyting at the moment.
+	/// Constructor. Initilizes TCPCon and UDPCon
 	/// </summary>
 	Connection();
 
-	/// <summary>
-	/// Promts the user to decide on the connection mode
-	/// that they would like to run the application as
-	/// </summary>
-	void connectionProtocol();
+	~Connection();
 
 	/// <summary>
 	/// Send data to the connected server based
@@ -78,4 +77,12 @@ public:
 	/// Close down the connection to the server
 	/// </summary>
 	void close();
+
+	ConnectionMode getMode();
+
+	void setMode(ConnectionMode theMode);
+
+	ConnectionTCP* getTCPConnect();
+
+	ConnectionUDP* getUDPConnect();
 };

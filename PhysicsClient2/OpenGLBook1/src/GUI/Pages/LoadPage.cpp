@@ -1,7 +1,7 @@
 #include "LoadPage.h"
 
 LoadPage::LoadPage() {
-	this->type = Load;
+	this->type = PageType::LOAD;
 	nextPage = nullptr;
 	components.push_back(new Button(glm::vec3(0 - (.3 / 2.0), .60, 0),
 		glm::vec3(.4, .4, .4), "MENU", glm::vec2(.3, .1)));
@@ -14,19 +14,16 @@ LoadPage::LoadPage() {
 
 	components.push_back(new TextField(glm::vec3(0 - (.3 / 2.0), .1, 0),
 		glm::vec3(.4, .4, .4), "SELECT NEW OR LOAD", glm::vec2(.3, .1), 1.0f));
-
 }
 
 void LoadPage::render(Renderer* renderer) {
 	Page::render(renderer);
 }
 
-void LoadPage::tick() {
-
-}
+void LoadPage::tick() {}
 
 void LoadPage::mouseClick(glm::vec2 mouseClick) {
-	for (int i = 0; i < components.size(); i++) {
+	for (unsigned int i = 0; i < components.size(); i++) {
 		if (components[i]->type == ComponentType::BUTTON) {
 			if (((Button*)components[i])->inbound(mouseClick)) {
 				if (((Button*)components[i])->text == "MENU") {
@@ -43,5 +40,4 @@ void LoadPage::mouseClick(glm::vec2 mouseClick) {
 	}
 }
 
-void LoadPage::keyPress(int key) {
-}
+void LoadPage::keyPress(int key) {}

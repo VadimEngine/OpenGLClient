@@ -21,5 +21,4 @@ public:
 	void keyPress(int key) override;
 
 	void mouseHover(glm::vec2 mouseCoord) override;
-
 };

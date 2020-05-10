@@ -8,9 +8,8 @@
 
 
 /// <summary>
-/// Main method that starts the application. Starts the window and promts the user
-/// with connectionProtocol() to allow user to decide on the mode the application
-/// will run on. The loop is set conisistently update/render the application based
+/// Main method that starts the application window.
+/// The loop is set conisistently update/render the application based
 /// on data in the winodw->handler and is limited to 60fps.
 /// </summary>
 int main() {
@@ -18,7 +17,6 @@ int main() {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	std::cout << "Program started..." << std::endl;
 	Window* myWindow = new Window(600, 800, 0);
-	//myWindow->handler->connectionProtocol();
 
 	//Add a Max FPS option (other than 60)
 	int frames = 0;
@@ -34,7 +32,6 @@ int main() {
 		if (passedTime < 0) {
 			passedTime = 0;
 		}
-
 		if (passedTime > 100'000'000) {
 			passedTime = 100'000'000;//10^8
 		}

@@ -9,7 +9,7 @@
 /// Class that handles TCP communication between the server and this client
 /// </summary> 
 class ConnectionTCP {
-public:
+private:
 	/// <summary> 
 	/// Sock. TODO: look into what it does
 	/// </summary> 
@@ -21,11 +21,12 @@ public:
 	/// <summary> 
 	/// Default constuctor
 	/// </summary> 
+public:
 	ConnectionTCP();
-
 
 	ConnectionTCP(int port, std::string ipAddress);
 
+	~ConnectionTCP();
 	/// <summary>
 	/// Inital connection to the server. Temporarily only connects to 
 	/// server on local host

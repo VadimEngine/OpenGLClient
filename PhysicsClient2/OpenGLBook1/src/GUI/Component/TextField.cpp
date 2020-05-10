@@ -10,7 +10,6 @@ TextField::TextField(glm::vec3 position, glm::vec3 color, std::string text, glm:
 	this->size = size;
 }
 
-
 void TextField::tick() {
 	Component::tick();
 }

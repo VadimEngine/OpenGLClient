@@ -4,18 +4,19 @@
 #include <iterator>
 #include "../Connection/Connection.h"
 
+class Handler;
+
 class GameHandler {
 
-public:
-
-
-	Connection* theConnection;
+private:
 	/// <summary>
 	/// The player objects that the user controls
 	/// </summary>
 	GameObject* player;
 
 	GameObject* selectedObj;
+
+	Handler* theHandler;
 
 	/// <summary>
 	/// List of all objects in the game enviornment. This handler
@@ -28,16 +29,10 @@ public:
 	//use unsined int nad set 0 as no pointer?
 	int selectedId;
 
-	//not needed? can be derived from connection object
-	bool server;
-
 	bool gravity;
 	bool paused;
-
-
-
-
-	GameHandler(bool server, Connection* theConnection);
+public:
+	GameHandler(Handler* theHandler);
 
 	~GameHandler();
 
@@ -56,8 +51,6 @@ public:
 
 	void removeParticle(GameObject* obj);
 
-
-
 	void removeParticleServer(int theID);
 	void selectNextServer();
 	void addParticleServer(GameObject* obj, int id);
@@ -66,4 +59,19 @@ public:
 	void setPause(bool pause);
 
 	void setGravity(bool gravity);
+
+	void clearServerObjs();
+
+	GameObject* getPlayer();
+
+	GameObject* getSelectedObj();
+
+	int getSelectedId();
+
+	bool isPaused();
+	bool gravityEnabled();
+
+	std::vector<GameObject*>* getObjs();
+
+	std::map<int, GameObject*>* getServerObjs();
 };

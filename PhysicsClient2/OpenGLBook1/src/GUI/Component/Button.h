@@ -2,17 +2,12 @@
 #include "Component.h"
 #include "../../Graphics/Renderer.h"
 
-
 //TODO MERGE BUTTON AND COMPONENT
 
 class Button : public Component {
 public:
-
-	//glm::vec3 position;
-	//glm::vec3 color;
 	std::string text;
 	glm::vec2 dimension;
-	
 
 	Button(glm::vec3 position, glm::vec3 color, std::string text, glm::vec2 dimension);
 
