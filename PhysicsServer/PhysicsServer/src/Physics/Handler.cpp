@@ -111,7 +111,7 @@ void Handler::addClient(Particle* p) {
 //no need to resize the vector when adding data)
 std::vector<float> Handler::getSendData() {
 	mu.lock();
-	//set initial capaticy to avoid resizing
+	//set initial capacity to avoid resizing
 	//std::vector<float> theData((objs.size() * 7) + (clientObjs.size() * 7) + 1);
 	std::vector<float> theData;
 
