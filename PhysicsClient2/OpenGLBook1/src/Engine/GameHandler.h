@@ -19,14 +19,14 @@ private:
 	Handler* theHandler;
 
 	/// <summary>
-	/// List of all objects in the game enviornment. This handler
+	/// List of all objects in the game environment. This handler
 	/// iterates all to update/render them
 	/// </summary>
 	std::vector<GameObject*> objs;
 
 	//ordered map so the next key can be found
 	std::map<int, GameObject*> serverObjs;
-	//use unsined int nad set 0 as no pointer?
+	//use unsigned int and set 0 as no pointer?
 	int selectedId;
 
 	bool gravity;
@@ -46,7 +46,7 @@ public:
 
 	void mouseClick(glm::vec2 mouseCoord, int button);
 
-	//going for an inefficient approach for now, better approuch would be to save the index?
+	//going for an inefficient approach for now, better approach would be to save the index?
 	void selectNext();
 
 	void removeParticle(GameObject* obj);

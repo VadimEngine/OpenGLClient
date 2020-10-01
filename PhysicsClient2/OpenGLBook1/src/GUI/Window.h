@@ -43,7 +43,7 @@ public:
 	/// <remarks>
 	/// Should take in a dt, maybe in here or the handler dt it can
 	/// pull data from server? Or maybe server data pulling should be
-	/// done a seperate thread
+	/// done a separate thread
 	/// </remarks>
 	void update();
 

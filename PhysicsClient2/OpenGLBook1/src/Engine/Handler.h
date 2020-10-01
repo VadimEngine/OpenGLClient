@@ -17,7 +17,7 @@
 
 
 /// <summary>
-/// Class to handle the game enviornment, iterates through all
+/// Class to handle the game environment, iterates through all
 /// game objects and updates/renders them. Has a connection object
 /// to manage its server connection if needed
 /// </summary>
@@ -35,7 +35,7 @@ private:
 	Renderer* renderer;
 
 	/// <summary>
-	/// Seperate handler to handle game logic
+	/// Separate handler to handle game logic
 	/// </summay>
 	GameHandler* gameHandler;
 
@@ -45,7 +45,7 @@ private:
 	/// </summary>
 	/// <remarks>
 	/// Might be better if this was static. should be in same location
-	/// as the leftclick/mouseCoords variables
+	/// as the leftClick/mouseCoords variables
 	/// </remarks>
 	GLboolean keys[1024];
 
@@ -73,7 +73,7 @@ private:
 
 public:
 	/// <summary>
-	/// Constructor that initialize the game enviornment count number
+	/// Constructor that initialize the game environment count number
 	/// of particles
 	/// </summary>
 	Handler();
@@ -84,7 +84,7 @@ public:
 	~Handler();
 
 	/// <summary>
-	/// Updates the game envoirnment is dt steps
+	/// Updates the game environment is dt steps
 	/// </summary>
 	void tick(GLfloat dt);
 
@@ -99,7 +99,7 @@ public:
 	void addObj(GameObject* obj);
 
 	/// <summary>
-	/// Handle the collision logic of colliding 2 gameobjects
+	/// Handle the collision logic of colliding 2 gameObjects
 	/// by swapping their velocities
 	/// </summary>
 	void collide(GameObject* obj1, GameObject* obj2);

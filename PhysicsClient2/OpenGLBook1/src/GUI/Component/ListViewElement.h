@@ -5,7 +5,7 @@
 class ListViewElement : public Component {
 public:
 	//selected (might just have a boolean parameter in the render method)
-	//highlighed
+	//highlighted
 	glm::vec2 dimension;
 	std::string text;
 	bool hover;

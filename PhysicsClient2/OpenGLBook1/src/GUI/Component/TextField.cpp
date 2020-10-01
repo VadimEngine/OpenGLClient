@@ -2,7 +2,7 @@
 
 
 TextField::TextField(glm::vec3 position, glm::vec3 color, std::string text, glm::vec2 dimension, float size) 
-:Component::Component(TEXTFIELD, position, position) {
+:Component::Component(ComponentType::TEXTFIELD, position, position) {
 	this->position = position;
 	this->color = color;
 	this->text = text;

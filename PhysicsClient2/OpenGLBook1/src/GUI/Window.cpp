@@ -7,7 +7,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 
 Window::Window(GLuint width, GLuint height, GLuint count) {
-	//initilize glfw (graphics library framework)
+	//initialize glfw (graphics library framework)
 	if (!glfwInit()) {
 		std::cout << "ERROR" << std::endl;
 	} else {
@@ -33,7 +33,7 @@ Window::Window(GLuint width, GLuint height, GLuint count) {
 	glewExperimental = true;
 
 	if (glewInit() != GLEW_OK) {
-		std::cout << "Failed to initalize GLEW" << std::endl;
+		std::cout << "Failed to initialize GLEW" << std::endl;
 		glfwTerminate();
 	}
 
@@ -81,8 +81,8 @@ Handler* Window::getHandler() {
 //Call back functions***********************************************************************************
 
 /// <summary>
-/// Key callback that sets the boolean array in handler that represets keys.
-///	weird GLWF issue where it detects only captial keys, to set the lower case,
+/// Key callback that sets the boolean array in handler that represents keys.
+///	weird GLWF issue where it detects only capital keys, to set the lower case,
 ///	need to confirm shift and/or caplock is not pressed?
 /// </summary>
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
@@ -122,7 +122,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 /// <summary>
 /// Mouse enter callback. Not used at the moment but can be added to 
-/// future funcionaltiy that require knowing if mouse is in frame or not
+/// future functionality that require knowing if mouse is in frame or not
 /// </summary>
 void mouse_enter_callback(GLFWwindow* window, int entered) {}
 

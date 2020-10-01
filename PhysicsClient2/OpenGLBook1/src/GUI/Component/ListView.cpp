@@ -1,7 +1,7 @@
 #include "ListView.h"
 
 ListView::ListView(glm::vec3 position, glm::vec3 color, std::string text, glm::vec2 dimension) 
-:Component::Component(LISTVIEW, position, color) {
+:Component::Component(ComponentType::LISTVIEW, position, color) {
 	this->dimension = dimension;
 	selectedElement = nullptr; 
 }

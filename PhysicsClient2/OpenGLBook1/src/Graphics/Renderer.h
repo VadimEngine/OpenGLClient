@@ -43,12 +43,12 @@ public:
 	std::vector<GLfloat> otherVertList;
 
 	/// <summary>
-	/// Constuctor that takes in a Shader to use for rendering
+	/// Constructor that takes in a Shader to use for rendering
 	/// </summary>
 	Renderer(Shader* polygonShader, Shader* imageShader);
 
 	/// <summary>
-	/// Destrucotr that clears the verList and deletes the Shader
+	/// Destructor that clears the verList and deletes the Shader
 	/// </summary>
 	~Renderer();
 
@@ -112,7 +112,7 @@ public:
 	/// <summary>
 	/// Place holder method, not yet implemented. Intended to draw
 	/// to draw the given string at a location. Will work by mapping
-	/// character images from a spritesheet of letters by their character
+	/// character images from a spriteSheet of letters by their character
 	/// code and draw the sub image at a location. Will first use a simple
 	/// font with same character sizes
 	/// </summary>

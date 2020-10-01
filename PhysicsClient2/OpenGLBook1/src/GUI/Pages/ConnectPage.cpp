@@ -52,9 +52,9 @@ void ConnectPage::tick() {
 
 void ConnectPage::mouseClick(glm::vec2 mouseClick) {
 	for (unsigned int i = 0; i < components.size(); i++) {
-		if (components[i]->type == LISTVIEW) {
+		if (components[i]->type == ComponentType::LISTVIEW) {
 			((ListView*)components[i])->mouseClick(mouseClick);
-		} else if (components[i]->type == TEXTINPUT) {
+		} else if (components[i]->type == ComponentType::TEXTINPUT) {
 			if (((TextInput*)components[i])->mouseClick(mouseClick)) {
 				myInput = ((TextInput*)components[i]);
 				((TextInput*)components[i])->selected = true;
@@ -87,7 +87,7 @@ void ConnectPage::mouseClick(glm::vec2 mouseClick) {
 					} else {
 						std::cout << "Invalid id" << std::endl;
 					}
-					//validate ip only consists of numbrs and '.'
+					//validate ip only consists of numbers and '.'
 					//can use regex later?
 					for (unsigned int i = 0; i < ip.length(); i++) {
 						if (!(isdigit(ip[i]) || ip[i] == '.')) {

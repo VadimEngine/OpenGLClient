@@ -2,7 +2,7 @@
 
 
 ListViewElement::ListViewElement(glm::vec3 position, glm::vec3 color, std::string text, glm::vec2 dimension) 
-:Component::Component(LISTVIEWELEMENT, position, color) {
+:Component::Component(ComponentType::LISTVIEWELEMENT, position, color) {
 	this->dimension = dimension;
 	this->text = text;
 	this->hover = false;
@@ -13,7 +13,7 @@ void ListViewElement::tick() {
 }
 
 
-//Have a render relative to postition method? or pass in parent
+//Have a render relative to position method? or pass in parent
 void ListViewElement::render(Renderer* renderer) {
 	//render rectangle
 	//render selected

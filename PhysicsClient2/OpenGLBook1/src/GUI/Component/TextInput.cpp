@@ -1,7 +1,7 @@
 #include "TextInput.h"
 
 TextInput::TextInput(glm::vec3 position, glm::vec3 color, std::string text, glm::vec2 dimension) 
-:Component::Component(TEXTINPUT, position, color) {
+:Component::Component(ComponentType::TEXTINPUT, position, color) {
 	this->text = text;
 	this->dimension = dimension;
 	this->selected = false;

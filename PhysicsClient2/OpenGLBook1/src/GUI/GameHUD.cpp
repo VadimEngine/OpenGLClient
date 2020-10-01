@@ -60,7 +60,7 @@ GameHUD::GameHUD(Handler* handler) {
 
 	components.push_back(playerInfo);
 
-	//paricle position
+	//particle position
 	selectedInfo = new TextField(glm::vec3(-.44, -.9, 0),
 		glm::vec3(.4, .4, .4), "Particle", glm::vec2(.3, .1), .85f);
 

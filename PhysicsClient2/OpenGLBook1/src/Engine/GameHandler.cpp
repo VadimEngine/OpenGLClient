@@ -88,7 +88,7 @@ void GameHandler::render(Renderer* renderer) {
 
 	for (unsigned i = 0; i < objs.size(); i++) {
 		if (selectedObj != nullptr && selectedObj == objs[i]) {
-			renderer->renderCircleColor(glm::vec3(objs[i]->position, 0), glm::vec3(1,1,0), .05, 10);
+			renderer->renderCircleColor(glm::vec3(objs[i]->position, 0), glm::vec3(1,1,0), .05f, 10.0f);
 		}
 		objs[i]->render(renderer);
 	}
@@ -100,7 +100,7 @@ void GameHandler::render(Renderer* renderer) {
 
 
 void GameHandler::collide(GameObject* obj1, GameObject* obj2) {
-	//nullptry here, obj1
+	//nullptr here, obj1
 	float dist = sqrt(pow(obj1->position.x - obj2->position.x, 2)
 		+ pow(obj1->position.y - obj2->position.y, 2));
 	if (dist <= obj1->getRadius()) {

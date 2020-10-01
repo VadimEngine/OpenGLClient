@@ -26,8 +26,3 @@ The PhysicsClient2 solution is made using OpenGL, all rendering is handing using
 The PhysicsServer solution works in 2 threads, one thread to constantly update the server particles at 60 ticks per second and a second thread to handle the server-client communications such as listening for a client, processing client messages and sending messages to clients by using Winsock and WS2tcpip.h.
 
 This application is still a work in progress and has planned future features such as optimization so running the applications consumes less CPU, 3d rendering, more physics topics beyond particle physics, more refined UI elements that feel intuitive and smooth. Capability to save and load previous simulations, and more setting for using configurations.
-
-
-
-
-

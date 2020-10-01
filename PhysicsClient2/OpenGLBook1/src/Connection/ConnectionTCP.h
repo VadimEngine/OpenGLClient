@@ -17,24 +17,24 @@ private:
 
 	//int port; //Listening port number on the server
 	//std::string ipAddress;
+public:
 
 	/// <summary> 
-	/// Default constuctor
+	/// Default constructor
 	/// </summary> 
-public:
 	ConnectionTCP();
 
 	ConnectionTCP(int port, std::string ipAddress);
 
 	~ConnectionTCP();
 	/// <summary>
-	/// Inital connection to the server. Temporarily only connects to 
+	/// Initial connection to the server. Temporarily only connects to 
 	/// server on local host
 	/// </summary>
 	bool TCPConnect(int port, std::string ipAddress);
 
 	/// <summary
-	/// Method to retreive data from the server. fills the
+	/// Method to retrieve data from the server. fills the
 	/// float array up to index size-1.
 	/// </summary>
 	void TCPGetData(void* data, int& size);

@@ -233,7 +233,7 @@ void Renderer::renderRectangleColor(glm::vec3 topLeft, float width, float height
 }
 
 void Renderer::addVertexAndColor(glm::vec3 point, glm::vec3 color) {
-	//addpoint
+	//add point
 	otherVertList.push_back(point.x);
 	otherVertList.push_back(point.y);
 	otherVertList.push_back(point.z);
@@ -243,6 +243,7 @@ void Renderer::addVertexAndColor(glm::vec3 point, glm::vec3 color) {
 	otherVertList.push_back(color.z);
 }
 
+//TODO: make sides an unsigned int
 void Renderer::renderCircleColor(glm::vec3 position, glm::vec3 color, float radius, float sides) {
 	double pi = 3.14159265358979323846;
 	for (int i = 0; i < sides; i++) {
@@ -252,8 +253,8 @@ void Renderer::renderCircleColor(glm::vec3 position, glm::vec3 color, float radi
 		GLfloat x2 = position.x + cos((2 * pi / (float)sides) * (float)i) * radius;
 		GLfloat y2 = position.y + sin((2 * pi / (float)sides) * (float)i) * radius;
 
-		GLfloat x3 = position.x + cos((2 * pi / (float)sides) * (float)(i + 1)) * radius;
-		GLfloat y3 = position.y + sin((2 * pi / (float)sides) * (float)(i + 1)) * radius;
+		GLfloat x3 = position.x + cos((2 * pi / (float)sides) * ((float)i + 1.0f)) * radius;
+		GLfloat y3 = position.y + sin((2 * pi / (float)sides) * ((float)i + 1.0f)) * radius;
 
 		renderTriangleColor(glm::vec3(x1, y1, 0),
 							glm::vec3(x2, y2, 0),
@@ -378,7 +379,7 @@ void Renderer::renderSubImage(glm::vec3 position, glm::vec3 color) {
 	vertList.push_back(0 + (5.0f / 256.0f)); //(5/256)
 	vertList.push_back(0 + 0.75f);
 
-	//addpoint 4 bottom right
+	//add point 4 bottom right
 	vertList.push_back(position.x + width);
 	vertList.push_back(position.y - width);
 	vertList.push_back(position.z);
@@ -402,7 +403,7 @@ void Renderer::renderSubImage(glm::vec3 position, glm::vec3 color) {
 	vertList.push_back(0 + (5.0f / 256.0f));
 	vertList.push_back(1);
 
-	//addpoint 6 top left
+	//add point 6 top left
 	vertList.push_back(position.x);
 	vertList.push_back(position.y);
 	vertList.push_back(position.z);
@@ -440,7 +441,7 @@ void Renderer::renderSubImageAdvanced(glm::vec3 position,
 	float width = (.06 / 2.0f) * size;
 	float height = (.08 / 2.0f) * size;
 
-	//addpoint 1 top left
+	//add point 1 top left
 	vertList.push_back(position.x);
 	vertList.push_back(position.y);
 	vertList.push_back(position.z);
@@ -452,7 +453,7 @@ void Renderer::renderSubImageAdvanced(glm::vec3 position,
 	vertList.push_back(0 + (subX * (subWidth / texWidth)));//good
 	vertList.push_back(1 - (subY * (subHeight / texHeight)));
 
-	//addpoint 2 bottom left
+	//add point 2 bottom left
 	vertList.push_back(position.x);
 	vertList.push_back(position.y - height);
 	vertList.push_back(position.z);
@@ -465,7 +466,7 @@ void Renderer::renderSubImageAdvanced(glm::vec3 position,
 	vertList.push_back(0 + (subX * (subWidth / texWidth)));
 	vertList.push_back(1 - ((subY + 1) * (subHeight / texHeight)));
 
-	//addpoint 3 bottom right
+	//add point 3 bottom right
 	vertList.push_back(position.x + width);
 	vertList.push_back(position.y - height);
 	vertList.push_back(position.z);
@@ -477,7 +478,7 @@ void Renderer::renderSubImageAdvanced(glm::vec3 position,
 	vertList.push_back(0 + ((subX + 1) * (subWidth / texWidth)));
 	vertList.push_back(1 - ((subY + 1) * (subHeight / texHeight)));
 
-	//addpoint 4 bottom right
+	//add point 4 bottom right
 	vertList.push_back(position.x + width);
 	vertList.push_back(position.y - height);
 	vertList.push_back(position.z);
@@ -489,7 +490,7 @@ void Renderer::renderSubImageAdvanced(glm::vec3 position,
 	vertList.push_back(0 + ((subX + 1) * (subWidth / texWidth)));
 	vertList.push_back(1 - ((subY + 1) * (subHeight / texHeight)));
 
-	//addpoint 5 top right
+	//add point 5 top right
 	vertList.push_back(position.x + width);
 	vertList.push_back(position.y);
 	vertList.push_back(position.z);
@@ -501,7 +502,7 @@ void Renderer::renderSubImageAdvanced(glm::vec3 position,
 	vertList.push_back(0 + ((subX + 1) * (subWidth / texWidth)));
 	vertList.push_back(1 - (subY * (subHeight / texHeight)));
 
-	//addpoint 6 top left
+	//add point 6 top left
 	vertList.push_back(position.x);
 	vertList.push_back(position.y);
 	vertList.push_back(position.z);
@@ -531,7 +532,7 @@ void Renderer::renderString(std::string theString, glm::vec2 topLeft) {
 	for (int i = 0; i < theString.size(); i++) {
 		//if (theString[i] >= '.' && theString[i] <= 'z') {
 		if ( charKeyMap.find(theString[i]) != charKeyMap.end()) {
-			renderChar(theString[i], glm::vec3(topLeft.x + (i*1.0f*.03), topLeft.y, 0) ,glm::vec3(1,1,1), 1.0f);
+			renderChar(theString[i], glm::vec3(topLeft.x + (i*1.0f*.03f), topLeft.y, 0) ,glm::vec3(1,1,1), 1.0f);
 		}
 	}
 }
@@ -544,7 +545,7 @@ void Renderer::renderString(std::string theString, glm::vec2 topLeft, float size
 	for (int i = 0; i < theString.size(); i++) {
 		//if (theString[i] >= '.' && theString[i] <= 'z') {
 		if (charKeyMap.find(theString[i]) != charKeyMap.end()) {
-			renderChar(theString[i], glm::vec3(topLeft.x + (i * size * .03), topLeft.y, 0), glm::vec3(1, 1, 1), size);
+			renderChar(theString[i], glm::vec3(topLeft.x + ((float)i * size * .03), topLeft.y, 0), glm::vec3(1, 1, 1), size);
 		}
 	}
 }

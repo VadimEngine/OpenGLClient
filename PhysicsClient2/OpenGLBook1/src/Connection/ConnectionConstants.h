@@ -15,7 +15,7 @@ namespace ConnectionConstants {
 	static const int CLIENT_PARTICLE_ADD = 4;
 	static const int CLIENT_PARTICLE_REMOVE = 5;
 	//send the desired paused value, flip whats on the server in order
-	//to enforce it being sycned
+	//to enforce it being synced
 	static const int CLIENT_PAUSE = 6;
 
 	static const int CLIENT_GRAVITY = 7;

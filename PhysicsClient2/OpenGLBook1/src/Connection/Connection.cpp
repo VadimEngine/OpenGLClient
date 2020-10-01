@@ -23,7 +23,7 @@ void Connection::sendData(void* data, int size) {
 			UDPdata[i] = ((float*)data)[i];
 		}
 
-		UDPdata[size / sizeof(float)] = UDPCon->getUserId();
+		UDPdata[size / sizeof(float)] = (float)UDPCon->getUserId();
 		UDPCon->UDPSend(UDPdata, size + sizeof(float));
 		delete[] UDPdata;
 	}

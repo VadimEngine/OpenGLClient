@@ -25,7 +25,7 @@ int ConnectionUDP::UDPConnect(int port, std::string ipAddress) {
 	//Socket creation
 	UDPout = socket(AF_INET, SOCK_DGRAM, 0);
 
-	//send inital message and then listen
+	//send initial message and then listen
 	float toSend[] = { ConnectionConstants::CLIENT_CONNECT, userId };
 	int sendok = sendto(UDPout, (char*)toSend, 2 * sizeof(float), 0, (sockaddr*)&UDPserver, sizeof(UDPserver));
 	if (sendok == SOCKET_ERROR) {
@@ -43,7 +43,7 @@ int ConnectionUDP::UDPConnect(int port, std::string ipAddress) {
 		if (code == ConnectionConstants::SERVER_CLIENTID_INVALID) {
 			return ConnectionConstants::SERVER_CLIENTID_INVALID;
 		} else {
-			//set servername from input
+			//set server name from input
 			std::string theServerName;
 
 			for (int i = 4; i < 255 && ((char*)buf)[i] != '\0'; i++) {

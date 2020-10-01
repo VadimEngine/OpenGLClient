@@ -117,7 +117,7 @@ void listenClient2(void* data, Handler* handler) {
 			//add particle at sent location
 			handler->add(((float*)buff)[1], ((float*)buff)[2]);
 		} else if (((float*)buff)[0] == ConnectionConstants::CLIENT_PARTICLE_REMOVE) {
-			//remove partice with sent id if it exists
+			//remove particle with sent id if it exists
 			handler->removeParticle(((float*)buff)[1]);
 		} else if (((float*)buff)[0] == ConnectionConstants::CLIENT_GRAVITY) {
 			if (((float*)buff)[1] == 0) {

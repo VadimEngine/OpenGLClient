@@ -10,13 +10,13 @@
 
 /// <Summary>
 /// Game objects that will update with the game and be rendered.
-/// Currently only renders cirlces
+/// Currently only renders circles
 /// <Summary>
 class GameObject {
 
 private:
 	/// <summary>
-	/// The radius of the gameobject, currenty only circular gameobjects.
+	/// The radius of the gameObject, current only circular gameObjects.
 	/// Currently always .04
 	///</summary>
 	GLfloat radius;
@@ -45,7 +45,7 @@ private:
 
 public:
 	/// <summary>
-	/// The position of the particle. Currenlty only x and y but
+	/// The position of the particle. Currently only x and y but
 	/// later can add the z coordinate
 	/// </summary>
 	glm::vec2 position;
@@ -59,7 +59,7 @@ public:
 
 public:
 	/// <summary>
-	/// Constutor, sets the coordinates and postion,
+	/// Constructor, sets the coordinates and position,
 	/// velocity is random and radius is always .04
 	/// </summary>
 	GameObject(GLfloat x, GLfloat y, GLboolean isPlayer);
@@ -70,13 +70,13 @@ public:
 	~GameObject();
 
 	/// <summary
-	/// Updates particle postion based on velocity.
+	/// Updates particle position based on velocity.
 	/// If player then the particle's position is updated by the keys
 	/// </summary>
 	void tick(GLfloat dt, GLboolean keys[1024]);
 
 	/// <summary>
-	/// Calls Renderer to render a cirlce at the objects x, y
+	/// Calls Renderer to render a circle at the objects x, y
 	/// </summary>
 	void render(Renderer* renderer);
 

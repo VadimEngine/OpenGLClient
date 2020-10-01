@@ -9,8 +9,8 @@
 
 /// <summary>
 /// Main method that starts the application window.
-/// The loop is set conisistently update/render the application based
-/// on data in the winodw->handler and is limited to 60fps.
+/// The loop is set consistently update/render the application based
+/// on data in the window->handler and is limited to 60fps.
 /// </summary>
 int main() {
 	//Memory leak check
@@ -61,7 +61,7 @@ int main() {
 	std::cout << "Begin closing" << std::endl;
 	glfwTerminate();//have this in Window destructor?
 
-	//gracefully close down everything. Only do server end if previosly connected to server
+	//gracefully close down everything. Only do server end if previously connected to server
 	myWindow->closeConnection();
 
 	delete myWindow;

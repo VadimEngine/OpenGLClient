@@ -14,7 +14,7 @@ enum class ConnectionMode : char {SERVERLESS, TCP, UDP};
 /// Class to handler all connection logic.
 /// </summary>
 /// <remarks>
-/// In future take in input to deide which server to connect to
+/// In future take in input to decide which server to connect to
 /// such as Ip or port number. input can help to allow
 /// connecting to multiple servers at once. Or even allowing
 /// this client to be a server is needed
@@ -55,7 +55,7 @@ private:
 	ConnectionUDP* UDPCon;
 public:
 	/// <summary>
-	/// Constructor. Initilizes TCPCon and UDPCon
+	/// Constructor. Initializes TCPCon and UDPCon
 	/// </summary>
 	Connection();
 
@@ -63,7 +63,7 @@ public:
 
 	/// <summary>
 	/// Send data to the connected server based
-	/// on the mode the applicaiton is running on
+	/// on the mode the application is running on
 	/// </summary>
 	void sendData(void* data, int size);
 

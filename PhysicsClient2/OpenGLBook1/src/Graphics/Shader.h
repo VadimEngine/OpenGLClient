@@ -24,7 +24,7 @@ public:
 	Shader(const GLchar* vertexSorucePath, const GLchar* fragmentSourcePath);
 
 	/// <summary>
-	/// Calles glUseProgram on the Program. TODO: see what this does.
+	/// Calls glUseProgram on the Program. TODO: see what this does.
 	/// </summary>
 	void Use();
 };

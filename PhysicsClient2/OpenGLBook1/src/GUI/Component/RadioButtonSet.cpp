@@ -1,7 +1,7 @@
 #include "RadioButtonSet.h"
 
 RadioButtonSet::RadioButtonSet(glm::vec3 position, glm::vec3 color, std::string text, glm::vec2 dimension)
-:Component::Component(RADIOBUTTONSET, position, position) {}
+:Component::Component(ComponentType::RADIOBUTTONSET, position, position) {}
 
 
 void RadioButtonSet::tick() {}

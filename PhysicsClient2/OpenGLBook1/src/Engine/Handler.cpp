@@ -9,10 +9,10 @@ Handler::Handler()
 	mouseCoords = glm::vec2(0,0);
 	//player = nullptr;
 	Shader* polygonShader = new Shader("src/shaders/sandbox.vert",
-									"src/shaders/sandbox.frag");//delete in desctructor
+									"src/shaders/sandbox.frag");//delete in destructor
 
 	Shader* imageShader = new Shader("src/shaders/image.vert",
-							   	  "src/shaders/image.frag");//delete in desctructor
+							   	  "src/shaders/image.frag");//delete in destructor
 
 	renderer = new Renderer(polygonShader, imageShader);
 	
@@ -110,8 +110,8 @@ void Handler::tick(GLfloat dt) {
 				std::string mode = ((ConnectPage*)currentPage)->connectModeInput->selectedElement->text;
 				std::string ip = ((ConnectPage*)currentPage)->ipInput->text;
 				std::string id = ((ConnectPage*)currentPage)->idInput->text;
-				//connect, if failed then set status and dont swtich to game page
-				//if connect success then set next swith to game page
+				//connect, if failed then set status and dont switch to game page
+				//if connect success then set next switch to game page
 				if (((ConnectPage*)currentPage)->doConnect) {
 					std::cout << "Connectmode: " << mode << std::endl;
 					if (mode._Equal("TCP")) {
@@ -124,14 +124,14 @@ void Handler::tick(GLfloat dt) {
 						}
 					} else if (mode._Equal("UDP")) {
 						//weird bug where if you get the id already taken error,
-						//you seem to always get it with ever new id, coulndt replicate on
+						//you seem to always get it with ever new id, couldn't replicate on
 						//second attempt
 						connect->getUDPConnect()->setUserID(std::stoi(id));
 						int connectCode = connect->getUDPConnect()->UDPConnect(54000, ip);
 						if (connectCode == ConnectionConstants::SERVER_INFO) {// == 1 ? UPDATE HERE
 							connect->setMode(ConnectionMode::UDP);
 							setCurrentPage(currentPage->nextPage);
-							//get server namne?
+							//get server name?
 						} else if (connectCode == ConnectionConstants::SERVER_CLIENTID_INVALID) {
 							((ConnectPage*)currentPage)->connectStatus->text = "UserId already taken";
 							((ConnectPage*)currentPage)->doConnect = false;
@@ -229,7 +229,7 @@ void Handler::collide(GameObject* obj1, GameObject* obj2) {
 
 void Handler::setCurrentPage(Page* nextPage) {
 	if (currentPage != nullptr) {
-		//would this delete the nextapge? Should nextPage be deleted in page destructor?
+		//would this delete the nextPage? Should nextPage be deleted in page destructor?
 		delete currentPage;
 	}
 	currentPage = nextPage;

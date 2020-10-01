@@ -1,7 +1,7 @@
 #pragma once
 #include "../../Graphics/Renderer.h"
 
-enum ComponentType { BUTTON, TEXTFIELD, LISTVIEW, LISTVIEWELEMENT, RADIOBUTTONSET, TEXTINPUT };
+enum class ComponentType { BUTTON, TEXTFIELD, LISTVIEW, LISTVIEWELEMENT, RADIOBUTTONSET, TEXTINPUT };
 
 
 class Component {

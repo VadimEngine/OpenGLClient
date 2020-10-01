@@ -3,7 +3,7 @@
 
 GameObject::GameObject(GLfloat x, GLfloat y, GLboolean isPlayer, glm::vec3 color) {
 	this->isPlayer = isPlayer;
-	//create seperate class for player that extends GameObject
+	//create separate class for player that extends GameObject
 	radius = .04f;
 	position = glm::vec2(x, y);
 

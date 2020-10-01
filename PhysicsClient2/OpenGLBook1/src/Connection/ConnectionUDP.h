@@ -34,15 +34,15 @@ private:
 	
 public:
 	/// <summary>
-	/// Empty Constuctor
+	/// Empty Constructor
 	/// </summary>
 	ConnectionUDP();
 
 	~ConnectionUDP();
 
 	/// <summary>
-	/// Inital connection to UDP server. Temporaily only connects
-	/// to server on olocal host.
+	/// Initial connection to UDP server. Temporarily only connects
+	/// to server on local host.
 	/// </summary>
 	int UDPConnect(int port, std::string ipAddress);
 

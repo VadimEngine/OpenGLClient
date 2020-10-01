@@ -2,14 +2,14 @@
 
 
 ConnectionTCP::ConnectionTCP() {
-	//assume prot 54000 and local host
+	//assume port 54000 and local host
 	//port = 54000;
 	//ipAddress = "127.0.0.1";
 	//"192.168.0.108";//got from ipconfig
 }
 
 ConnectionTCP::ConnectionTCP(int port, std::string ipAddress) {
-	//assume prot 54000 and local host
+	//assume port 54000 and local host
 	//port = port;
 	//this->ipAddress = ipAddress;
 }
@@ -20,7 +20,7 @@ ConnectionTCP::~ConnectionTCP() {
 }
 
 bool ConnectionTCP::TCPConnect(int port, std::string ipAddress) {
-	//Initilize winsock
+	//Initialize winsock
 	WSADATA data;
 	WORD ver = MAKEWORD(2, 2);
 	int wsResult = WSAStartup(ver, &data);
@@ -65,7 +65,7 @@ void ConnectionTCP::TCPGetData(void* data, int& size) {
 
 	size = bytesRecieved;
 	for (int i = 0; i < size; i++) {
-		//execption here when server is disconnect suddenly, check befre going into this line
+		//exception here when server is disconnect suddenly, check before going into this line
 		//access violation writing location
 		((char*)data)[i] = buf[i];
 	}
